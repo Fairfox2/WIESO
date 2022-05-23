@@ -1,0 +1,34 @@
+{
+    "name": "Bauen",
+    "maps": [
+        {
+            "name": "Buildings",
+            "id": "e1e6dcf1-0bd1-45f6-8067-6e5869570c49",
+            "actions": [
+                {
+                    "name": "o",
+                    "type": "Button",
+                    "id": "8d5a7c11-64f5-402a-9ae6-2b0e22b81297",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "879408f5-33ab-4213-a3d6-44e27d91bf4b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "o",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

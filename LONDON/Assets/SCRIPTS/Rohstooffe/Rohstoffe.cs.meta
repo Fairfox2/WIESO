@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 1f4f2b7c7ab96b74fba9cca1dd9213ed
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - wald: {fileID: -8679921383154817045, guid: 1d1930699b0623d4e87fcae8a7446564, type: 3}
+  - wald1: {fileID: -8679921383154817045, guid: c3c2849b2b07c3942a21a975465c120b, type: 3}
+  - wald2: {fileID: -8679921383154817045, guid: 6a3a044ee43e71044bef336dfaf85d23, type: 3}
+  - wald5: {instanceID: 0}
+  - wald3: {instanceID: 0}
+  - wald4: {instanceID: 0}
+  - SteinPrefab_lose: {fileID: -8679921383154817045, guid: 7a9e7e0d745ac574eb0e1cf48fb69ba8, type: 3}
+  - SteinPrefab_Ecke: {fileID: -8679921383154817045, guid: fc3f487faa058fa45906e26392b56bb4, type: 3}
+  - SteinPrefab_Ecke1: {fileID: -8679921383154817045, guid: fc3f487faa058fa45906e26392b56bb4, type: 3}
+  - SteinPrefab_Ecke2: {instanceID: 0}
+  - SteinPrefab_Rand: {fileID: -8679921383154817045, guid: 7a9e7e0d745ac574eb0e1cf48fb69ba8, type: 3}
+  - SteinPrefab_Mitte: {fileID: -8679921383154817045, guid: 38981c7fc4fef714f9c62d503aa362a3, type: 3}
+  - "SteinPrefab_Br\xFCcke": {fileID: -8679921383154817045, guid: 7a9e7e0d745ac574eb0e1cf48fb69ba8, type: 3}
+  executionOrder: 0
+  icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
