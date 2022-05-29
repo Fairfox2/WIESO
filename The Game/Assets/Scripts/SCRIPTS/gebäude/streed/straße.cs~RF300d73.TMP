@@ -103,7 +103,7 @@ public class straße : MonoBehaviour
                 }
                 if (y2 == 1 && x2 == 1 && y == 1)
                 {
-                    Strasse_split(Objekt, 2700);
+                    Strasse_split(Objekt, 270);
                 }
             }
             if(sum == 2)
