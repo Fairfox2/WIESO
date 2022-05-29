@@ -1,0 +1,271 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8954803181163201107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2177123108865309596}
+  - component: {fileID: 2506629201149321968}
+  - component: {fileID: 4791830240982473229}
+  - component: {fileID: 7140524416349585430}
+  - component: {fileID: 7042655591599431949}
+  - component: {fileID: 4281479215933994208}
+  - component: {fileID: 533655599172331296}
+  m_Layer: 0
+  m_Name: Chunck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &2177123108865309596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954803181163201107}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.3199997, y: 1.2030001, z: 2.3780003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2506629201149321968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954803181163201107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9beef78d1e77847b1c0c15f3c5f9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  "W\xE4lder":
+    list:
+    - item: {fileID: -8679921383154817045, guid: 149d3a4fce0a26e4aae6bcabe2b9c70d, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: d72d384e663563442af92f57c28eab8a, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: aaa7b46c5403bf14db5fdcfb09922d48, type: 3}
+      weight: 1
+  Boden:
+    list:
+    - item: {fileID: -8679921383154817045, guid: 3852f9109b61f4f4b82a6cf9bedd086b, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 9b56f24168eafc143825ca73b2e5fdab, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 3fd06b80c61916b4bb2cd3fdefca8492, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 43a339b7fb037e741837d0aac2dea24c, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 4866f984769141d4192fabc4be79ce7d, type: 3}
+      weight: 1
+  Wald_Boden:
+    list:
+    - item: {fileID: -8679921383154817045, guid: ae8dbfbec57c5ac48854f5e3663f2d74, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 5a3df32a7fdb68a499c22e3f0565f0db, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: d485268059d69e94e97336be1c4040c4, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 3fd06b80c61916b4bb2cd3fdefca8492, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 43a339b7fb037e741837d0aac2dea24c, type: 3}
+      weight: 1
+--- !u!114 &4791830240982473229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954803181163201107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747f4ba8062d50347bcde2f89a239b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Stein_ecke:
+    list:
+    - item: {fileID: -8679921383154817045, guid: e800516ca3594a3499589520b5872679, type: 3}
+      weight: 3
+    - item: {fileID: -8679921383154817045, guid: 0598fe56470e34d4498df2e839648198, type: 3}
+      weight: 3
+    - item: {fileID: -8679921383154817045, guid: 74cc5c0f883e6b24fa196934fc7b1ada, type: 3}
+      weight: 3
+  "Stein_ecke_h\xF6che":
+    list:
+    - item: {fileID: -8679921383154817045, guid: f37eadba29b06d543928dec04c478272, type: 3}
+      weight: 5
+    - item: {fileID: -8679921383154817045, guid: c7554680d2a256747b18a8e9a84ea06f, type: 3}
+      weight: 5
+    - item: {fileID: -8679921383154817045, guid: 9a23842e342d58f48838fa883c6c028a, type: 3}
+      weight: 2
+    - item: {fileID: -8679921383154817045, guid: a8d201eeebea8834c910f693a6ff9a56, type: 3}
+      weight: 5
+  Stein_rand:
+    list:
+    - item: {fileID: -8679921383154817045, guid: fa5312532cc40854e8bea7c0af3cab25, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 659ed2f68ee47c944959e62e4009f800, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 4d7fb4d2df560bc449c34a750f99888c, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 316a30b7e82945a41a6f3960b08518f3, type: 3}
+      weight: 1
+  "Stein_rand_h\xF6che":
+    list:
+    - item: {fileID: -8679921383154817045, guid: a8d201eeebea8834c910f693a6ff9a56, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 5ac7b1a3cb0a5ed42bd89eed7ba5ba18, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 61d397450c06a7a469c7d1b5f17174b0, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 8221f4d8c2ca2ac4ba4e1a2f95a8994f, type: 3}
+      weight: 1
+  Stein_mitte:
+    list:
+    - item: {fileID: -8679921383154817045, guid: ea04dfd39d8177b4c9cce180a5ccd8c9, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: c59ee2d123d5cb743b4d4d18b04ea81a, type: 3}
+      weight: 1
+  Stein_Lose:
+    list:
+    - item: {fileID: -8679921383154817045, guid: 12b2926d3cbe1ab45ad40fc08e86a45a, type: 3}
+      weight: 1
+  Stein_kurve:
+    list:
+    - item: {fileID: -8679921383154817045, guid: de0759f6a98bd6a459e300618f144d16, type: 3}
+      weight: 1
+  Stein_spitze:
+    list:
+    - item: {fileID: -8679921383154817045, guid: fc9d5ffe6b5b0dd4fb47895680d09e3a, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 8ba94be3b8423ff45af96a780f4ca7fa, type: 3}
+      weight: 1
+  "Stein_br\xFCcke":
+    list:
+    - item: {fileID: -8679921383154817045, guid: 95d5c40b8520d554d86e18359a47cfb0, type: 3}
+      weight: 1
+  Stein_boden:
+    list:
+    - item: {fileID: -8679921383154817045, guid: ad6f52c2f72d3474a908cdd306d59396, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: cb33226ab4022b74f9518060bd267f1e, type: 3}
+      weight: 1
+  Berg_wiese:
+    list:
+    - item: {fileID: -8679921383154817045, guid: 25deaa1e2ae08eb41927934c2fef7ed9, type: 3}
+      weight: 4
+    - item: {fileID: -8679921383154817045, guid: 21ba35da451259f43b2bb700815c39ac, type: 3}
+      weight: 4
+    - item: {fileID: -8679921383154817045, guid: 4866f984769141d4192fabc4be79ce7d, type: 3}
+      weight: 3
+    - item: {fileID: -8679921383154817045, guid: 43a339b7fb037e741837d0aac2dea24c, type: 3}
+      weight: 2
+--- !u!114 &7140524416349585430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954803181163201107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f4f2b7c7ab96b74fba9cca1dd9213ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7042655591599431949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954803181163201107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00180f53a0dc6364daf0345ea7db4fd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  default_Boden: {fileID: -8679921383154817045, guid: 3fd06b80c61916b4bb2cd3fdefca8492, type: 3}
+  Grass: {fileID: 8249817735421172078, guid: 8c3ba2809f3d58042ae00b23dadb638b, type: 3}
+  Grass1: {fileID: -8679921383154817045, guid: 4866f984769141d4192fabc4be79ce7d, type: 3}
+  buildmode: 0
+--- !u!114 &4281479215933994208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954803181163201107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3eeda5ca3f3c404eac59cfd0b8e6c67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Lehm_ecke:
+    list:
+    - item: {fileID: -8679921383154817045, guid: 113cac1f4447a6545a315d3a5c794860, type: 3}
+      weight: 1
+  Lehm_rand:
+    list:
+    - item: {fileID: -8679921383154817045, guid: 2060f50cb96e8e74993a6359912e027c, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 1cc6aa9441fa3974fab46f0301fd29fb, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 7c14f16d188c3f045aa114992b5934c2, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 358d5f53176225e4399bb41a3193e265, type: 3}
+      weight: 1
+  Lehm_mitte:
+    list:
+    - item: {fileID: -8679921383154817045, guid: 0ff8f2a5f1a2df64c8025189257e2fd7, type: 3}
+      weight: 1
+  Lehm_kurve:
+    list:
+    - item: {fileID: -8679921383154817045, guid: 5e314325fda70bf4e8327a137525ca3b, type: 3}
+      weight: 1
+  "Lehm_b\xE4ume":
+    list:
+    - item: {fileID: -8679921383154817045, guid: 1964d96bff1c91648bd91624634e875d, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 3119ce669aec161419cc4377d40705c2, type: 3}
+      weight: 1
+  Lehm_boden:
+    list:
+    - item: {fileID: -8679921383154817045, guid: ef6a4554041850e40b3ed303b476dedf, type: 3}
+      weight: 3
+    - item: {fileID: -8679921383154817045, guid: 7f894a06140070a4499f70a8bf5a0016, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 09159de3da9563e48b0c753637985abb, type: 3}
+      weight: 1
+  Lehm_wiese:
+    list:
+    - item: {fileID: -8679921383154817045, guid: ef6a4554041850e40b3ed303b476dedf, type: 3}
+      weight: 1
+--- !u!114 &533655599172331296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954803181163201107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe86ddf76d0149a40830bf3e5e1a565e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  "Stra\xDFe_gsetzt": {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
+  "Stra\xDFe_passtnicht": {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
+  "Stra\xDFeKurve": {fileID: -8679921383154817045, guid: 23e05caa0102ae44f9c4e1d3a7dfb523, type: 3}
+  "Stra\xDFesplit": {fileID: -8679921383154817045, guid: baaacceab9e30b542bced073aa463e52, type: 3}
+  "Stra\xDFeKreuzung": {fileID: -8679921383154817045, guid: 52625e2eceb38744aa734132b58a912c, type: 3}
+  "Stra\xDFe_idel": {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
+  b: {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
