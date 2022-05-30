@@ -7,11 +7,14 @@ public class Streed_gohst : MonoBehaviour
 {
     public static Streed_gohst singleton { set; get; }
     [SerializeField] Transform go;
+    [SerializeField] Transform Mine;
     Transform newTile;
+    Transform newr;
     public void Awake()
     {
         singleton = this;
         newTile = Instantiate(go, Vector3.zero, Quaternion.Euler(0, 0, 0)) as Transform;
+        newr = Instantiate(Mine, Vector3.zero, Quaternion.Euler(0, 0, 0)) as Transform;
     }
     // Update is called once per frame
     private void Update()
@@ -30,9 +33,18 @@ public class Streed_gohst : MonoBehaviour
                 Target.z = Mathf.Floor(Target.z) ;
                 Target.x = Mathf.Floor(Target.x) ;
                 newTile.position = Vector3.Lerp(newTile.position, Target, Time.deltaTime * 8);
-                
+
             }
-            if(Global.buildmoide != 1)
+            if (Global.buildmoide == 2)
+            {
+                Vector3 Target = ray.GetPoint(distance);
+                Target.y = 3;
+                Target.z = Mathf.Floor(Target.z);
+                Target.x = Mathf.Floor(Target.x);
+                newr.position = Vector3.Lerp(newr.position, Target, Time.deltaTime * 8);
+
+            }
+            if (Global.buildmoide == 0)
             {
        
                 newTile.position = Vector3.zero;

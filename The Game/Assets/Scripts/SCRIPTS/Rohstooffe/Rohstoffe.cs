@@ -7,27 +7,6 @@ public class Rohstoffe : MonoBehaviour
     public static Rohstoffe singleton { set; get; }
 
     bool voll;
-    /*
-     * Regeln für Rohstoff array 
-     *  die Hundertestelle gibt an welsches elementes ist 
-     *      100  : Stein
-     *      200  : Wald
-     *      300  : Lehm
-     *      400  : Straße
-     *      500  :
-     * 
-     *  die Zehnerstelle gibt an ob ein gebäde drauf steht 
-     *      10  : Gebäude
-     *      20  : Gebäude 2
-     *      30  : 
-     *      40  :
-     *      50  :
-     * 
-     */
-
-
-
-
 
     private void Awake()
     {

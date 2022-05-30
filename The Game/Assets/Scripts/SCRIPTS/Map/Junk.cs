@@ -220,19 +220,6 @@ public class Junk : MonoBehaviour
      * 
      * 
      * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
      */
 
     bool geladen= false;
@@ -257,7 +244,7 @@ public class Junk : MonoBehaviour
 
                 geladen = false;
             }
-            if (Global.buildmoide == 1 && geladen == true)
+            if (Global.buildmoide > 0 && geladen == true)
             {
                 mous_erstellen();
             }
@@ -272,25 +259,19 @@ public class Junk : MonoBehaviour
     bool Load = false;
     private void mous_erstellen()
     {
-        int grösse = 2+ Map.chunck_grösse / 2;
+            int grösse = 2+ Map.chunck_grösse / 2;
         
-
-        //Keyboard kb = InputSystem.GetDevice<Keyboard>();
-        if (true)//Mouse.current.leftButton.wasPressedThisFrame)
-        {
             Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
 
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-            if (plane.Raycast(ray, out float distance))
+        if (plane.Raycast(ray, out float distance))
+        {
+            if (ray.GetPoint(distance).x > transform.position.x - grösse && ray.GetPoint(distance).x < transform.position.x + grösse && ray.GetPoint(distance).z > transform.position.z - grösse && ray.GetPoint(distance).z < transform.position.z + grösse)
             {
-                if (ray.GetPoint(distance).x > transform.position.x - grösse && ray.GetPoint(distance).x < transform.position.x + grösse  && ray.GetPoint(distance).z > transform.position.z - grösse && ray.GetPoint(distance).z < transform.position.z + grösse )
-                {
-                    straße.singleton.hm(X_POS, Y_POS, ray.GetPoint(distance));
-                    Relod_strasse(X_POS, Y_POS);
-                    streed_update();
-                }
-
+                straße.singleton.hm(X_POS, Y_POS, ray.GetPoint(distance),grid);
+                Relod_strasse(X_POS, Y_POS);
+                streed_update();
             }
 
         }
@@ -308,6 +289,11 @@ public class Junk : MonoBehaviour
                     if (ga.Rohstoffe_ID >= 1700 && ga.Rohstoffe_ID < 1800)
                     {
                         straße.singleton.Straße_setzen(ga, X + x, Y + y);
+                    }
+                    if (ga.Rohstoffe_ID >= 11800 && ga.Rohstoffe_ID < 11900)
+                    {
+
+                       Miene.singelton.Mine_setzen(ga, X + x, Y + y);
                     }
                 }
 
@@ -339,7 +325,13 @@ public class Junk : MonoBehaviour
                     if (ga.streed != null)
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.Element_hight + 1, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.streed, Position, Quaternion.Euler(0, ga.rot, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.streed, Position, Quaternion.Euler(0, ga.asrot, 0)) as Transform;
+                        Rohstoff.parent = streed;
+                    }
+                    if  (ga.Mine != null)
+                    {
+                        Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.Element_hight + 1, -Map.chunck_grösse / 2 + y) + transform.position;
+                        Transform Rohstoff = Instantiate(ga.Mine, Position, Quaternion.Euler(0, ga.asrot, 0)) as Transform;
                         Rohstoff.parent = streed;
                     }
 
