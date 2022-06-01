@@ -7,6 +7,9 @@ public class Miene : MonoBehaviour
     public static Miene singelton { set; get; }
     [SerializeField]Transform t;
     [SerializeField] Transform trans;
+
+    [SerializeField] public int GrösseX;
+    [SerializeField] public int GrösseY;
     public void Awake()
     {
         singelton = this;
@@ -57,19 +60,19 @@ public class Miene : MonoBehaviour
     {
         int x = 0, x1 = 0, y1 = 0, y = 0;
 
-        if (Map.Map_Rohstoffe[X + 1, Y] >= 300 && Map.Map_Rohstoffe[X + 1, Y] < 400)
+        if (Map.Map_Rohstoffe[X + GrösseX, Y] >= 300 && Map.Map_Rohstoffe[X + GrösseX, Y] < 400)
         {
             x = 1;
         }
-        if (Map.Map_Rohstoffe[X - 1, Y] >= 300 && Map.Map_Rohstoffe[X - 1, Y] < 400)
+        if (Map.Map_Rohstoffe[X - GrösseX, Y] >= 300 && Map.Map_Rohstoffe[X - GrösseX, Y] < 400)
         {
             x1 = 1;
         }
-        if (Map.Map_Rohstoffe[X, Y + 1] >= 300 && Map.Map_Rohstoffe[X, Y + 1] < 400)
+        if (Map.Map_Rohstoffe[X, Y + GrösseY] >= 300 && Map.Map_Rohstoffe[X, Y + GrösseY] < 400)
         {
             y = 1;
         }
-        if (Map.Map_Rohstoffe[X, Y - 1] >= 300 && Map.Map_Rohstoffe[X, Y - 1] < 400)
+        if (Map.Map_Rohstoffe[X, Y - GrösseY] >= 300 && Map.Map_Rohstoffe[X, Y - GrösseY] < 400)
         {
             y1 = 1;
         }
@@ -84,6 +87,7 @@ public class Miene : MonoBehaviour
         }
         return false;
         print("Du kannst hier nicht báuen");
+
     }
     private Vector3 Get_World_Postion(Vector3 world)
     {

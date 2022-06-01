@@ -9,7 +9,7 @@ public class Set_mode : MonoBehaviour
         if(Global.buildmoide == 0)
         {
             Global.buildmoide = mode;
-            print(Global.buildmoide);
+            print(Global.buildmoide);   
         }
         else
         {

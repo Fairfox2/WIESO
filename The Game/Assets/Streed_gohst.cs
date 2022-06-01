@@ -46,21 +46,25 @@ public class Streed_gohst : MonoBehaviour
             if (Global.buildmoide == 2)
             {
 
-
-                if (transform.Find("curser"))
+                if (transform.Find("curser"))                               //durch das ständige löschen sicher noch bugs aufgeb zukunfts Otto
                 {
                     DestroyImmediate(transform.Find("curser").gameObject);
                 }
-                
-
-                
                 Transform courser = new GameObject("curser").transform;
-               
-                   
                 courser.parent = transform;
                 courser.position = transform.position;
-                Mine = Miene.singelton.getcourser(ray.GetPoint(distance));
-                newr = Instantiate(Mine, transform.position, Quaternion.Euler(0, 0, 0)) as Transform;
+
+                Mine = go;
+                for (int x = 0; x <= Global.Mine_Focus.GrösseX; x++)
+                {
+                    for (int y = 0; y <= Global.Mine_Focus.GrösseY; y++)
+                    {
+                        Mine = Global.Mine_Focus.getcourser(ray.GetPoint(distance)); // hier wider z verwenden
+                        print(y);
+                        newr = Instantiate(Mine, transform.position, Quaternion.Euler(0, 0, 0)) as Transform;
+                    }
+                }
+                
                 newr.parent = courser;
             }
             if (Global.buildmoide == 0)
