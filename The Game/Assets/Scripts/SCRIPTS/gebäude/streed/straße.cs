@@ -52,8 +52,8 @@ public class straße : MonoBehaviour
         {
             if (Map.Map_Rohstoffe[X, Y] <= 1000)
             {
-                if (Global.buildmoide == 2) Map.Map_Rohstoffe[X, Y] = 11810;
-                else
+                if (Global.buildmoide == 2 && Miene.singelton.Mine_Can_build(X,Y)) Map.Map_Rohstoffe[X, Y] = 11810; // sicher heit ein bauen
+                else if(Global.buildmoide ==1 )
                 {
                     Map.Map_Rohstoffe[X, Y] = 1710;
                 }

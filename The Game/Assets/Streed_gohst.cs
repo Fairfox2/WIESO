@@ -13,43 +13,66 @@ public class Streed_gohst : MonoBehaviour
     public void Awake()
     {
         singleton = this;
-        newTile = Instantiate(go, Vector3.zero, Quaternion.Euler(0, 0, 0)) as Transform;
-        newr = Instantiate(Mine, Vector3.zero, Quaternion.Euler(0, 0, 0)) as Transform;
     }
     // Update is called once per frame
     private void Update()
     {
-
+        
         Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
 
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         
         if (plane.Raycast(ray, out float distance))
         {
+            
+            Vector3 Target1 = ray.GetPoint(distance);
+            Target1.y = 3;
+            Target1.z = Mathf.Floor(Target1.z);
+            Target1.x = Mathf.Floor(Target1.x);
             if (Global.buildmoide == 1)
             {
-                Vector3 Target = ray.GetPoint(distance);
-                Target.y = 3;
-                Target.z = Mathf.Floor(Target.z) ;
-                Target.x = Mathf.Floor(Target.x) ;
-                newTile.position = Vector3.Lerp(newTile.position, Target, Time.deltaTime * 8);
+                if (transform.Find("curser"))
+                {
+                    DestroyImmediate(transform.Find("curser").gameObject);
+                }
+                Transform courser = new GameObject("curser").transform;
+                courser.parent = transform;
+                courser.position = transform.position;
 
+                Mine = go;
+                newr = Instantiate(Mine, transform.position, Quaternion.Euler(0, 0, 0)) as Transform;
+                newr.parent = courser; 
             }
             if (Global.buildmoide == 2)
             {
-                Vector3 Target = ray.GetPoint(distance);
-                Target.y = 3;
-                Target.z = Mathf.Floor(Target.z);
-                Target.x = Mathf.Floor(Target.x);
-                newr.position = Vector3.Lerp(newr.position, Target, Time.deltaTime * 8);
 
+
+                if (transform.Find("curser"))
+                {
+                    DestroyImmediate(transform.Find("curser").gameObject);
+                }
+                
+
+                
+                Transform courser = new GameObject("curser").transform;
+               
+                   
+                courser.parent = transform;
+                courser.position = transform.position;
+                Mine = Miene.singelton.getcourser(ray.GetPoint(distance));
+                newr = Instantiate(Mine, transform.position, Quaternion.Euler(0, 0, 0)) as Transform;
+                newr.parent = courser;
             }
             if (Global.buildmoide == 0)
             {
-       
-                newTile.position = Vector3.zero;
+                if (transform.Find("curser"))
+                {
+                    DestroyImmediate(transform.Find("curser").gameObject);
+                }
+                Mine = null;
             }
-
+            
+            transform.position = Vector3.Lerp(transform.position, Target1, Time.deltaTime * 8);
         }
 
  
