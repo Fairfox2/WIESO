@@ -8,11 +8,11 @@ public class Save : MonoBehaviour
     public WeightedRandomList<Transform> Straße;
     public static void Save_Array()
     {
-        if (!File.Exists(Application.dataPath + "/Ob4.txt"))
+        if (!File.Exists(Application.dataPath + "/Array.txt"))
         {
-            File.Delete(Application.dataPath + "/Ob4.txt");
+            File.Delete(Application.dataPath + "/Array.txt");
         }
-        StreamWriter newFile = new StreamWriter(Application.dataPath + "/Ob4.txt");
+        StreamWriter newFile = new StreamWriter(Application.dataPath + "/Array.txt");
          //int mitte = System.Convert.ToInt32((Map.chunck_grösse * Map.Map_grösse) / 2);
         //Zone.midPointCircleDraw(mitte, mitte, System.Convert.ToInt32((((3 + (2 * (4- 1))) * Map.chunck_grösse) - 1) / 2));
 
@@ -21,6 +21,7 @@ public class Save : MonoBehaviour
         {
             for (int y = 0; y < Map.Map_Rohstoffe.GetLength(1); y++)
             {
+                /*
                 if (Map.Map_Rohstoffe[x, y] == 1000) { newFile.Write("_"); }
                 else if (Map.Map_Rohstoffe[x, y] == 2000) { newFile.Write("-"); }
                 else if (Map.Map_Rohstoffe[x, y] == 0) { newFile.Write(" "); }
@@ -30,7 +31,9 @@ public class Save : MonoBehaviour
                 else if (Map.Map_Rohstoffe[x, y] == 1300) { newFile.Write("!"); }
                 else if (Map.Map_Rohstoffe[x, y] == 2400) { newFile.Write("D"); }
                 else if (Map.Map_Rohstoffe[x, y] == 9000) { newFile.Write("§"); }
-                else { newFile.Write("t"); }
+                */
+
+                newFile.Write(Map.Map_Rohstoffe[x, y] + ",");
 
             }
 
@@ -63,6 +66,42 @@ public class Save : MonoBehaviour
         }
 
         newFile.Close();
+    }
+    public static void Load_maP()
+    {
+
+
+            //int mitte = System.Convert.ToInt32((Map.chunck_grösse * Map.Map_grösse) / 2);
+            //Zone.midPointCircleDraw(mitte, mitte, System.Convert.ToInt32((((3 + (2 * (4- 1))) * Map.chunck_grösse) - 1) / 2));
+            StreamReader newFile = new StreamReader(Application.dataPath + "/SAVE.txt");
+            string ln;
+            int count = 0;
+        while ((ln = newFile.ReadLine()) != null)
+        {
+            string[] save = ln.Split(',');
+            for (int x = 0; x < save.GetLength(0); x++)
+            {
+                bool flag = true;
+                try
+                {
+                    System.Convert.ToInt32(save[x]);
+                }
+                catch 
+                {
+                    flag = false;
+                    
+                }
+                if (flag)Map.Map_Rohstoffe[count, x] = System.Convert.ToInt32(save[x]);
+
+
+
+            }
+            count++;
+        }
+           
+
+            newFile.Close();
+        
     }
     public static void Relod_Chunk(int X, int Y, Grid_script<Grid_opjekt> grid)
     {

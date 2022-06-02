@@ -28,7 +28,7 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
             ""id"": ""e1e6dcf1-0bd1-45f6-8067-6e5869570c49"",
             ""actions"": [
                 {
-                    ""name"": ""o"",
+                    ""name"": ""Build"",
                     ""type"": ""Button"",
                     ""id"": ""8d5a7c11-64f5-402a-9ae6-2b0e22b81297"",
                     ""expectedControlType"": ""Button"",
@@ -40,12 +40,12 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""879408f5-33ab-4213-a3d6-44e27d91bf4b"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""0e14c26d-f553-4f4d-b645-b1fb883c99b2"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""o"",
+                    ""action"": ""Build"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -56,7 +56,7 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
 }");
         // Buildings
         m_Buildings = asset.FindActionMap("Buildings", throwIfNotFound: true);
-        m_Buildings_o = m_Buildings.FindAction("o", throwIfNotFound: true);
+        m_Buildings_Build = m_Buildings.FindAction("Build", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -116,12 +116,12 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
     // Buildings
     private readonly InputActionMap m_Buildings;
     private IBuildingsActions m_BuildingsActionsCallbackInterface;
-    private readonly InputAction m_Buildings_o;
+    private readonly InputAction m_Buildings_Build;
     public struct BuildingsActions
     {
         private @Bauen m_Wrapper;
         public BuildingsActions(@Bauen wrapper) { m_Wrapper = wrapper; }
-        public InputAction @o => m_Wrapper.m_Buildings_o;
+        public InputAction @Build => m_Wrapper.m_Buildings_Build;
         public InputActionMap Get() { return m_Wrapper.m_Buildings; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -131,22 +131,22 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_BuildingsActionsCallbackInterface != null)
             {
-                @o.started -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnO;
-                @o.performed -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnO;
-                @o.canceled -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnO;
+                @Build.started -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnBuild;
+                @Build.performed -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnBuild;
+                @Build.canceled -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnBuild;
             }
             m_Wrapper.m_BuildingsActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @o.started += instance.OnO;
-                @o.performed += instance.OnO;
-                @o.canceled += instance.OnO;
+                @Build.started += instance.OnBuild;
+                @Build.performed += instance.OnBuild;
+                @Build.canceled += instance.OnBuild;
             }
         }
     }
     public BuildingsActions @Buildings => new BuildingsActions(this);
     public interface IBuildingsActions
     {
-        void OnO(InputAction.CallbackContext context);
+        void OnBuild(InputAction.CallbackContext context);
     }
 }

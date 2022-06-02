@@ -71,7 +71,6 @@ public class Junk : MonoBehaviour
       
         Save.Lode_Chunck(X, Y, grid);
         Save.Relod_Chunk(X,Y,grid);
-        Save.Save_Array();
         Relod(X,Y);
 
     }
@@ -269,7 +268,7 @@ public class Junk : MonoBehaviour
         {
             if (ray.GetPoint(distance).x > transform.position.x - grösse && ray.GetPoint(distance).x < transform.position.x + grösse && ray.GetPoint(distance).z > transform.position.z - grösse && ray.GetPoint(distance).z < transform.position.z + grösse)
             {
-                straße.singleton.hm(X_POS, Y_POS, ray.GetPoint(distance),grid);
+                Buildingsystem.singleton.hm(X_POS, Y_POS, ray.GetPoint(distance),grid);
                 Relod_strasse(X_POS, Y_POS);
                 streed_update();
             }
@@ -292,8 +291,7 @@ public class Junk : MonoBehaviour
                     }
                     if (ga.Rohstoffe_ID >= 11800 && ga.Rohstoffe_ID < 11900)
                     {
-
-                       Miene.singelton.Mine_setzen(ga, X + x, Y + y);
+                        Global.Mine_Focus.Mine_setzen(ga, X + x, Y + y);
                     }
                 }
 

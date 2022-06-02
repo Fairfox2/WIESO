@@ -5,6 +5,10 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - go: {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
+  - s: {instanceID: 0}
+  - Mine: {fileID: -8679921383154817045, guid: ee5955a27f849b84ebaaa11f274a77ca, type: 3}
+  - passt: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
+  - passtnicht: {fileID: -8679921383154817045, guid: ee5955a27f849b84ebaaa11f274a77ca, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

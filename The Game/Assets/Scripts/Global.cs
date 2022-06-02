@@ -5,6 +5,6 @@ using UnityEngine;
 public class Global : MonoBehaviour
 {
     public static int buildmoide = 0;
-    public static Miene Mine_Focus = new Mine_1();
-
+    public static int Buildingrotation = 0;
+    public static Miene Mine_Focus ;
 }

@@ -7,14 +7,10 @@ using System;
 public class Grid_script<Grid_opjekt>
 {
 
-    
-    
-
     private int width;
     private int height;
     private float cellSize;
     public Grid_opjekt[,] gridArray;
-
 
     public Grid_script(int width, int height, float cellSize,Func<Grid_opjekt> createGridObjekt )
     {
@@ -41,7 +37,6 @@ public class Grid_script<Grid_opjekt>
         }
         else
         {
- 
             return default(Grid_opjekt);
         }
     }

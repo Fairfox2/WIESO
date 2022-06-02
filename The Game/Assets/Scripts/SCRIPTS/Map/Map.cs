@@ -69,9 +69,10 @@ public class Map : MonoBehaviour
     private void Start()
     {
 
-        Random_Map();
+        
 
-        Save.Save_Array();
+        Save.Load_maP();
+        //Save.Save_Array();
         
     }
     private void Update()

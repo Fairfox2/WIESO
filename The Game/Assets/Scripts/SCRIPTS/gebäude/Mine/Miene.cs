@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Miene : MonoBehaviour
+[CreateAssetMenu(fileName ="new Building",menuName ="Building/Mine")]
+public class Miene : ScriptableObject
 {
     public static Miene singelton { set; get; }
-    [SerializeField]Transform t;
+    [SerializeField]Transform Building;
     [SerializeField] Transform trans;
-
+    public int ID;
+    public int Rotation;
     [SerializeField] public int GrösseX;
     [SerializeField] public int GrösseY;
     public void Awake()
     {
         singelton = this;
+       
     }
     public void Mine_setzen(Grid_opjekt Objekt, int X, int Y)
     {
@@ -22,7 +25,7 @@ public class Miene : MonoBehaviour
             Objekt.Building_placed = true;
         }
     }
-    public Transform getcourser(Vector3 World)
+    public bool getcourser(Vector3 World)
     {
         Vector3 World_pos = Get_World_Postion(World);
         int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
@@ -52,41 +55,49 @@ public class Miene : MonoBehaviour
         }
         if(sum == 3)
         {
-            return t;
+            return true;
         }
-        return trans;
+        return false;
     }
     public bool Mine_Can_build(int X,int Y)
     {
-        int x = 0, x1 = 0, y1 = 0, y = 0;
-
-        if (Map.Map_Rohstoffe[X + GrösseX, Y] >= 300 && Map.Map_Rohstoffe[X + GrösseX, Y] < 400)
-        {
-            x = 1;
-        }
-        if (Map.Map_Rohstoffe[X - GrösseX, Y] >= 300 && Map.Map_Rohstoffe[X - GrösseX, Y] < 400)
-        {
-            x1 = 1;
-        }
-        if (Map.Map_Rohstoffe[X, Y + GrösseY] >= 300 && Map.Map_Rohstoffe[X, Y + GrösseY] < 400)
-        {
-            y = 1;
-        }
-        if (Map.Map_Rohstoffe[X, Y - GrösseY] >= 300 && Map.Map_Rohstoffe[X, Y - GrösseY] < 400)
-        {
-            y1 = 1;
-        }
+        int x2 = 0, x1 = 0, y1 = 0, y2 = 0;
         int sum = 0;
-        if (Map.Map_Rohstoffe[X, Y] >= 300 && Map.Map_Rohstoffe[X, Y] < 400)
+        for (int x = 0; x < GrösseX; x++)
         {
-            sum = x + x1 + y1 + y;
-        }
-        if (sum == 3)
+            for (int y = 0; y < GrösseY; y++)
+            {
+                if (Map.Map_Rohstoffe[X + x, Y] >= 300 && Map.Map_Rohstoffe[X + x, Y] < 400)
+                {
+                    x2 = 1;
+                }
+                if (Map.Map_Rohstoffe[X - x, Y] >= 300 && Map.Map_Rohstoffe[X - x, Y] < 400)
+                {
+                    x1 = 1;
+                }
+                if (Map.Map_Rohstoffe[X, Y + y] >= 300 && Map.Map_Rohstoffe[X, Y + y] < 400)
+                {
+                    y2 = 1;
+                }
+                if (Map.Map_Rohstoffe[X, Y - y] >= 300 && Map.Map_Rohstoffe[X, Y - y] < 400)
+                {
+                    y1 = 1;
+                }
+               
+                if (Map.Map_Rohstoffe[X, Y] >= 300 && Map.Map_Rohstoffe[X, Y] < 400)
+                {
+                    sum +=  + x2 + x1 + y1 + y2;
+                }
+            }
+        }    
+   
+ 
+        if (sum >= 3 * (GrösseX * GrösseY) ) // formel zur berechnug der nachberteile 
         {
             return true;
         }
         return false;
-        print("Du kannst hier nicht báuen");
+
 
     }
     private Vector3 Get_World_Postion(Vector3 world)

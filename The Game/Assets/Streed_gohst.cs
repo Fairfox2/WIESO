@@ -7,12 +7,16 @@ public class Streed_gohst : MonoBehaviour
 {
     public static Streed_gohst singleton { set; get; }
     [SerializeField] Transform go;
+    [SerializeField] Miene s;
     [SerializeField] Transform Mine;
+    [SerializeField] Transform passt;
+    [SerializeField] Transform passtnicht;
     Transform newTile;
     Transform newr;
     public void Awake()
     {
         singleton = this;
+        Global.Mine_Focus = s;
     }
     // Update is called once per frame
     private void Update()
@@ -55,17 +59,38 @@ public class Streed_gohst : MonoBehaviour
                 courser.position = transform.position;
 
                 Mine = go;
-                for (int x = 0; x <= Global.Mine_Focus.GrösseX; x++)
+                for (int x = 0; x < Global.Mine_Focus.GrösseX; x++)
                 {
-                    for (int y = 0; y <= Global.Mine_Focus.GrösseY; y++)
+                    for (int y = 0; y < Global.Mine_Focus.GrösseY; y++)
                     {
-                        Mine = Global.Mine_Focus.getcourser(ray.GetPoint(distance)); // hier wider z verwenden
-                        print(y);
-                        newr = Instantiate(Mine, transform.position, Quaternion.Euler(0, 0, 0)) as Transform;
+                        int safex = x;
+                        if (Global.Buildingrotation == 90)
+                        {
+                            x = -y;
+                            y = safex;
+                        }
+                        if (Global.Buildingrotation == 180)
+                        {
+                            x = -x;
+                            y = -y;
+                        }
+                        if (Global.Buildingrotation == 270)
+                        {
+                            x = y;
+                            y = -safex;
+                        }
+                        if (Global.Mine_Focus.getcourser(new Vector3(ray.GetPoint(distance).x+x,0,ray.GetPoint(distance).z+y)))
+                        {
+                            Mine = passt;
+                        }
+                        else
+                        {
+                            Mine = passtnicht;
+                        }
+                        if(Mine != null)newr = Instantiate(Mine, new Vector3(transform.position.x+x,transform.position.y,transform.position.z +y), Quaternion.Euler(0, 0, 0)) as Transform;
+                        if(newr != null)newr.parent = courser;
                     }
                 }
-                
-                newr.parent = courser;
             }
             if (Global.buildmoide == 0)
             {

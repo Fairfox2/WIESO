@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 7042655591599431949}
   - component: {fileID: 4281479215933994208}
   - component: {fileID: 533655599172331296}
-  - component: {fileID: 3282489308455915715}
   m_Layer: 0
   m_Name: Chunck
   m_TagString: Untagged
@@ -270,17 +269,3 @@ MonoBehaviour:
   "Stra\xDFeKreuzung": {fileID: -8679921383154817045, guid: 52625e2eceb38744aa734132b58a912c, type: 3}
   "Stra\xDFe_idel": {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
   b: {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
---- !u!114 &3282489308455915715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8954803181163201107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb86dc25ca9e7984aa3f996e71fcf492, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  t: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
-  trans: {fileID: -8679921383154817045, guid: ee5955a27f849b84ebaaa11f274a77ca, type: 3}

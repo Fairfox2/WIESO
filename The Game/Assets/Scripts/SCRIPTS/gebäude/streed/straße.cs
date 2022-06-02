@@ -14,6 +14,7 @@ public class straße : MonoBehaviour
     public Transform StraßeKreuzung;
     public Transform Straße_idel;
     private CameraControlsAktion cameraActions;
+    private Bauen BuildingsystemsAktions;
     private InputAction movement;
     private Transform cameraTransform;
 
@@ -22,56 +23,19 @@ public class straße : MonoBehaviour
     //last 
     private Vector3 last_pos = Vector2.right;
 
+    private int X = 0;
+    private int Y = 0;
 
     Vector3 World_pos;
     private void Awake()
     {
         singleton = this;
         cameraActions = new CameraControlsAktion();
-    }
-    public void hm(float x, float y, Vector3 World, Grid_script<Grid_opjekt> grid)
-    {
-        World_pos = Get_World_Postion(World);
-        Grid_opjekt ga = grid.GetGridOpjekt(System.Convert.ToInt32(World_pos.x), System.Convert.ToInt32(World_pos.z));
-        int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
-        int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
-
        
-
-        Keyboard kb = InputSystem.GetDevice<Keyboard>();
-        if (kb.aKey.isPressed)
-        {
-            print("Mode wurde gewchslet");
-            if(Global.buildmoide == 1)Global.buildmoide = 2;
-            else
-            {
-                Global.buildmoide = 1;
-            }
-        }
-        if (Mouse.current.leftButton.isPressed ) // strasse setzen
-        {
-            if (Map.Map_Rohstoffe[X, Y] <= 1000)
-            {
-                if (Global.buildmoide == 2 && Miene.singelton.Mine_Can_build(X,Y)) Map.Map_Rohstoffe[X, Y] = 11810; // sicher heit ein bauen
-                else if(Global.buildmoide ==1 )
-                {
-                    Map.Map_Rohstoffe[X, Y] = 1710;
-                }
-            }
-    
-        }
-
-
     }
-    private Vector3 Get_World_Postion(Vector3 world)
-    {
-        Vector3 position;
-        position.x = Mathf.Floor(world.x);
-        position.y = Mathf.Floor(world.y);
-        position.z = Mathf.Floor(world.z);
-        return position;
-
-    }
+   
+  
+ 
 
     private void Update()
     {
