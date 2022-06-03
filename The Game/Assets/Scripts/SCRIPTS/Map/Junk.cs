@@ -289,9 +289,10 @@ public class Junk : MonoBehaviour
                     {
                         straße.singleton.Straße_setzen(ga, X + x, Y + y);
                     }
-                    if (ga.Rohstoffe_ID >= 11800 && ga.Rohstoffe_ID < 11900)
+                    if (ga.Rohstoffe_ID >= 11820 && ga.Rohstoffe_ID < 11900)
                     {
                         Global.Mine_Focus.Mine_setzen(ga, X + x, Y + y);
+
                     }
                 }
 

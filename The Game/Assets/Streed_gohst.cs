@@ -59,27 +59,27 @@ public class Streed_gohst : MonoBehaviour
                 courser.position = transform.position;
 
                 Mine = go;
-                for (int x = 0; x < Global.Mine_Focus.GrösseX; x++)
+                for (float x = 0; x < Global.Mine_Focus.GrösseX; x++) // float da minus zahlen
                 {
-                    for (int y = 0; y < Global.Mine_Focus.GrösseY; y++)
+                    for (float y = 0; y < Global.Mine_Focus.GrösseY; y++)
                     {
-                        int safex = x;
+                        float F=y, G = x;
                         if (Global.Buildingrotation == 90)
                         {
-                            x = -y;
-                            y = safex;
+                            G = -y;
+                            F = x;
                         }
                         if (Global.Buildingrotation == 180)
                         {
-                            x = -x;
-                            y = -y;
+                            G = -x;
+                            F = -y;
                         }
                         if (Global.Buildingrotation == 270)
                         {
-                            x = y;
-                            y = -safex;
+                            G = y;
+                            F = -x;
                         }
-                        if (Global.Mine_Focus.getcourser(new Vector3(ray.GetPoint(distance).x+x,0,ray.GetPoint(distance).z+y)))
+                        if (Global.Mine_Focus.getcourser(new Vector3(ray.GetPoint(distance).x+G,0,ray.GetPoint(distance).z+F)))
                         {
                             Mine = passt;
                         }
@@ -87,7 +87,7 @@ public class Streed_gohst : MonoBehaviour
                         {
                             Mine = passtnicht;
                         }
-                        if(Mine != null)newr = Instantiate(Mine, new Vector3(transform.position.x+x,transform.position.y,transform.position.z +y), Quaternion.Euler(0, 0, 0)) as Transform;
+                        if(Mine != null)newr = Instantiate(Mine, new Vector3(transform.position.x+G,transform.position.y,transform.position.z +F), Quaternion.Euler(0, 0, 0)) as Transform;
                         if(newr != null)newr.parent = courser;
                     }
                 }
@@ -102,6 +102,7 @@ public class Streed_gohst : MonoBehaviour
             }
             
             transform.position = Vector3.Lerp(transform.position, Target1, Time.deltaTime * 8);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, Global.Buildingrotation,0), Time.deltaTime * 8);
         }
 
  

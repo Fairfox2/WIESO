@@ -35,6 +35,15 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""a43a526c-c58c-4574-9cdb-67198d6d5415"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -48,6 +57,17 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
                     ""action"": ""Build"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""805fef7a-3b16-4014-85b0-d1c125ae5bb4"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +77,7 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
         // Buildings
         m_Buildings = asset.FindActionMap("Buildings", throwIfNotFound: true);
         m_Buildings_Build = m_Buildings.FindAction("Build", throwIfNotFound: true);
+        m_Buildings_Rotate = m_Buildings.FindAction("Rotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -117,11 +138,13 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Buildings;
     private IBuildingsActions m_BuildingsActionsCallbackInterface;
     private readonly InputAction m_Buildings_Build;
+    private readonly InputAction m_Buildings_Rotate;
     public struct BuildingsActions
     {
         private @Bauen m_Wrapper;
         public BuildingsActions(@Bauen wrapper) { m_Wrapper = wrapper; }
         public InputAction @Build => m_Wrapper.m_Buildings_Build;
+        public InputAction @Rotate => m_Wrapper.m_Buildings_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_Buildings; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -134,6 +157,9 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
                 @Build.started -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnBuild;
                 @Build.performed -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnBuild;
                 @Build.canceled -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnBuild;
+                @Rotate.started -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnRotate;
+                @Rotate.performed -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnRotate;
+                @Rotate.canceled -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnRotate;
             }
             m_Wrapper.m_BuildingsActionsCallbackInterface = instance;
             if (instance != null)
@@ -141,6 +167,9 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
                 @Build.started += instance.OnBuild;
                 @Build.performed += instance.OnBuild;
                 @Build.canceled += instance.OnBuild;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
             }
         }
     }
@@ -148,5 +177,6 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
     public interface IBuildingsActions
     {
         void OnBuild(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
     }
 }

@@ -24,21 +24,64 @@ public class Buildingsystem : MonoBehaviour
     private void OnEnable()
     {
         BuildingsystemsAktions.Buildings.Build.performed += _ =>Build();
+        BuildingsystemsAktions.Buildings.Rotate.performed += z => Rotate(z.ReadValue<Vector2>().y / 100f);
+        BuildingsystemsAktions.Buildings.Rotate.Enable();
         BuildingsystemsAktions.Buildings.Build.Enable();
 
     }
+    void Rotate(float inputValue)
+    {
+
+        if(Mathf.Abs(inputValue) > 0.1f && Global.buildmoide == 2)
+        {
+            print(Global.Buildingrotation);
+            if (inputValue >0)
+            {
+                Global.Buildingrotation += 90;
+                if (Global.Buildingrotation >= 360)
+                {
+                    Global.Buildingrotation = 0;
+                }
+            }
+            else if (inputValue < 0)
+            {
+                Global.Buildingrotation -= 90;
+                if(Global.Buildingrotation < 0)
+                {
+                    Global.Buildingrotation = 270;
+                }
+            }
+
+        }
+    }
     void Build()
     {
-        print("ss");
         if (Global.buildmoide == 2 && Global.Mine_Focus.Mine_Can_build(X, Y))
         {
             for (int x1 = 0; x1 < Global.Mine_Focus.GrösseX; x1++) // noch eigene funktion für schöneheit zukunfts Otto
             {
                 for (int y1 = 0; y1 < Global.Mine_Focus.GrösseY; y1++)
                 {
-                    Map.Map_Rohstoffe[X + x1, Y + y1] = Global.Mine_Focus.ID;
+                    float F = y1, G = x1;
+                    if (Global.Buildingrotation == 90)
+                    {
+                        G = -y1;
+                        F = x1;
+                    }
+                    if (Global.Buildingrotation == 180)
+                    {
+                        G = -x1;
+                        F = -y1;
+                    }
+                    if (Global.Buildingrotation == 270)
+                    {
+                        G = y1;
+                        F = -x1;
+                    }
+                    Map.Map_Rohstoffe[System.Convert.ToInt16(X +G), System.Convert.ToInt16(Y + F)] = Global.Mine_Focus.ID;
                 }
             }
+            Map.Map_Rohstoffe[System.Convert.ToInt16(X ), System.Convert.ToInt16(Y )] = Global.Mine_Focus.ID + 10;
             // sicher heit ein bauen
         }
         else if (Global.buildmoide == 1)
@@ -73,11 +116,6 @@ public class Buildingsystem : MonoBehaviour
             {
                 Global.buildmoide = 1;
             }
-        }
-        if (Mouse.current.leftButton.isPressed) // strasse setzen
-        {
-
-
         }
 
     }

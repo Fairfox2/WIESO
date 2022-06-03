@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb86dc25ca9e7984aa3f996e71fcf492, type: 3}
   m_Name: Mine_1
   m_EditorClassIdentifier: 
-  Building: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
-  trans: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
+  Building: {fileID: -8679921383154817045, guid: ac5d6a2d5e695d74f85039ea2b1c3540, type: 3}
+  trans: {fileID: -8679921383154817045, guid: ac5d6a2d5e695d74f85039ea2b1c3540, type: 3}
   ID: 11810
   Rotation: 0
   "Gr\xF6sseX": 1

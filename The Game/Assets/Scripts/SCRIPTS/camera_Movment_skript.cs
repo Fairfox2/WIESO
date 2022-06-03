@@ -182,7 +182,7 @@ public class camera_Movment_skript : MonoBehaviour
     {
         float inputValue = -obj.ReadValue<Vector2>().y / 100f;
 
-        if (Mathf.Abs(inputValue) > 0.1f)
+        if (Mathf.Abs(inputValue) > 0.1f && Global.buildmoide != 2) // Bei building mode 2 Zomm auschalten da wir die gebäude mit dem mausrad drehen 
         {
             zoomHeight = cameraTransform.localPosition.y + inputValue * stepSize;
 
