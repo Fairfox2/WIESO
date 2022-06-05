@@ -29,7 +29,7 @@ public class WeightedRandomList<T>
         list.Add(new Pair(item, weight));
     }
 
-    public T GetRandom()
+    public int GetRandom()
     {
         float totalWeight = 0;
 
@@ -41,7 +41,32 @@ public class WeightedRandomList<T>
         float value = Random.value * totalWeight;
 
         float sumWeight = 0;
+        int count = 0;
+        foreach (Pair p in list)
+        {
+            sumWeight += p.weight;
 
+            if (sumWeight >= value)
+            {
+                return count;
+            }
+            count++;
+        }
+        return 0;
+    }
+    public T GetRandom1()
+    {
+        float totalWeight = 0;
+
+        foreach (Pair p in list)
+        {
+            totalWeight += p.weight;
+        }
+
+        float value = Random.value * totalWeight;
+
+        float sumWeight = 0;
+        int count = 0;
         foreach (Pair p in list)
         {
             sumWeight += p.weight;
@@ -50,7 +75,13 @@ public class WeightedRandomList<T>
             {
                 return p.item;
             }
+            count++;
         }
         return default(T);
+    }
+    public T Get(int f)
+    {
+        T i = list[f].item;
+        return i;
     }
 }

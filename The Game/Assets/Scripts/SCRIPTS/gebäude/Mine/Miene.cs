@@ -21,6 +21,7 @@ public class Miene : ScriptableObject
     {
         if ((Objekt.Rohstoffe_ID >= 300 || Objekt.Rohstoffe_ID < 400))
         {
+            Objekt.Rohstoff = null;
             Objekt.Mine = trans;
             Objekt.Setrotation(Rotation);
             Objekt.Building_placed = true;
@@ -94,7 +95,7 @@ public class Miene : ScriptableObject
         }    
    
  
-        if (sum == 6 ) // formel zur berechnug der nachberteile ZK otto
+        if (sum >= 6 ) // formel zur berechnug der nachberteile ZK otto
         {
             return true;
         }

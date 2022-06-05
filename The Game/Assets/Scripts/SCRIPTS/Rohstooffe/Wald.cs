@@ -5,6 +5,7 @@ using UnityEngine;
 public class Wald : Rohstoffe
 {
     #region Wald
+    public static bool random = Global.random;
     public WeightedRandomList<Transform> Wälder;
     public WeightedRandomList<Transform> Boden;
     public WeightedRandomList<Transform> Wald_Boden;
@@ -15,13 +16,23 @@ public class Wald : Rohstoffe
     }
     public void Wiese_Boden(Grid_opjekt Objekt)
     {
-        Objekt.Boden = Boden.GetRandom();
-        Objekt.Set_Rotation_Random();
+        if(random == true)
+        {
+            Objekt.index_boden = Boden.GetRandom();
+            Objekt.Set_Rotation_Random();
+        }
+        Objekt.Boden = Boden.Get(Objekt.index_boden);
+
     }
     public void Wald_boden(Grid_opjekt Objekt)
     {
-        Objekt.Boden = Wald_Boden.GetRandom();
-        Objekt.Set_Rotation_Random();
+        if (random == true)
+        {
+            Objekt.index_boden = Wald_Boden.GetRandom();
+            Objekt.Set_Rotation_Random();
+        }
+        Objekt.Boden = Wald_Boden.Get(Objekt.index_boden);
+        
     }
     public void Wald_erstellen(int GX, int GY, int ZONE, int ZONE_MAX, int anzahl)
     {
@@ -147,9 +158,14 @@ public class Wald : Rohstoffe
 
     public void Baum(Grid_opjekt Objekt)
     {
-        Objekt.Rohstoff = Wälder.GetRandom();
+        if(random == true)
+        {
+            Objekt.index = Wälder.GetRandom();
+            Objekt.Set_Rotation_Random();
+        }
+        Objekt.Rohstoff = Wälder.Get(Objekt.index);
         Objekt.rohstoff = true;
-        Objekt.Set_Rotation_Random();
+
 
     }
     #endregion

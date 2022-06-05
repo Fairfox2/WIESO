@@ -5,6 +5,8 @@ using UnityEngine;
 public class Grid_opjekt
 {
     public int Rohstoffe_ID = 1000;
+    public int index = 0;
+    public int index_boden = 0;
     public int Fix_Rohstoffe_ID = 1000;
     public bool buildmode = false;
     public bool Gebäude = false;

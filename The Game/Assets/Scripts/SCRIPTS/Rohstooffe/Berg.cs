@@ -5,7 +5,7 @@ using UnityEngine;
 public class Berg : Rohstoffe 
 {
     public static Berg singleton { set; get; }
-
+    public static bool random = Global.random;
 
     public WeightedRandomList<Transform> Stein_ecke;
     public WeightedRandomList<Transform> Stein_ecke_höche;
@@ -25,7 +25,11 @@ public class Berg : Rohstoffe
     }
     public void Berg_Boden(Grid_opjekt Objekt)
     {
-        Objekt.Boden = Berg_wiese.GetRandom();
+        if(random == true)
+        {
+            Objekt.index_boden = Berg_wiese.GetRandom();
+        }
+        Objekt.Boden = Berg_wiese.Get(Objekt.index_boden);
     }
     public void Stein_Genarator(double ZONE, int ZONE_MAX, int anzahl)
     {
@@ -450,7 +454,11 @@ public class Berg : Rohstoffe
       
         if (ebene > 0)
         {
-            gr.Boden = Stein_boden.GetRandom();
+            if(random == true)
+            {
+                gr.index_boden = Stein_boden.GetRandom();
+            }
+            gr.Boden = Stein_boden.Get(gr.index_boden);
         }
         else
         {
@@ -461,48 +469,92 @@ public class Berg : Rohstoffe
 
     private void Stein_Ecke(Grid_opjekt Objekt, int winkel, int ebene)
     {
-        Transform element = Stein_ecke_höche.GetRandom(); ;
+        if (random == true)
+        {
+            Objekt.index = Stein_ecke_höche.GetRandom();
+            if (ebene <= 0)
+            {
+                Objekt.index = Stein_ecke.GetRandom();
+            }
+        }
+        Transform element = null; ;
         if (ebene <= 0)
         {
-            element = Stein_ecke.GetRandom();
+            element = Stein_ecke.Get(Objekt.index);
+        }
+        else
+        {
+            element = Stein_ecke_höche.Get(Objekt.index);
         }
         Objekt.Rohstoff = element;
         Objekt.Setrotation(winkel);
     }
     private void Stein_lose(Grid_opjekt Objekt, int winkel)
     {
-        Transform element = Stein_Lose.GetRandom(); 
-        Objekt.Rohstoff = element;
+        if (random == true)
+        {
+            Objekt.index = Stein_Lose.GetRandom();
+        }
+        Objekt.Rohstoff = Stein_Lose.Get(Objekt.index);
         Objekt.Setrotation(winkel);
     }
     private void Stein_Brücke(Grid_opjekt Objekt, int winkel)
     {
-        Transform element = Stein_Lose.GetRandom();
-        Objekt.Rohstoff = element;
+        if (random == true)
+        {
+            Objekt.index = Stein_Lose.GetRandom();
+        }
+        Objekt.Rohstoff = Stein_Lose.Get(Objekt.index);
         Objekt.Setrotation(winkel);
     }
     private void Stein_Kurve(Grid_opjekt Objekt, int winkel)
     {
-        Objekt.Rohstoff = Stein_kurve.GetRandom();
+        if (random == true)
+        {
+            Objekt.index = Stein_kurve.GetRandom();
+        }
+        Objekt.Rohstoff = Stein_kurve.Get(Objekt.index);
         Objekt.Setrotation(winkel);
     }
 
     private void Stein_Spitze(Grid_opjekt Objekt)
     {
-        Objekt.Rohstoff = Stein_spitze.GetRandom();
-        Objekt.Set_Rotation_Random();
+        if (random == true)
+        {
+            Objekt.index = Stein_spitze.GetRandom();
+            Objekt.Set_Rotation_Random();
+        }
+        Objekt.Rohstoff = Stein_spitze.Get(Objekt.index);
+
     }
     private void Stein_Mitte(Grid_opjekt Objekt)
-    { 
-        Objekt.Rohstoff = Stein_mitte.GetRandom();
-        Objekt.Set_Rotation_Random();
+    {
+        if (random == true)
+        {
+            Objekt.index = Stein_mitte.GetRandom();
+            Objekt.Set_Rotation_Random();
+        }
+        Objekt.Rohstoff = Stein_mitte.Get(Objekt.index);
+        
     }
     private void Stein_Rand(Grid_opjekt Objekt, int winkel,int ebene)
     {
-        Transform element = Stein_rand_höche.GetRandom(); 
+        if (random == true)
+        {
+            Objekt.index = Stein_rand_höche.GetRandom();
+            if (ebene <= 0)
+            {
+                Objekt.index = Stein_rand.GetRandom();
+            }
+        }
+        Transform element = null;
         if (ebene <= 0)
         {
-            element = Stein_rand.GetRandom();
+            element = Stein_rand.Get(Objekt.index);
+        }
+        else
+        {
+            element = Stein_rand_höche.Get(Objekt.index);
         }
         Objekt.Rohstoff = element;
         Objekt.Setrotation(winkel);

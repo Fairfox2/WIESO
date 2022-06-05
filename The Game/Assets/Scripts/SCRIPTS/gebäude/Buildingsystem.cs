@@ -88,6 +88,8 @@ public class Buildingsystem : MonoBehaviour
         {
             Map.Map_Rohstoffe[X, Y] = 1710;
         }
+        Junk.singleton.Map_update();
+        Junk.singleton.streed_update();
     }
     private Vector3 Get_World_Postion(Vector3 world)
     {

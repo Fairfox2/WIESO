@@ -10,6 +10,11 @@ using System.IO;
 
 public class Junk : MonoBehaviour
 {
+
+    public static Junk singleton { set; get; }
+
+    bool focus = false;
+
     [SerializeField] Transform default_Boden;
     [SerializeField] Transform Grass;
     [SerializeField] Transform Grass1;
@@ -21,7 +26,6 @@ public class Junk : MonoBehaviour
 
     //
     int X_POS,Y_POS;
-
 
 
     public void default_Fläche()
@@ -39,11 +43,7 @@ public class Junk : MonoBehaviour
         }
 
     }
-    public void Rrohstoffe_erstellen()
-    {
-     
-        
-    }
+    
 
     public void load()
     {
@@ -147,10 +147,31 @@ public class Junk : MonoBehaviour
             }
         }
     }
+
+    private Bauen BuildingsystemsAktions;
+    void Build()
+    {
+        print("dd");
+        if(focus == true && Global.buildmoide == 2 && Global.buildmoide == 1)
+        {
+            Map_update();
+            streed_update();
+        }
+
+    }
+    private void OnEnable()
+    {
+        BuildingsystemsAktions.Buildings.Build.performed += _ => Build();
+        BuildingsystemsAktions.Buildings.Build.Enable();
+
+    }
     public void Awake()
     {
+        BuildingsystemsAktions = new Bauen();
+
         grid = new Grid_script<Grid_opjekt>(Map.chunck_grösse, Map.chunck_grösse, 1, () => new Grid_opjekt());
 
+        singleton = this;
 
         if (transform.position.x >= 0)
         {
@@ -176,50 +197,6 @@ public class Junk : MonoBehaviour
         load();
     }
 
-    private int Give_Circel()
-    {
-        if (Mathf.Abs(transform.position.x) >= 20 || Mathf.Abs(transform.position.y) >= 20)                         // der höchste ring muss oben sein
-        {
-            return 2;
-        }
-        if (Mathf.Abs(transform.position.x) >= 5 || Mathf.Abs(transform.position.y) >= 5)
-        {
-            return 1;
-        }
-        return 0;
-    }
-
-
-
-    /*------------ Erstellungs regeln ------------
-     * 
-     *  5 Häufig 
-     *  4 mittel 
-     *  3 Selten 
-     *  2 super selten 
-     *  1 episch 
-     *  
-     *  
-     *  Es gibt verschide arten von Chuncks 
-     * 
-     *  Vorkommen:
-     *      Erster ring:
-     *          noramler chunck 
-     *          stein chunck 
-     *          Wald chunck 
-     *      
-     *      Zweiter Rinf:
-     *          Erter Ring
-     *          Lehm Chunck
-     *      
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     */
 
     bool geladen= false;
     int X_render = 40;
@@ -251,10 +228,7 @@ public class Junk : MonoBehaviour
         
     }
 
-    private void update()
-    {
 
-    }
     bool Load = false;
     private void mous_erstellen()
     {
@@ -268,9 +242,13 @@ public class Junk : MonoBehaviour
         {
             if (ray.GetPoint(distance).x > transform.position.x - grösse && ray.GetPoint(distance).x < transform.position.x + grösse && ray.GetPoint(distance).z > transform.position.z - grösse && ray.GetPoint(distance).z < transform.position.z + grösse)
             {
+                focus = true;
                 Buildingsystem.singleton.hm(X_POS, Y_POS, ray.GetPoint(distance),grid);
                 Relod_strasse(X_POS, Y_POS);
-                streed_update();
+            }
+            else
+            {
+                focus=false;
             }
 
         }
@@ -292,7 +270,7 @@ public class Junk : MonoBehaviour
                     if (ga.Rohstoffe_ID >= 11820 && ga.Rohstoffe_ID < 11900)
                     {
                         Global.Mine_Focus.Mine_setzen(ga, X + x, Y + y);
-
+             
                     }
                 }
 

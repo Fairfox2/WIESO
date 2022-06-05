@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 149907714}
   - component: {fileID: 149907715}
+  - component: {fileID: 149907716}
   m_Layer: 0
   m_Name: Map_Body
   m_TagString: Untagged
@@ -170,6 +171,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Chunck: {fileID: 2177123108865309596, guid: 273cc4abf71d20d4698aa0315e7caec4, type: 3}
   outLinePercent: 0
+--- !u!114 &149907716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149907713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9650eeeb8abd684ab63484cfc0513ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  "Bl\xF6cke":
+  - {fileID: 0}
 --- !u!1 &201395827
 GameObject:
   m_ObjectHideFlags: 0
