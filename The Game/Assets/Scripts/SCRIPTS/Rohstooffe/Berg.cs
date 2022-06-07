@@ -5,7 +5,6 @@ using UnityEngine;
 public class Berg : Rohstoffe 
 {
     public static Berg singleton { set; get; }
-    public static bool random = Global.random;
 
     public WeightedRandomList<Transform> Stein_ecke;
     public WeightedRandomList<Transform> Stein_ecke_höche;
@@ -19,12 +18,14 @@ public class Berg : Rohstoffe
     public WeightedRandomList<Transform> Stein_boden;
     public WeightedRandomList<Transform> Berg_wiese;
 
+    bool random = true;
     public void Awake()
     {
         singleton = this;
     }
-    public void Berg_Boden(Grid_opjekt Objekt)
+    public void Berg_Boden(Grid_opjekt Objekt, bool Random)
     {
+        random = Random;
         if(random == true)
         {
             Objekt.index_boden = Berg_wiese.GetRandom();
@@ -194,40 +195,44 @@ public class Berg : Rohstoffe
             }
         }
     }
-    public void Berg_setzen(int[,] Stein_block, Grid_opjekt gr, int X, int Y)
+    public void Berg_setzen(int[,] Stein_block, Grid_opjekt gr, int X, int Y,bool Random)
     {
-
+        random = Random;
         //   ?
         int q = X;
         int e = Y;
-        int ebene = gr.Rohstoffe_ID - 300;
+        int ebene = gr.Rohstoffe_ID - 300; 
+
+        int Obergrenze = 400;
+        if(ebene > 0) { Obergrenze = 350;  } // ab ebene 1 werden  gebäude nicht mehr gezählt da alle gebäde au ebene 0 sind 
         if (Stein_block[q, e] == 300 + ebene)   // ? # ?
         {                           //   ?
 
             //    ?
-            if (Stein_block[q - 1, e] >= 300 + ebene && Stein_block[q - 1, e] < 400) // '# # ?
+            if (Stein_block[q - 1, e] >= 300  && Stein_block[q - 1, e] < Obergrenze)
+                 // '# # ?
             {                     //    ?
 
                 //    ?
-                if (Stein_block[q + 1, e] >= 300 + ebene && Stein_block[q + 1, e] < 400)   //  # # '#
+                if (Stein_block[q + 1, e] >= 300 + ebene && Stein_block[q + 1, e] < Obergrenze)   //  # # '#
                 {                           //    ?
 
                     //   ?
-                    if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < 400)   // # # #
+                    if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < Obergrenze)   // # # #
                     {                           //  '#
 
                         //  '
-                        if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < 400)   // # # #
+                        if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)   // # # #
                         {
 
 
-                            if (Stein_block[q + 1, e + 1] >= 300 + ebene && Stein_block[q + 1, e + 1] < 400)
+                            if (Stein_block[q + 1, e + 1] >= 300 + ebene && Stein_block[q + 1, e + 1] < Obergrenze)
                             {
-                                if (Stein_block[q - 1, e + 1] >= 300 + ebene && Stein_block[q - 1, e + 1] < 400)
+                                if (Stein_block[q - 1, e + 1] >= 300 + ebene && Stein_block[q - 1, e + 1] < Obergrenze)
                                 {
-                                    if (Stein_block[q + 1, e - 1] >= 300 + ebene && Stein_block[q + 1, e - 1] < 400)
+                                    if (Stein_block[q + 1, e - 1] >= 300 + ebene && Stein_block[q + 1, e - 1] < Obergrenze)
                                     {
-                                        if (Stein_block[q - 1, e - 1] >= 300 + ebene && Stein_block[q - 1, e - 1] < 400)
+                                        if (Stein_block[q - 1, e - 1] >= 300 + ebene && Stein_block[q - 1, e - 1] < Obergrenze)
                                         {
                                             Stein_Mitte(gr);
                                         
@@ -257,9 +262,9 @@ public class Berg : Rohstoffe
                         }
                         else
                         {
-                            if (Stein_block[q - 1, e - 1] >= 300 + ebene && Stein_block[q - 1, e - 1] < 400 || ebene == 0)
+                            if (Stein_block[q - 1, e - 1] >= 300 + ebene && Stein_block[q - 1, e - 1] < Obergrenze || ebene == 0)
                             {
-                                if (Stein_block[q + 1, e - 1] >= 300 + ebene && Stein_block[q + 1, e - 1] < 400 || ebene == 0)
+                                if (Stein_block[q + 1, e - 1] >= 300 + ebene && Stein_block[q + 1, e - 1] < Obergrenze || ebene == 0)
                                 {
                                     
                                         Stein_Rand(gr, 180, ebene);
@@ -278,11 +283,11 @@ public class Berg : Rohstoffe
                             }
                         }
                     }
-                    else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < 400)
+                    else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)
                     {
-                        if (Stein_block[q - 1, e + 1] >= 300 + ebene && Stein_block[q - 1, e + 1] < 400 || ebene == 0)
+                        if (Stein_block[q - 1, e + 1] >= 300 + ebene && Stein_block[q - 1, e + 1] < Obergrenze || ebene == 0)
                         {
-                            if (Stein_block[q + 1, e + 1] >= 300 + ebene && Stein_block[q + 1, e + 1] < 400 || ebene == 0)
+                            if (Stein_block[q + 1, e + 1] >= 300 + ebene && Stein_block[q + 1, e + 1] < Obergrenze || ebene == 0)
                             {
                              
                                     Stein_Rand(gr, 0, ebene);
@@ -311,15 +316,15 @@ public class Berg : Rohstoffe
 
 
                 }                               //    ?
-                else if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < 400)  //  # # -
+                else if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < Obergrenze)  //  # # -
                 {                               //   '#
 
                     //  '#
-                    if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < 400)     // # # -
+                    if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)     // # # -
                     {                                                                           //   #
-                        if (Stein_block[q - 1, e - 1] >= 300 + ebene && Stein_block[q - 1, e - 1] < 400 || ebene == 0)
+                        if (Stein_block[q - 1, e - 1] >= 300 + ebene && Stein_block[q - 1, e - 1] < Obergrenze || ebene == 0)
                         {
-                            if (Stein_block[q - 1, e + 1] >= 300 + ebene && Stein_block[q - 1, e + 1] < 400 || ebene == 0)
+                            if (Stein_block[q - 1, e + 1] >= 300 + ebene && Stein_block[q - 1, e + 1] < Obergrenze || ebene == 0)
                             {
                                  Stein_Rand(gr, 270, ebene);
                                 
@@ -344,7 +349,7 @@ public class Berg : Rohstoffe
                 }
 
                 //  '#
-                else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < 400)  // # # -
+                else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)  // # # -
                 {                                                                             //   -
                     Stein_Ecke(gr, 0, ebene);
                 }
@@ -361,19 +366,19 @@ public class Berg : Rohstoffe
 
 
             }                          //   ?
-            else if (Stein_block[q + 1, e] >= 300 + ebene && Stein_block[q + 1, e] < 400) // - # '#
+            else if (Stein_block[q + 1, e] >= 300 + ebene && Stein_block[q + 1, e] < Obergrenze) // - # '#
             {                          //   ?
 
                 //   ?
-                if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < 400)   // - # #
+                if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < Obergrenze)   // - # #
                 {                           //  '#
 
                     //  '#
-                    if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < 400)     // - # #
+                    if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)     // - # #
                     {                                   //   #
-                        if (Stein_block[q + 1, e + 1] >= 300 + ebene && Stein_block[q + 1, e + 1] < 400 || ebene == 0)
+                        if (Stein_block[q + 1, e + 1] >= 300 + ebene && Stein_block[q + 1, e + 1] < Obergrenze || ebene == 0)
                         {
-                            if (Stein_block[q + 1, e - 1] >= 300 + ebene && Stein_block[q + 1, e - 1] < 400)
+                            if (Stein_block[q + 1, e - 1] >= 300 + ebene && Stein_block[q + 1, e - 1] < Obergrenze)
                             {
                             
                                     Stein_Rand(gr, 90, ebene);
@@ -396,7 +401,7 @@ public class Berg : Rohstoffe
                         Stein_Ecke(gr, 180, ebene);
                     }
                 }                                       //  '#
-                else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < 400)    // - # #
+                else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)    // - # #
                 {                                       //   -
                     Stein_Ecke(gr, 90, ebene);
                 }
@@ -409,7 +414,7 @@ public class Berg : Rohstoffe
                     Stein_Mitte(gr);
                 }
             }                                //   ?
-            else if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < 400)    // - # -
+            else if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < Obergrenze)    // - # -
             {                                //  '#
 
                 //  '#
@@ -427,7 +432,7 @@ public class Berg : Rohstoffe
                 }
 
             }
-            else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < 400)
+            else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)
             {
 
                 if (ebene > 0)
@@ -450,7 +455,8 @@ public class Berg : Rohstoffe
             else { Stein_Spitze(gr); }
 
         }
-        gr.value += ebene * 1.3f;
+        if(random == true) gr.value += ebene * 1.3f; ;
+        
       
         if (ebene > 0)
         {
@@ -462,8 +468,9 @@ public class Berg : Rohstoffe
         }
         else
         {
-            Berg_Boden(gr);
+            Berg_Boden(gr, random);
         }
+        
     }
     #region Stein_prefabs
 

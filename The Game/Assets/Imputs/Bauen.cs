@@ -44,6 +44,15 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""switch"",
+                    ""type"": ""Button"",
+                    ""id"": ""37636735-c28a-4ab7-a16e-cc0b1dda26d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -51,7 +60,7 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""0e14c26d-f553-4f4d-b645-b1fb883c99b2"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Build"",
@@ -68,6 +77,17 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e72f755-f960-471a-8a61-ce91ad442ea9"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
         m_Buildings = asset.FindActionMap("Buildings", throwIfNotFound: true);
         m_Buildings_Build = m_Buildings.FindAction("Build", throwIfNotFound: true);
         m_Buildings_Rotate = m_Buildings.FindAction("Rotate", throwIfNotFound: true);
+        m_Buildings_switch = m_Buildings.FindAction("switch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,12 +160,14 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
     private IBuildingsActions m_BuildingsActionsCallbackInterface;
     private readonly InputAction m_Buildings_Build;
     private readonly InputAction m_Buildings_Rotate;
+    private readonly InputAction m_Buildings_switch;
     public struct BuildingsActions
     {
         private @Bauen m_Wrapper;
         public BuildingsActions(@Bauen wrapper) { m_Wrapper = wrapper; }
         public InputAction @Build => m_Wrapper.m_Buildings_Build;
         public InputAction @Rotate => m_Wrapper.m_Buildings_Rotate;
+        public InputAction @switch => m_Wrapper.m_Buildings_switch;
         public InputActionMap Get() { return m_Wrapper.m_Buildings; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -160,6 +183,9 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
                 @Rotate.started -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnRotate;
                 @Rotate.performed -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnRotate;
                 @Rotate.canceled -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnRotate;
+                @switch.started -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnSwitch;
+                @switch.performed -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnSwitch;
+                @switch.canceled -= m_Wrapper.m_BuildingsActionsCallbackInterface.OnSwitch;
             }
             m_Wrapper.m_BuildingsActionsCallbackInterface = instance;
             if (instance != null)
@@ -170,6 +196,9 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
                 @Rotate.started += instance.OnRotate;
                 @Rotate.performed += instance.OnRotate;
                 @Rotate.canceled += instance.OnRotate;
+                @switch.started += instance.OnSwitch;
+                @switch.performed += instance.OnSwitch;
+                @switch.canceled += instance.OnSwitch;
             }
         }
     }
@@ -178,5 +207,6 @@ public partial class @Bauen : IInputActionCollection2, IDisposable
     {
         void OnBuild(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
+        void OnSwitch(InputAction.CallbackContext context);
     }
 }

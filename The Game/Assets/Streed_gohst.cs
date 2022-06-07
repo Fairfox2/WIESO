@@ -50,7 +50,7 @@ public class Streed_gohst : MonoBehaviour
             if (Global.buildmoide == 2)
             {
 
-                if (transform.Find("curser"))                               //durch das ständige löschen sicher noch bugs aufgeb zukunfts Otto
+                if (transform.Find("curser"))                               //durch das ständige löschen sicher noch bugs aufgabe zukunfts Otto
                 {
                     DestroyImmediate(transform.Find("curser").gameObject);
                 }
@@ -69,7 +69,7 @@ public class Streed_gohst : MonoBehaviour
                             G = -y;
                             F = x;
                         }
-                        if (Global.Buildingrotation == 180)
+                        if (Global.Buildingrotation == 0)
                         {
                             G = -x;
                             F = -y;
@@ -81,13 +81,13 @@ public class Streed_gohst : MonoBehaviour
                         }
                         if (Global.Mine_Focus.getcourser(new Vector3(ray.GetPoint(distance).x+G,0,ray.GetPoint(distance).z+F)))
                         {
-                            Mine = passt;
+                            Mine = Global.Mine_Focus.CourserPasst;
                         }
                         else
                         {
-                            Mine = passtnicht;
+                            Mine = Global.Mine_Focus.CourserPasstnicht;
                         }
-                        if(Mine != null)newr = Instantiate(Mine, new Vector3(transform.position.x+G,transform.position.y,transform.position.z +F), Quaternion.Euler(0, 0, 0)) as Transform;
+                        if(Mine != null)newr = Instantiate(Mine, new Vector3(transform.position.x+G,transform.position.y,transform.position.z +F), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
                         if(newr != null)newr.parent = courser;
                     }
                 }

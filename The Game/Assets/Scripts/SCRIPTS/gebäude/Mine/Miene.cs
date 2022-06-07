@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [CreateAssetMenu(fileName ="new Building",menuName ="Building/Mine")]
 public class Miene : ScriptableObject
@@ -8,6 +9,8 @@ public class Miene : ScriptableObject
     public static Miene singelton { set; get; }
     [SerializeField]Transform Building;
     [SerializeField] Transform trans;
+    public Transform CourserPasstnicht;
+    public Transform CourserPasst;
     public int ID;
     public int Rotation;
     [SerializeField] public int GrösseX;
@@ -17,15 +20,24 @@ public class Miene : ScriptableObject
         singelton = this;
        
     }
-    public void Mine_setzen(Grid_opjekt Objekt, int X, int Y)
+    public void Mine_setzen(Grid_opjekt Objekt,bool Setzen)
     {
-        if ((Objekt.Rohstoffe_ID >= 300 || Objekt.Rohstoffe_ID < 400))
+
+        Objekt.Rohstoff = null;
+        if (Objekt.Building_placed != true)     // fals es zum esrsten mal plziert wwird rotaion setzen 
         {
-            Objekt.Rohstoff = null;
-            Objekt.Mine = trans;
+            Rotation = Global.Buildingrotation + 90;
+            Objekt.Building_placed = true;// Muss alls erstes pasieren sonst wird die rotaion nicht gesetzz
             Objekt.Setrotation(Rotation);
-            Objekt.Building_placed = true;
+        } 
+        
+        
+        
+        if(Setzen == true)
+        {
+            Objekt.Mine = trans;
         }
+        
     }
     public bool getcourser(Vector3 World)
     {
@@ -111,5 +123,34 @@ public class Miene : ScriptableObject
         position.z = Mathf.Floor(world.z);
         return position;
 
+    }
+}
+
+[CustomEditor(typeof(Miene))]
+class MieneEditor: Editor
+{
+    
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        Miene Mine = (Miene)target;
+
+        var style = new GUIStyle(GUI.skin.button);
+        
+
+
+        for (int i = 0; i < Mine.GrösseY; i++)
+        {
+            GUILayout.BeginHorizontal();
+            for (int s = 0; s < Mine.GrösseX; s++)
+            {
+                if (GUILayout.Button(System.Convert.ToString(i),style))
+                {
+                   
+                }
+            }
+            GUILayout.EndHorizontal();
+        }
+        
     }
 }

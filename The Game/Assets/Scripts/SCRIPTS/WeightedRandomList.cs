@@ -81,7 +81,18 @@ public class WeightedRandomList<T>
     }
     public T Get(int f)
     {
-        T i = list[f].item;
+        if(f <= 0 || f == null) {  f = 0; }
+        if(f-1 > list.Count) { f = list.Count; }
+        T i;
+        try
+        {
+
+            i = list[f].item;
+        }
+        catch
+        {
+            return default;
+        }
         return i;
     }
 }

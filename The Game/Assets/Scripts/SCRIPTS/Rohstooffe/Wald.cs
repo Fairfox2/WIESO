@@ -14,9 +14,10 @@ public class Wald : Rohstoffe
     {
         singleton = this;
     }
-    public void Wiese_Boden(Grid_opjekt Objekt)
+    public void Wiese_Boden(Grid_opjekt Objekt, bool Random)
     {
-        if(random == true)
+       random = Random;
+        if (random == true)
         {
             Objekt.index_boden = Boden.GetRandom();
             Objekt.Set_Rotation_Random();
@@ -24,15 +25,16 @@ public class Wald : Rohstoffe
         Objekt.Boden = Boden.Get(Objekt.index_boden);
 
     }
-    public void Wald_boden(Grid_opjekt Objekt)
+    public void Wald_boden(Grid_opjekt Objekt, bool Random)
     {
+        random = Random;
         if (random == true)
         {
             Objekt.index_boden = Wald_Boden.GetRandom();
             Objekt.Set_Rotation_Random();
         }
         Objekt.Boden = Wald_Boden.Get(Objekt.index_boden);
-        
+
     }
     public void Wald_erstellen(int GX, int GY, int ZONE, int ZONE_MAX, int anzahl)
     {
@@ -156,9 +158,10 @@ public class Wald : Rohstoffe
         }
     }
 
-    public void Baum(Grid_opjekt Objekt)
+    public void Baum(Grid_opjekt Objekt, bool Random)
     {
-        if(random == true)
+        random = Random;
+        if (random == true)
         {
             Objekt.index = Wälder.GetRandom();
             Objekt.Set_Rotation_Random();

@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Building: {fileID: -8679921383154817045, guid: ac5d6a2d5e695d74f85039ea2b1c3540, type: 3}
   trans: {fileID: -8679921383154817045, guid: ac5d6a2d5e695d74f85039ea2b1c3540, type: 3}
-  ID: 11810
-  Rotation: 0
-  "Gr\xF6sseX": 1
-  "Gr\xF6sseY": 2
+  CourserPasstnicht: {fileID: -8679921383154817045, guid: a1dbcaf6425255c4bbe4503cd7189720, type: 3}
+  CourserPasst: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
+  ID: 399
+  Rotation: 270
+  "Gr\xF6sseX": 2
+  "Gr\xF6sseY": 4

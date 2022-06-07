@@ -37,9 +37,7 @@ public class Map : MonoBehaviour
         Wälder.Wald_erstellen(15, 15, 4, 6, 400);
         Wälder.Wald_erstellen(15, 15,6, 7, 2300);
         // Die Mitte kann auch als rand verwendet werden 
-        Berg.random = false;
-        Wald.random = false;
-
+  
         
     }
     
@@ -67,16 +65,15 @@ public class Map : MonoBehaviour
         Map_Rohstoffe = Map_Straße = new int[System.Convert.ToInt32(chunck_grösse * Map_grösse), System.Convert.ToInt32(chunck_grösse * Map_grösse)];
         Camara_body = transform.Find("Camera_body");
         GeneratMap();
-        Global.random = false;
+        
     }
     private void Start()
     {
-
-        
-
-        Save.Load_maP();
-        //Save.Save_Array();
-        
+        Random_Map();
+        Save.Save_Array();
+        //Save.Load_maP();
+       
+       
     }
     private void Update()
     {

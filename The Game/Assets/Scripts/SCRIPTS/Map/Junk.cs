@@ -23,7 +23,7 @@ public class Junk : MonoBehaviour
     bool erstellt = false;
     int[,] Rohstoff = new int[Map.chunck_grösse, Map.chunck_grösse];
     private Grid_script<Grid_opjekt> grid;
-
+    bool random = true;
     //
     int X_POS,Y_POS;
 
@@ -72,6 +72,8 @@ public class Junk : MonoBehaviour
         Save.Lode_Chunck(X, Y, grid);
         Save.Relod_Chunk(X,Y,grid);
         Relod(X,Y);
+        X_POS = X;
+        Y_POS = Y;
 
     }
     public void Map_update()
@@ -85,6 +87,16 @@ public class Junk : MonoBehaviour
         Transform mapMolder = new GameObject("world").transform;
         GameObject.Find("world").isStatic = true;
 
+        if (transform.Find("Berg"))
+        {
+            DestroyImmediate(transform.Find("Berg").gameObject);
+        }
+
+        Transform Berg = new GameObject("Berg").transform;
+
+        GameObject.Find("Berg").isStatic = true;
+
+
         if (transform.Find("streed"))
         {
             DestroyImmediate(transform.Find("streed").gameObject);
@@ -95,6 +107,8 @@ public class Junk : MonoBehaviour
 
         streed.parent = transform;
         streed.position = transform.position;
+        Berg.parent = transform;
+        Berg.position = transform.position;
         mapMolder.parent = transform;
         mapMolder.position = transform.position;
 
@@ -126,7 +140,7 @@ public class Junk : MonoBehaviour
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.value + 1, -Map.chunck_grösse / 2 + y) + transform.position;
                         Transform Rohstoff = Instantiate(ga.Rohstoff, Position, Quaternion.Euler(0, ga.rot, 0)) as Transform;
-                        Rohstoff.parent = mapMolder;
+                        Rohstoff.parent = Berg;
                     }
                     if (ga.buildmode == true)
                     {
@@ -143,7 +157,7 @@ public class Junk : MonoBehaviour
 
                 }
 
-
+                
             }
         }
     }
@@ -151,12 +165,11 @@ public class Junk : MonoBehaviour
     private Bauen BuildingsystemsAktions;
     void Build()
     {
-        print("dd");
-        if(focus == true && Global.buildmoide == 2 && Global.buildmoide == 1)
+        if(focus == true && Global.buildmoide >= 1)
         {
-            Map_update();
-            streed_update();
+            mous_erstellen(); 
         }
+            
 
     }
     private void OnEnable()
@@ -195,6 +208,7 @@ public class Junk : MonoBehaviour
     {
         default_Fläche();
         load();
+        random = false;
     }
 
 
@@ -217,22 +231,27 @@ public class Junk : MonoBehaviour
                 {
                     DestroyImmediate(transform.Find("RE").gameObject);
                 }
-
+                if (transform.Find("Berg"))
+                {
+                    DestroyImmediate(transform.Find("Berg").gameObject);
+                }
                 geladen = false;
             }
             if (Global.buildmoide > 0 && geladen == true)
             {
-                mous_erstellen();
+                mous();
             }
+
+         
         }
         
     }
 
 
     bool Load = false;
-    private void mous_erstellen()
+    private void mous()
     {
-            int grösse = 2+ Map.chunck_grösse / 2;
+            int grösse =  Map.chunck_grösse / 2;
         
             Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
 
@@ -242,16 +261,35 @@ public class Junk : MonoBehaviour
         {
             if (ray.GetPoint(distance).x > transform.position.x - grösse && ray.GetPoint(distance).x < transform.position.x + grösse && ray.GetPoint(distance).z > transform.position.z - grösse && ray.GetPoint(distance).z < transform.position.z + grösse)
             {
-                focus = true;
-                Buildingsystem.singleton.hm(X_POS, Y_POS, ray.GetPoint(distance),grid);
-                Relod_strasse(X_POS, Y_POS);
+               focus = true;
+               Buildingsystem.singleton.hm(ray.GetPoint(distance));
             }
             else
             {
-                focus=false;
+                focus = false;
             }
 
+
         }
+    }
+    private void mous_erstellen()
+    {
+        Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
+
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if (plane.Raycast(ray, out float distance))
+        {
+            Buildingsystem.singleton.Build1(ray.GetPoint(distance));
+
+            Relod_strasse(X_POS, Y_POS);
+            Relod(X_POS, Y_POS);
+            streed_update();
+            Berg_update();
+
+        }
+       
+        
     }
     private void Relod_strasse(int X, int Y)
     {
@@ -267,10 +305,14 @@ public class Junk : MonoBehaviour
                     {
                         straße.singleton.Straße_setzen(ga, X + x, Y + y);
                     }
-                    if (ga.Rohstoffe_ID >= 11820 && ga.Rohstoffe_ID < 11900)
+                    if (ga.Rohstoffe_ID == 399 )
                     {
-                        Global.Mine_Focus.Mine_setzen(ga, X + x, Y + y);
-             
+                        Global.Mine_Focus.Mine_setzen(ga, true);
+                    }
+                    if (ga.Rohstoffe_ID == 350)
+                    {
+                        Global.Mine_Focus.Mine_setzen(ga, false);
+
                     }
                 }
 
@@ -307,6 +349,7 @@ public class Junk : MonoBehaviour
                     }
                     if  (ga.Mine != null)
                     {
+                        ga.Rohstoff = null;
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.Element_hight + 1, -Map.chunck_grösse / 2 + y) + transform.position;
                         Transform Rohstoff = Instantiate(ga.Mine, Position, Quaternion.Euler(0, ga.asrot, 0)) as Transform;
                         Rohstoff.parent = streed;
@@ -315,6 +358,39 @@ public class Junk : MonoBehaviour
                 }
 
 
+            }
+        }
+    }
+
+    public void Berg_update()
+    {
+
+        if (transform.Find("Berg"))
+        {
+            DestroyImmediate(transform.Find("Berg").gameObject);
+        }
+
+        Transform Berg = new GameObject("Berg").transform;
+        GameObject.Find("Berg").isStatic = true;
+
+        Berg.parent = transform;
+        Berg.position = transform.position;
+
+        for (int x = 0; x < Map.chunck_grösse - 1; x++)
+        {
+            for (int y = 0; y < Map.chunck_grösse - 1; y++)
+            {
+                Grid_opjekt ga = grid.GetGridOpjekt(x, y);
+                if (ga != null)
+                {
+                    if (ga.Rohstoff != null)
+                    {
+                        Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.value + 1, -Map.chunck_grösse / 2 + y) + transform.position;
+                        Transform Rohstoff = Instantiate(ga.Rohstoff, Position, Quaternion.Euler(0, ga.rot, 0)) as Transform;
+                        Rohstoff.parent = Berg;
+                    }
+
+                }
             }
         }
     }
@@ -334,20 +410,20 @@ public class Junk : MonoBehaviour
                     }
                     if (ga.Rohstoffe_ID == 1000)
                     {
-                        Wald.singleton.Wiese_Boden(ga);
+                        Wald.singleton.Wiese_Boden(ga, random);
                     }
                     if (ga.Rohstoffe_ID == 1050)
                     {
-                        Berg.singleton.Berg_Boden(ga);
+                        Berg.singleton.Berg_Boden(ga, random);
                     }
                     if (ga.Rohstoffe_ID == 200)
                     {
-                        Wald.singleton.Baum(ga);
-                        Wald.singleton.Wald_boden(ga);
+                        Wald.singleton.Baum(ga, random);
+                        Wald.singleton.Wald_boden(ga, random);
                     }
-                    if (ga.Rohstoffe_ID >= 300 && ga.Rohstoffe_ID < 400)
+                    if (ga.Rohstoffe_ID >= 300 && ga.Rohstoffe_ID < 350)
                     {
-                        Berg.singleton.Berg_setzen(Map.Map_Rohstoffe, ga, X + x, Y + y);
+                        Berg.singleton.Berg_setzen(Map.Map_Rohstoffe, ga, X + x, Y + y, random);
                        
                     }
                     else if (ga.Rohstoffe_ID == 2100)
@@ -364,6 +440,7 @@ public class Junk : MonoBehaviour
             }
         }
     }
+
 }
 
 
