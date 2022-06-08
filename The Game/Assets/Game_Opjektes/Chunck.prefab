@@ -212,43 +212,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Lehm_ecke:
     list:
-    - item: {fileID: -8679921383154817045, guid: 113cac1f4447a6545a315d3a5c794860, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 28ad7476cd4115649b24de17eb9b88ca, type: 3}
       weight: 1
   Lehm_rand:
     list:
-    - item: {fileID: -8679921383154817045, guid: 2060f50cb96e8e74993a6359912e027c, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 92127d123c608ee4db82c1e6ee5b6050, type: 3}
       weight: 1
-    - item: {fileID: -8679921383154817045, guid: 1cc6aa9441fa3974fab46f0301fd29fb, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 239d3d10071e01a44b3a3e2960318ca4, type: 3}
       weight: 1
-    - item: {fileID: -8679921383154817045, guid: 7c14f16d188c3f045aa114992b5934c2, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 086449bf986061f44a3a4a86434dd92f, type: 3}
       weight: 1
-    - item: {fileID: -8679921383154817045, guid: 358d5f53176225e4399bb41a3193e265, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 8f48f20bdcf0ef342a4315e7f7aba3b6, type: 3}
       weight: 1
   Lehm_mitte:
     list:
-    - item: {fileID: -8679921383154817045, guid: 0ff8f2a5f1a2df64c8025189257e2fd7, type: 3}
+    - item: {fileID: -8679921383154817045, guid: afeb3429d4427d441a0182e0431fbbd8, type: 3}
       weight: 1
   Lehm_kurve:
     list:
-    - item: {fileID: -8679921383154817045, guid: 5e314325fda70bf4e8327a137525ca3b, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 736d2249c815b17449642fbaf132ba0a, type: 3}
       weight: 1
   "Lehm_b\xE4ume":
     list:
-    - item: {fileID: -8679921383154817045, guid: 1964d96bff1c91648bd91624634e875d, type: 3}
+    - item: {fileID: -8679921383154817045, guid: afeb3429d4427d441a0182e0431fbbd8, type: 3}
       weight: 1
     - item: {fileID: -8679921383154817045, guid: 3119ce669aec161419cc4377d40705c2, type: 3}
       weight: 1
   Lehm_boden:
     list:
-    - item: {fileID: -8679921383154817045, guid: ef6a4554041850e40b3ed303b476dedf, type: 3}
+    - item: {fileID: -8679921383154817045, guid: afeb3429d4427d441a0182e0431fbbd8, type: 3}
       weight: 3
-    - item: {fileID: -8679921383154817045, guid: 7f894a06140070a4499f70a8bf5a0016, type: 3}
+    - item: {fileID: -8679921383154817045, guid: afeb3429d4427d441a0182e0431fbbd8, type: 3}
       weight: 1
     - item: {fileID: -8679921383154817045, guid: 09159de3da9563e48b0c753637985abb, type: 3}
       weight: 1
   Lehm_wiese:
     list:
-    - item: {fileID: -8679921383154817045, guid: ef6a4554041850e40b3ed303b476dedf, type: 3}
+    - item: {fileID: -8679921383154817045, guid: afeb3429d4427d441a0182e0431fbbd8, type: 3}
       weight: 1
 --- !u!114 &533655599172331296
 MonoBehaviour:

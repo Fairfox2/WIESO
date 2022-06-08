@@ -34,8 +34,26 @@ public class straße : MonoBehaviour
        
     }
    
-  
- 
+    public bool Passt(Vector3 World)
+    {
+        Vector3 World_pos = Get_World_Postion(World);
+        int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
+        int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
+        if (Map.Map_Rohstoffe[X,Y] == 1000)
+        {
+            return true;
+        }
+        return false;
+    }
+    private Vector3 Get_World_Postion(Vector3 world)
+    {
+        Vector3 position;
+        position.x = Mathf.Floor(world.x);
+        position.y = Mathf.Floor(world.y);
+        position.z = Mathf.Floor(world.z);
+        return position;
+
+    }
 
     private void Update()
     {

@@ -419,37 +419,37 @@ public class Lehm : Rohstoffe
     #region Lehm_prefabs
     public void Lehm_Baum(Grid_opjekt Objekt)
     { 
-        //Objekt.Rohstoff = Lehm_bäume.GetRandom();
+        Objekt.Rohstoff = Lehm_bäume.Get(0);
    
         Objekt.Set_Rotation_Random();
         Objekt.boden_Rohstoff = true;
     }
     public void Lehm_Boden(Grid_opjekt Objekt)
     {
-        //Objekt.Boden = Lehm_boden.GetRandom();
+        Objekt.Boden = Lehm_boden.Get(0);
         Objekt.Set_Rotation_Random();
     }
     private void Lehm_Ecke(Grid_opjekt Objekt, int winkel)
     {
-        //Objekt.Rohstoff = Lehm_ecke.GetRandom();
+        Objekt.Rohstoff = Lehm_ecke.Get(0);
         Objekt.Setrotation(winkel);
         Objekt.boden_Rohstoff = true;
     }
     private void Lehm_Mitte(Grid_opjekt Objekt)
     {
-       // Objekt.Rohstoff = Lehm_mitte.GetRandom();
+        Objekt.Rohstoff = Lehm_mitte.Get(0);
         Objekt.Set_Rotation_Random();
         Objekt.boden_Rohstoff = true;
     }
     private void Lehm_Rand(Grid_opjekt Objekt, int winkel)
     {
-       // Objekt.Rohstoff = Lehm_rand.GetRandom();
+        Objekt.Rohstoff = Lehm_rand.Get(0);
         Objekt.Setrotation(winkel);
         Objekt.boden_Rohstoff = true;
     }
     private void Lehm_Kurve(Grid_opjekt Objekt, int winkel)
     {
-       // Objekt.Rohstoff = Lehm_kurve.GetRandom();
+        Objekt.Rohstoff = Lehm_kurve.Get(0);
         Objekt.Setrotation(winkel);
         Objekt.boden_Rohstoff = true;
     }

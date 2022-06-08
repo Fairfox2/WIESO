@@ -43,9 +43,16 @@ public class Streed_gohst : MonoBehaviour
                 courser.parent = transform;
                 courser.position = transform.position;
 
-                Mine = go;
-                newr = Instantiate(Mine, transform.position, Quaternion.Euler(0, 0, 0)) as Transform;
-                newr.parent = courser; 
+                if (straﬂe.singleton.Passt(ray.GetPoint(distance)))
+                {
+                    Mine = passt;
+                }
+                else
+                {
+                    Mine = passtnicht;
+                }
+                if(Mine != null)newr = Instantiate(Mine, transform.position, Quaternion.Euler(0, 0, 0)) as Transform;
+                if(newr != null)newr.parent = courser; 
             }
             if (Global.buildmoide == 2)
             {

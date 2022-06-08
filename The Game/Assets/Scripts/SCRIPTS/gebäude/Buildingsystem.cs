@@ -86,7 +86,7 @@ public class Buildingsystem : MonoBehaviour
                         G = t;
                         F = -r;
                     }
-                    if(Global.Mine_Focus.Mine_Can_build(X+G, Y + F)== false) { return; }
+                    if (Global.Mine_Focus.Mine_Can_build(X + G, Y + F) == false) { return; }
                 }
             }
             for (int x1 = 0; x1 < Global.Mine_Focus.GrösseX; x1++) // noch eigene funktion für schöneheit zukunfts Otto
@@ -109,13 +109,13 @@ public class Buildingsystem : MonoBehaviour
                         G = y1;
                         F = -x1;
                     }
-                    Map.Map_Rohstoffe[System.Convert.ToInt16(X +G), System.Convert.ToInt16(Y + F)] = 350;
+                    Map.Map_Rohstoffe[System.Convert.ToInt16(X + G), System.Convert.ToInt16(Y + F)] = 350;
                 }
             }
-            Map.Map_Rohstoffe[System.Convert.ToInt16(X ), System.Convert.ToInt16(Y )] = 399;
+            Map.Map_Rohstoffe[System.Convert.ToInt16(X), System.Convert.ToInt16(Y)] = 399;
             // sicher heit ein bauen
         }
-        else if (Global.buildmoide == 1)
+        else if (Global.buildmoide == 1 && straße.singleton.Passt(World_pos))
         {
             Map.Map_Rohstoffe[X, Y] = 1710;
         }
