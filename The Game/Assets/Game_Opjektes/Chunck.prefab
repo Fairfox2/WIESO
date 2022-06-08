@@ -234,17 +234,17 @@ MonoBehaviour:
       weight: 1
   "Lehm_b\xE4ume":
     list:
-    - item: {fileID: -8679921383154817045, guid: afeb3429d4427d441a0182e0431fbbd8, type: 3}
+    - item: {fileID: -8679921383154817045, guid: a2ffc7c0f82730e40b16534c4be10788, type: 3}
       weight: 1
-    - item: {fileID: -8679921383154817045, guid: 3119ce669aec161419cc4377d40705c2, type: 3}
+    - item: {fileID: -8679921383154817045, guid: e04448e2375255b499bd0e52d4c1efb7, type: 3}
       weight: 1
   Lehm_boden:
     list:
-    - item: {fileID: -8679921383154817045, guid: afeb3429d4427d441a0182e0431fbbd8, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 40a1f9d1a2b83d245820f603ab6ed62f, type: 3}
       weight: 3
-    - item: {fileID: -8679921383154817045, guid: afeb3429d4427d441a0182e0431fbbd8, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 4866f984769141d4192fabc4be79ce7d, type: 3}
       weight: 1
-    - item: {fileID: -8679921383154817045, guid: 09159de3da9563e48b0c753637985abb, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 43a339b7fb037e741837d0aac2dea24c, type: 3}
       weight: 1
   Lehm_wiese:
     list:
@@ -266,6 +266,11 @@ MonoBehaviour:
   "Stra\xDFe_passtnicht": {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
   "Stra\xDFeKurve": {fileID: -8679921383154817045, guid: 23e05caa0102ae44f9c4e1d3a7dfb523, type: 3}
   "Stra\xDFesplit": {fileID: -8679921383154817045, guid: b7942de60bbe297478ccced3c3c106a2, type: 3}
-  "Stra\xDFeKreuzung": {fileID: -8679921383154817045, guid: 52625e2eceb38744aa734132b58a912c, type: 3}
+  Kreuzung:
+    list:
+    - item: {fileID: -8679921383154817045, guid: 1b2a12a357afa9f4eaf761d0a8789c14, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: 52625e2eceb38744aa734132b58a912c, type: 3}
+      weight: 2
   "Stra\xDFe_idel": {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
   b: {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}

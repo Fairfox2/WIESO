@@ -6,12 +6,14 @@ using UnityEngine.InputSystem;
 public class straße : MonoBehaviour
 {
     public static straße singleton { set; get; }
+    bool Rohstoff = true;
+    bool random = true;
     // strasse
     public Transform Straße_licht;
     public Transform Straße_passtnicht;
     public Transform StraßeKurve;
     public Transform Straßesplit;
-    public Transform StraßeKreuzung;
+    public WeightedRandomList<Transform> Kreuzung;
     public Transform Straße_idel;
     private CameraControlsAktion cameraActions;
     private Bauen BuildingsystemsAktions;
@@ -59,7 +61,7 @@ public class straße : MonoBehaviour
     {
 
     }
-    public void Straße_setzen(Grid_opjekt Objekt, int X, int Y)
+    public void Straße_setzen(Grid_opjekt Objekt, int X, int Y,bool random)
     {
        
         if (Map.Map_Rohstoffe[X, Y] >= 1700 && Map.Map_Rohstoffe[X, Y] < 1800 )   // ? # ?
@@ -172,10 +174,11 @@ public class straße : MonoBehaviour
     private void Strasse_Kreuzung(Grid_opjekt Objekt, int winkel)
     {
       
-            Objekt.streed = StraßeKreuzung;
-      
-      
-
+        if(random == true)
+        {
+            Objekt.index = Kreuzung.GetRandom();
+        }
+        Objekt.streed = Kreuzung.Get(Objekt.index);
         Objekt.Setrotation(winkel);
     }
     private void Strasse_split(Grid_opjekt Objekt, int winkel)

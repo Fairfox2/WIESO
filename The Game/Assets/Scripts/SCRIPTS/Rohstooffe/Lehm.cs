@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Lehm : Rohstoffe
 {
-    public static Lehm singleton { set; get; } 
-
+    public static Lehm singleton { set; get; }
+    bool random = true;
     // transform liesten 
     public WeightedRandomList<Transform> Lehm_ecke;
     public WeightedRandomList<Transform> Lehm_rand;
@@ -92,8 +92,9 @@ public class Lehm : Rohstoffe
             }
         }
     }
-    public void Lehm_setzen(int[,] Lehm_block, Grid_opjekt gr, int X, int Y)
+    public void Lehm_setzen(int[,] Lehm_block, Grid_opjekt gr, int X, int Y,bool Random)
     {
+        random = Random;
         int q = X;
         int e = Y;
         //   ?
@@ -417,39 +418,65 @@ public class Lehm : Rohstoffe
     }
 
     #region Lehm_prefabs
-    public void Lehm_Baum(Grid_opjekt Objekt)
-    { 
-        Objekt.Rohstoff = Lehm_bäume.Get(0);
-   
-        Objekt.Set_Rotation_Random();
+    public void Lehm_Baum(Grid_opjekt Objekt,bool Random)
+    {
+        random = Random;
+        if(random == true)
+        {
+            Objekt.index = Lehm_bäume.GetRandom();
+            Objekt.Set_Rotation_Random();
+        }
+        Objekt.Rohstoff = Lehm_bäume.Get(Objekt.index);
+
         Objekt.boden_Rohstoff = true;
     }
     public void Lehm_Boden(Grid_opjekt Objekt)
     {
-        Objekt.Boden = Lehm_boden.Get(0);
-        Objekt.Set_Rotation_Random();
+        if (random == true)
+        {
+            Objekt.index = Lehm_boden.GetRandom();
+            Objekt.Set_Rotation_Random();
+        }
+        Objekt.Boden = Lehm_boden.Get(Objekt.index);
+
     }
     private void Lehm_Ecke(Grid_opjekt Objekt, int winkel)
     {
-        Objekt.Rohstoff = Lehm_ecke.Get(0);
+        if (random == true)
+        {
+            Objekt.index = Lehm_ecke.GetRandom();
+        }
+        Objekt.Rohstoff = Lehm_ecke.Get(Objekt.index);
         Objekt.Setrotation(winkel);
         Objekt.boden_Rohstoff = true;
     }
     private void Lehm_Mitte(Grid_opjekt Objekt)
     {
-        Objekt.Rohstoff = Lehm_mitte.Get(0);
-        Objekt.Set_Rotation_Random();
+        if (random == true)
+        {
+            Objekt.index = Lehm_mitte.GetRandom();
+            Objekt.Set_Rotation_Random();
+        }
+        Objekt.Rohstoff = Lehm_mitte.Get(Objekt.index);
         Objekt.boden_Rohstoff = true;
     }
     private void Lehm_Rand(Grid_opjekt Objekt, int winkel)
     {
-        Objekt.Rohstoff = Lehm_rand.Get(0);
+        if (random == true)
+        {
+            Objekt.index = Lehm_rand.GetRandom();
+        }
+        Objekt.Rohstoff = Lehm_rand.Get(Objekt.index);
         Objekt.Setrotation(winkel);
         Objekt.boden_Rohstoff = true;
     }
     private void Lehm_Kurve(Grid_opjekt Objekt, int winkel)
     {
-        Objekt.Rohstoff = Lehm_kurve.Get(0);
+        if (random == true)
+        {
+            Objekt.index = Lehm_kurve.GetRandom();
+        }
+        Objekt.Rohstoff = Lehm_kurve.Get(Objekt.index);
         Objekt.Setrotation(winkel);
         Objekt.boden_Rohstoff = true;
     }

@@ -303,7 +303,7 @@ public class Junk : MonoBehaviour
                 {
                     if (ga.Rohstoffe_ID >= 1700 && ga.Rohstoffe_ID < 1800)
                     {
-                        straße.singleton.Straße_setzen(ga, X + x, Y + y);
+                        straße.singleton.Straße_setzen(ga, X + x, Y + y,random);
                     }
                     if (ga.Rohstoffe_ID == 399 )
                     {
@@ -428,12 +428,12 @@ public class Junk : MonoBehaviour
                     }
                     else if (ga.Rohstoffe_ID == 2100)
                     {
-                        Lehm.singleton.Lehm_Baum( ga);
+                        Lehm.singleton.Lehm_Baum(ga, random);
                         Lehm.singleton.Lehm_Boden(ga); // hierauch den boden ändern
                     }
                     else if (ga.Rohstoffe_ID == 2400)
                     {
-                        Lehm.singleton.Lehm_setzen(Map.Map_Rohstoffe, ga, X + x, Y + y);
+                        Lehm.singleton.Lehm_setzen(Map.Map_Rohstoffe, ga, X + x, Y + y, random);
                     }
                 }
 
