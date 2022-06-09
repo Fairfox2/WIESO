@@ -28,20 +28,21 @@ public class Streed_gohst : MonoBehaviour
         
         if (plane.Raycast(ray, out float distance))
         {
-            
+            if (transform.Find("curser"))
+            {
+                DestroyImmediate(transform.Find("curser").gameObject);
+            }
+            Transform courser = new GameObject("curser").transform;
+            courser.parent = transform;
+            courser.position = transform.position;
+
             Vector3 Target1 = ray.GetPoint(distance);
             Target1.y = 3;
             Target1.z = Mathf.Floor(Target1.z);
             Target1.x = Mathf.Floor(Target1.x);
             if (Global.buildmoide == 1)
             {
-                if (transform.Find("curser"))
-                {
-                    DestroyImmediate(transform.Find("curser").gameObject);
-                }
-                Transform courser = new GameObject("curser").transform;
-                courser.parent = transform;
-                courser.position = transform.position;
+        
 
                 if (straße.singleton.Passt(ray.GetPoint(distance)))
                 {
@@ -57,13 +58,7 @@ public class Streed_gohst : MonoBehaviour
             if (Global.buildmoide == 2)
             {
 
-                if (transform.Find("curser"))                               //durch das ständige löschen sicher noch bugs aufgabe zukunfts Otto
-                {
-                    DestroyImmediate(transform.Find("curser").gameObject);
-                }
-                Transform courser = new GameObject("curser").transform;
-                courser.parent = transform;
-                courser.position = transform.position;
+             
 
                 Mine = go;
                 for (float x = 0; x < Global.Mine_Focus.GrösseX; x++) // float da minus zahlen
@@ -98,6 +93,19 @@ public class Streed_gohst : MonoBehaviour
                         if(newr != null)newr.parent = courser;
                     }
                 }
+            }
+            if(Global.buildmoide == 3)
+            {
+                if (straße.singleton.Passt(ray.GetPoint(distance)))
+                {
+                    Mine = passt;
+                }
+                else
+                {
+                    Mine = passtnicht;
+                }
+                if (Mine != null) newr = Instantiate(Mine, new Vector3(transform.position.x , transform.position.y, transform.position.z ), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
+                if (newr != null) newr.parent = courser;
             }
             if (Global.buildmoide == 0)
             {

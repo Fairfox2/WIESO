@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 755342fb858fe0043ad8a279b3730216
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Building: {fileID: 535268240038381830, guid: f00c7cb1cb5a56d4db500d3a2b18cd14, type: 3}
+  - lager: {fileID: 535268240038381830, guid: f00c7cb1cb5a56d4db500d3a2b18cd14, type: 3}
+  - CourserPasstnicht: {fileID: -8679921383154817045, guid: ee5955a27f849b84ebaaa11f274a77ca, type: 3}
+  - CourserPasst: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

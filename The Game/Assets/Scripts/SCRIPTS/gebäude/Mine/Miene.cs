@@ -4,23 +4,21 @@ using UnityEngine;
 using UnityEditor;
 
 [CreateAssetMenu(fileName ="new Building",menuName ="Building/Mine")]
-public class Miene : ScriptableObject
+public class Miene : Building_base
 {
     public static Miene singelton { set; get; }
     [SerializeField]Transform Building;
     [SerializeField] Transform trans;
-    public Transform CourserPasstnicht;
-    public Transform CourserPasst;
-    public int ID;
-    public int Rotation;
-    [SerializeField] public int GrösseX;
-    [SerializeField] public int GrösseY;
+
+    public int[,] plase = new int[1,1] ;
+
     public void Awake()
     {
+        plase = new int[GrösseY, GrösseY];
         singelton = this;
        
     }
-    public void Mine_setzen(Grid_opjekt Objekt,bool Setzen)
+    override public void setzen(Grid_opjekt Objekt,bool Setzen)
     {
 
         Objekt.Rohstoff = null;
@@ -39,7 +37,7 @@ public class Miene : ScriptableObject
         }
         
     }
-    public bool getcourser(Vector3 World)
+    override public bool getcourser(Vector3 World)
     {
         Vector3 World_pos = Get_World_Postion(World);
         int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
@@ -73,7 +71,7 @@ public class Miene : ScriptableObject
         }
         return false;
     }
-    public bool Mine_Can_build(int X,int Y)
+    override public bool Mine_Can_build(int X,int Y)
     {
         int x2 = 0, x1 = 0, y1 = 0, y2 = 0;
         int sum = 0;
@@ -136,21 +134,24 @@ class MieneEditor: Editor
         Miene Mine = (Miene)target;
 
         var style = new GUIStyle(GUI.skin.button);
-        
+        if(Mine.plase.GetLength(0) != Mine.GrösseX || Mine.plase.GetLength(1) != Mine.GrösseY) Mine.plase = new int[Mine.GrösseX, Mine.GrösseY];
 
-
-        for (int i = 0; i < Mine.GrösseY; i++)
+        for (int i = 0; i < Mine.GrösseX; i++)
         {
             GUILayout.BeginHorizontal();
-            for (int s = 0; s < Mine.GrösseX; s++)
+            for (int s = 0; s < Mine.GrösseY; s++)
             {
-                if (GUILayout.Button(System.Convert.ToString(i),style))
+                if (GUILayout.Button(System.Convert.ToString(Mine.plase[i,s]),style, GUILayout.Height(100)))
                 {
-                   
+                    
+                   Mine.plase[i,s] = 1+Mine.plase[i, s];
+                   Debug.Log(Mine.plase[i,s]);
                 }
             }
             GUILayout.EndHorizontal();
         }
+      
         
     }
+
 }

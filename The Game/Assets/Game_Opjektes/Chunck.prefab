@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7042655591599431949}
   - component: {fileID: 4281479215933994208}
   - component: {fileID: 533655599172331296}
+  - component: {fileID: 3436619175675850686}
   m_Layer: 0
   m_Name: Chunck
   m_TagString: Untagged
@@ -274,3 +275,23 @@ MonoBehaviour:
       weight: 2
   "Stra\xDFe_idel": {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
   b: {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
+--- !u!114 &3436619175675850686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954803181163201107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755342fb858fe0043ad8a279b3730216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Building: {fileID: 535268240038381830, guid: f00c7cb1cb5a56d4db500d3a2b18cd14, type: 3}
+  lager: {fileID: 535268240038381830, guid: f00c7cb1cb5a56d4db500d3a2b18cd14, type: 3}
+  CourserPasstnicht: {fileID: -8679921383154817045, guid: ee5955a27f849b84ebaaa11f274a77ca, type: 3}
+  CourserPasst: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
+  ID: 0
+  Rotation: 0
+  "Gr\xF6sseX": 0
+  "Gr\xF6sseY": 0

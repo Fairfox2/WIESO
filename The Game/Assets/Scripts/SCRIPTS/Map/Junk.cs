@@ -305,13 +305,17 @@ public class Junk : MonoBehaviour
                     {
                         straﬂe.singleton.Straﬂe_setzen(ga, X + x, Y + y,random);
                     }
+                    if (ga.Rohstoffe_ID == 1910)
+                    {
+                        Lager.singelton.Lager_setzen(ga, true);
+                    }
                     if (ga.Rohstoffe_ID == 399 )
                     {
-                        Global.Mine_Focus.Mine_setzen(ga, true);
+                        Global.Mine_Focus.setzen(ga, true);
                     }
                     if (ga.Rohstoffe_ID == 350)
                     {
-                        Global.Mine_Focus.Mine_setzen(ga, false);
+                        Global.Mine_Focus.setzen(ga, false);
 
                     }
                 }

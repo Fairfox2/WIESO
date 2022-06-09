@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Mine_1
   m_EditorClassIdentifier: 
   Building: {fileID: -8679921383154817045, guid: 95e60a018adf2b6448ec5f73139dd842, type: 3}
-  trans: {fileID: -8679921383154817045, guid: 95e60a018adf2b6448ec5f73139dd842, type: 3}
   CourserPasstnicht: {fileID: -8679921383154817045, guid: a1dbcaf6425255c4bbe4503cd7189720, type: 3}
   CourserPasst: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
   ID: 399
   Rotation: 360
-  "Gr\xF6sseX": 1
-  "Gr\xF6sseY": 2
+  "Gr\xF6sseX": 3
+  "Gr\xF6sseY": 1
+  Building: {fileID: -8679921383154817045, guid: 95e60a018adf2b6448ec5f73139dd842, type: 3}
+  trans: {fileID: -8679921383154817045, guid: 95e60a018adf2b6448ec5f73139dd842, type: 3}

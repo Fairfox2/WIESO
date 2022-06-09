@@ -119,10 +119,18 @@ public class Buildingsystem : MonoBehaviour
         {
             Map.Map_Rohstoffe[X, Y] = 1710;
         }
+        else if (Global.buildmoide == 3)
+        {
+            Map.Map_Rohstoffe[X, Y] = 1910;
+        }
     }
     void Switch()
     {
-        Global.buildmoide = 2;
+        Global.buildmoide ++;
+        if(Global.buildmoide == 4)
+        {
+            Global.buildmoide = 0;
+        }
     }
     private Vector3 Get_World_Postion(Vector3 world)
     {
