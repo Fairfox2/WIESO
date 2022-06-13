@@ -176,9 +176,9 @@ public class straße : MonoBehaviour
       
         if(random == true)
         {
-            Objekt.index = Kreuzung.GetRandom();
+            Objekt.Index_Top = Kreuzung.GetRandom();
         }
-        Objekt.streed = Kreuzung.Get(Objekt.index);
+        Objekt.streed = Kreuzung.Get(Objekt.Index_Top);
         Objekt.Setrotation(winkel);
     }
     private void Strasse_split(Grid_opjekt Objekt, int winkel)

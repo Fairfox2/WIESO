@@ -18,10 +18,9 @@ public class Junk : MonoBehaviour
     [SerializeField] Transform default_Boden;
     [SerializeField] Transform Grass;
     [SerializeField] Transform Grass1;
-    Transform mapMolder;
+
     public bool buildmode = false;
-    bool erstellt = false;
-    int[,] Rohstoff = new int[Map.chunck_grösse, Map.chunck_grösse];
+
     private Grid_script<Grid_opjekt> grid;
     bool random = true;
     //
@@ -121,17 +120,17 @@ public class Junk : MonoBehaviour
                 {
                     // grassfläche erstellen 
                     Vector3 tilePosition = new Vector3(-Map.chunck_grösse / 2 + x, ga.value, -Map.chunck_grösse / 2 + y) + transform.position;
-                    Transform newTile = Instantiate(ga.Boden, tilePosition, Quaternion.Euler(0, ga.rot, 0)) as Transform;
+                    Transform newTile = Instantiate(ga.Boden, tilePosition, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
                     newTile.parent = mapMolder; // noch umbennenen
                     if (ga.Boden != null)
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.value, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.Boden, Position, Quaternion.Euler(0, ga.rot, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.Boden, Position, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
                         Rohstoff.parent = mapMolder;
                         if (ga.Boden == Grass1)
                         {
                             Vector3 Positio = new Vector3(-Map.chunck_grösse / 2 + x, ga.value + 1.2f, -Map.chunck_grösse / 2 + y) + transform.position;
-                            Transform Gras = Instantiate(Grass, Positio, Quaternion.Euler(0, ga.rot, 0)) as Transform;
+                            Transform Gras = Instantiate(Grass, Positio, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
                             Gras.parent = mapMolder;
                         }
   
@@ -139,19 +138,19 @@ public class Junk : MonoBehaviour
                     if (ga.Rohstoff != null)
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.value + 1, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.Rohstoff, Position, Quaternion.Euler(0, ga.rot, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.Rohstoff, Position, Quaternion.Euler(0, ga.Rotation_Top, 0)) as Transform;
                         Rohstoff.parent = Berg;
                     }
-                    if (ga.buildmode == true)
+                    if (ga.Building != null)
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.value + 1, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.Building, Position, Quaternion.Euler(0, ga.rot, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.Building, Position, Quaternion.Euler(0, ga.Rotation_Top, 0)) as Transform;
                         Rohstoff.parent = mapMolder;
                     }
                     if (ga.streed != null)
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.Element_hight + 1, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.streed, Position, Quaternion.Euler(0, ga.rot, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.streed, Position, Quaternion.Euler(0, ga.Rotation_Top, 0)) as Transform;
                         Rohstoff.parent = streed;
                     }
 
@@ -167,7 +166,7 @@ public class Junk : MonoBehaviour
     {
         if(focus == true && Global.buildmoide >= 1)
         {
-            mous_erstellen(); 
+           mous_erstellen(); 
         }
             
 
@@ -183,7 +182,6 @@ public class Junk : MonoBehaviour
         BuildingsystemsAktions = new Bauen();
 
         grid = new Grid_script<Grid_opjekt>(Map.chunck_grösse, Map.chunck_grösse, 1, () => new Grid_opjekt());
-
         singleton = this;
 
         if (transform.position.x >= 0)
@@ -301,23 +299,29 @@ public class Junk : MonoBehaviour
                 Grid_opjekt ga = grid.GetGridOpjekt(x, y);
                 if (ga != null) // prufen ob sich etwas verender hat 
                 {
-                    if (ga.Rohstoffe_ID >= 1700 && ga.Rohstoffe_ID < 1800)
+                    if(ga.Biom == 1)
                     {
-                        straße.singleton.Straße_setzen(ga, X + x, Y + y,random);
-                    }
-                    if (ga.Rohstoffe_ID == 1910)
-                    {
-                        Lager.singelton.Lager_setzen(ga, true);
-                    }
-                    if (ga.Rohstoffe_ID == 399 )
-                    {
-                        Global.Mine_Focus.setzen(ga, true);
-                    }
-                    if (ga.Rohstoffe_ID == 350)
-                    {
-                        Global.Mine_Focus.setzen(ga, false);
+                        if(ga.Building_Top == 1)
+                        {
 
+                            straße.singleton.Straße_setzen(ga, X + x, Y + y, random);
+                        }
+                        if (ga.Building_Top == 2)
+                        {
+                            if (ga.Art_Top == 1 && ga.zusatz_Top == 0)
+                            {
+                                Miene.singelton.setzen(ga, true);
+                            }
+                        }
+                        if (ga.Building_Top == 3)
+                        {
+                            if (ga.Art_Top == 1 && ga.zusatz_Top == 0)
+                            {
+                                Lager.singelton.Lager_setzen(ga, true);
+                            }
+                        }
                     }
+                  
                 }
 
             }
@@ -348,14 +352,14 @@ public class Junk : MonoBehaviour
                     if (ga.streed != null)
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.Element_hight + 1, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.streed, Position, Quaternion.Euler(0, ga.asrot, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.streed, Position, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
                         Rohstoff.parent = streed;
                     }
-                    if  (ga.Mine != null)
+                    if  (ga.Building != null)
                     {
                         ga.Rohstoff = null;
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.Element_hight + 1, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.Mine, Position, Quaternion.Euler(0, ga.asrot, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.Building, Position, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
                         Rohstoff.parent = streed;
                     }
 
@@ -365,7 +369,6 @@ public class Junk : MonoBehaviour
             }
         }
     }
-
     public void Berg_update()
     {
 
@@ -390,7 +393,7 @@ public class Junk : MonoBehaviour
                     if (ga.Rohstoff != null)
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.value + 1, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.Rohstoff, Position, Quaternion.Euler(0, ga.rot, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.Rohstoff, Position, Quaternion.Euler(0, ga.Rotation_Top, 0)) as Transform;
                         Rohstoff.parent = Berg;
                     }
 
@@ -406,39 +409,58 @@ public class Junk : MonoBehaviour
             {
                 Grid_opjekt ga = grid.GetGridOpjekt(x, y);
                 if (ga != null)
-                { 
+                {
 
-                    if (ga.Rohstoffe_ID == 2000)
+                    ga.Id_Load(Map.Map_Rohstoffe[X + x, Y + y]);
+                    ga.Id_Boden(Map.Map_Rohstoffe_Boden[x + X, Y + y]);
+                    print("sp_top " + Map.Map_Rohstoffe[X + x, Y + y]);
+                    print("sp_top " + Map.Map_Rohstoffe[X + x, Y + y]%100);
+
+                    if (ga.Biom == 1)
                     {
-                        Lehm.singleton.Lehm_Boden(ga);
+            
+                        if (ga.Art_Boden == 1)
+                        {
+                         Berg.singleton.Berg_Boden(ga, random);
+                        }
+                        if (ga.Art_Boden == 0)
+                        {
+                            Wald.singleton.Wiese_Boden(ga, random);
+                        }
+                        else if (ga.Art_Boden == 2)
+                        {
+                            Wald.singleton.Wald_boden(ga, random);
+                        }
+
+                        if (ga.Art_Top == 1)
+                        {
+                            Berg.singleton.Berg_setzen(Map.Map_Rohstoffe, ga, X + x, Y + y, random);
+                        }
+                        if (ga.Art_Top == 2)
+                        {
+                            Wald.singleton.Baum(ga, random);
+                        }
+
                     }
-                    if (ga.Rohstoffe_ID == 1000)
+                    if (ga.Biom == 2)
                     {
-                        Wald.singleton.Wiese_Boden(ga, random);
+                        if (ga.Art_Boden == 0)
+                        {
+                            Lehm.singleton.Lehm_Boden(ga);
+                        }
+                        if (ga.Art_Boden == 1)
+                        {
+                            Lehm.singleton.Lehm_setzen(Map.Map_Rohstoffe, ga, X + x, Y + y, random);
+                        }
+
+                        if (ga.Art_Top == 2)
+                        {
+                            Lehm.singleton.Lehm_Boden(ga);
+                        }
                     }
-                    if (ga.Rohstoffe_ID == 1050)
-                    {
-                        Berg.singleton.Berg_Boden(ga, random);
-                    }
-                    if (ga.Rohstoffe_ID == 200)
-                    {
-                        Wald.singleton.Baum(ga, random);
-                        Wald.singleton.Wald_boden(ga, random);
-                    }
-                    if (ga.Rohstoffe_ID >= 300 && ga.Rohstoffe_ID < 350)
-                    {
-                        Berg.singleton.Berg_setzen(Map.Map_Rohstoffe, ga, X + x, Y + y, random);
-                       
-                    }
-                    else if (ga.Rohstoffe_ID == 2100)
-                    {
-                        Lehm.singleton.Lehm_Baum(ga, random);
-                        Lehm.singleton.Lehm_Boden(ga); // hierauch den boden ändern
-                    }
-                    else if (ga.Rohstoffe_ID == 2400)
-                    {
-                        Lehm.singleton.Lehm_setzen(Map.Map_Rohstoffe, ga, X + x, Y + y, random);
-                    }
+    
+
+
                 }
 
             }

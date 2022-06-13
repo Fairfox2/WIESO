@@ -113,8 +113,8 @@ public class Save : MonoBehaviour
                 Grid_opjekt ga = grid.GetGridOpjekt(x, y);
                 if (ga != null)
                 {
-                    Map.Map_Rohstoffe[x + X, y + Y] = ga.Rohstoffe_ID;
-                    ga.Fix_Rohstoffe_ID = ga.Rohstoffe_ID;
+
+// muss noch gemacht werden
                 }
 
             }
@@ -130,7 +130,7 @@ public class Save : MonoBehaviour
                 Grid_opjekt ga = grid.GetGridOpjekt(x, y);
                 if (ga != null)
                 {
-                    if(Map.Map_Rohstoffe[X + x, Y + y] != 0) { ga.Rohstoffe_ID = Map.Map_Rohstoffe[X + x, Y + y]; }
+                    //Muss noch gemacht werden
                 }
 
             }

@@ -16,19 +16,15 @@ public class WeightedRandomList<T>
             this.weight = weight;
         }
     }
-
     public List<Pair> list = new List<Pair>();
-
     public int Count
     {
         get => list.Count;
     }
-
     public void Add(T item, float weight)
     {
         list.Add(new Pair(item, weight));
     }
-
     public int GetRandom()
     {
         float totalWeight = 0;

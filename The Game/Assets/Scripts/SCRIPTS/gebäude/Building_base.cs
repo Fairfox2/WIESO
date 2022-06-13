@@ -15,6 +15,8 @@ public class Building_base : ScriptableObject
     public int Rotation;
     [SerializeField] public int GrösseX;
     [SerializeField] public int GrösseY;
+    public int[,] plase;
+    [SerializeField] public List<int> Plase ;
     public void Awake()
     {
 
@@ -23,23 +25,15 @@ public class Building_base : ScriptableObject
     {
 
     }
-    virtual public bool getcourser(Vector3 World)
+    virtual public Transform getcourser(Vector3 world, int X,int Y)
     {
-        return true;
+        return null;
     }
     virtual public bool Mine_Can_build(int X, int Y)
     {
         return true;
     }
-    private Vector3 Get_World_Postion(Vector3 world)
-    {
-        Vector3 position;
-        position.x = Mathf.Floor(world.x);
-        position.y = Mathf.Floor(world.y);
-        position.z = Mathf.Floor(world.z);
-        return position;
 
-    }
 }
 
 

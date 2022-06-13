@@ -37,7 +37,7 @@ public class Buildingsystem : MonoBehaviour
 
         if(Mathf.Abs(inputValue) > 0.1f && Global.buildmoide == 2)
         {
-            print(Global.Buildingrotation);
+
             if (inputValue >0)
             {
                 Global.Buildingrotation += 90;
@@ -66,29 +66,7 @@ public class Buildingsystem : MonoBehaviour
 
         if (Global.buildmoide == 2 && Global.Mine_Focus.Mine_Can_build(X, Y))
         {
-            for (int r = 0; r < Global.Mine_Focus.GrösseX; r++)
-            {
-                for (int t = 0; t < Global.Mine_Focus.GrösseY; t++)
-                {
-                    int F = t, G = r;
-                    if (Global.Buildingrotation == 90)
-                    {
-                        G = -t;
-                        F = r;
-                    }
-                    if (Global.Buildingrotation == 180)
-                    {
-                        G = -r;
-                        F = -t;
-                    }
-                    if (Global.Buildingrotation == 270)
-                    {
-                        G = t;
-                        F = -r;
-                    }
-                    if (Global.Mine_Focus.Mine_Can_build(X + G, Y + F) == false) { return; }
-                }
-            }
+            print(Global.Mine_Focus.Mine_Can_build(X, Y));
             for (int x1 = 0; x1 < Global.Mine_Focus.GrösseX; x1++) // noch eigene funktion für schöneheit zukunfts Otto
             {
                 for (int y1 = 0; y1 < Global.Mine_Focus.GrösseY; y1++)

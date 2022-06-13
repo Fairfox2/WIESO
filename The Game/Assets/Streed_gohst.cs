@@ -11,7 +11,7 @@ public class Streed_gohst : MonoBehaviour
     [SerializeField] Transform Mine;
     [SerializeField] Transform passt;
     [SerializeField] Transform passtnicht;
-    Transform newTile;
+
     Transform newr;
     public void Awake()
     {
@@ -58,37 +58,32 @@ public class Streed_gohst : MonoBehaviour
             if (Global.buildmoide == 2)
             {
 
-             
-
                 Mine = go;
                 for (float x = 0; x < Global.Mine_Focus.GrösseX; x++) // float da minus zahlen
                 {
                     for (float y = 0; y < Global.Mine_Focus.GrösseY; y++)
                     {
                         float F=y, G = x;
+                       
                         if (Global.Buildingrotation == 90)
                         {
-                            G = -y;
+                            G =  - y;
                             F = x;
                         }
                         if (Global.Buildingrotation == 0)
                         {
-                            G = -x;
-                            F = -y;
+                            G = - x;
+                            F =  - y;
                         }
                         if (Global.Buildingrotation == 270)
                         {
                             G = y;
-                            F = -x;
+                            F = - x;
                         }
-                        if (Global.Mine_Focus.getcourser(new Vector3(ray.GetPoint(distance).x+G,0,ray.GetPoint(distance).z+F)))
-                        {
-                            Mine = Global.Mine_Focus.CourserPasst;
-                        }
-                        else
-                        {
-                            Mine = Global.Mine_Focus.CourserPasstnicht;
-                        }
+                       
+                         Mine = Global.Mine_Focus.getcourser(new Vector3(ray.GetPoint(distance).x + G, 0, ray.GetPoint(distance).z + F),System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
+                       
+
                         if(Mine != null)newr = Instantiate(Mine, new Vector3(transform.position.x+G,transform.position.y,transform.position.z +F), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
                         if(newr != null)newr.parent = courser;
                     }

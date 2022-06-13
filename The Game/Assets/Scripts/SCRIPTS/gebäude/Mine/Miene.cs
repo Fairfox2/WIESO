@@ -10,11 +10,19 @@ public class Miene : Building_base
     [SerializeField]Transform Building;
     [SerializeField] Transform trans;
 
-    public int[,] plase = new int[1,1] ;
+    [SerializeField] Transform Courser_passt;
+    [SerializeField] Transform Courser_passt_nicht;
 
+    [SerializeField] Transform Courser_straße_passt;
+    [SerializeField] Transform Courser_straße_passt_nicht;
+
+    [SerializeField] Transform Courser_Building_passt;
+    [SerializeField] Transform Courser_Building_passt_nicht;
+
+
+    
     public void Awake()
     {
-        plase = new int[GrösseY, GrösseY];
         singelton = this;
        
     }
@@ -28,90 +36,148 @@ public class Miene : Building_base
             Objekt.Building_placed = true;// Muss alls erstes pasieren sonst wird die rotaion nicht gesetzz
             Objekt.Setrotation(Rotation);
         } 
-        
-        
-        
         if(Setzen == true)
         {
-            Objekt.Mine = trans;
+            Objekt.Building = trans;
         }
         
     }
-    override public bool getcourser(Vector3 World)
+    override public Transform getcourser(Vector3 World,int x,int y)
     {
         Vector3 World_pos = Get_World_Postion(World);
         int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
         int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
-        int x = 0, x1 =0, y1 = 0, y = 0;
-        
-        if (Map.Map_Rohstoffe[X +1, Y] >= 300 && Map.Map_Rohstoffe[X+1 , Y] < 400)
-        {
-            x = 1;
-        }
-        if (Map.Map_Rohstoffe[X-1, Y] >= 300 && Map.Map_Rohstoffe[X-1, Y] < 400)
-        {
-            x1 = 1;
-        }
-        if (Map.Map_Rohstoffe[X, Y+1] >= 300 && Map.Map_Rohstoffe[X, Y+1] < 400)
-        {
-            y = 1;
-        }
-        if (Map.Map_Rohstoffe[X, Y-1] >= 300 && Map.Map_Rohstoffe[X, Y-1] < 400)
-        {
-            y1 = 1;
-        }
+        int x2 = 0, x1 =0, y1 = 0, y2 = 0;
+
         int sum = 0;
-        if (Map.Map_Rohstoffe[X, Y] >= 300 && Map.Map_Rohstoffe[X, Y] < 400)
+
+        if (Plase[(x * (GrösseY)) + y] == 1) // prüfe ob es grass
         {
-            sum = x + x1 + y1 + y;
+            if (Map.Map_Rohstoffe[X + 1, Y] == 1000)
+            {
+                return Courser_straße_passt;
+            }
+            return Courser_straße_passt_nicht;
+            //return Courser_straße_passt_nicht;
         }
-        if(sum == 3)
+        if (Plase[(x * (GrösseY)) + y] == 2)
         {
-            return true;
+            if (Map.Map_Rohstoffe[X + 1, Y] >= 300 && Map.Map_Rohstoffe[X + 1, Y] < 400)
+            {
+                x2 = 1;
+            }
+            if (Map.Map_Rohstoffe[X - 1, Y] >= 300 && Map.Map_Rohstoffe[X - 1, Y] < 400)
+            {
+                x1 = 1;
+            }
+            if (Map.Map_Rohstoffe[X, Y + 1] >= 300 && Map.Map_Rohstoffe[X, Y + 1] < 400)
+            {
+                y2 = 1;
+            }
+            if (Map.Map_Rohstoffe[X, Y - 1] >= 300 && Map.Map_Rohstoffe[X, Y - 1] < 400)
+            {
+                y1 = 1;
+            }
+            if (Map.Map_Rohstoffe[X, Y] >= 300 && Map.Map_Rohstoffe[X, Y] < 400)
+            {
+                sum = +x2 + x1 + y1 + y2;
+            }
+            if (sum == 3)
+            {
+                return Courser_Building_passt;
+            }
+            return Courser_Building_passt_nicht;
         }
-        return false;
+        if (Plase[(x * (GrösseY)) + y] == 3) // prüfe ob es strasse ist 
+        {
+            if (!straße.singleton.Passt(new Vector3(X, 3, Y)))
+            {
+                return Courser_straße_passt;
+            }
+            return Courser_straße_passt_nicht;
+        }
+    
+        return CourserPasst;
     }
     override public bool Mine_Can_build(int X,int Y)
     {
-        int x2 = 0, x1 = 0, y1 = 0, y2 = 0;
-        int sum = 0;
-        for (int x = 0; x < GrösseX; x++)
+       
+        for (int x = 0; x < Global.Mine_Focus.GrösseX; x++) // float da minus zahlen
         {
-            for (int y = 0; y < GrösseY; y++)
+            for (int y = 0; y < Global.Mine_Focus.GrösseY; y++)
             {
+                int F = x, G = y;
 
-                if (Map.Map_Rohstoffe[X + x, Y] >= 300 && Map.Map_Rohstoffe[X + x, Y] < 400)
+                if (Global.Buildingrotation == 90)
                 {
-                    x2 = 1;
+                    G =  - y;
+                    F = x;
                 }
-                if (Map.Map_Rohstoffe[X - x, Y] >= 300 && Map.Map_Rohstoffe[X - x, Y] < 400)
+                if (Global.Buildingrotation == 0)
                 {
-                    x1 = 1;
+                    G =  - x;
+                    F = - y;
                 }
-                if (Map.Map_Rohstoffe[X, Y + y] >= 300 && Map.Map_Rohstoffe[X, Y + y] < 400)
+                if (Global.Buildingrotation == 270)
                 {
-                    y2 = 1;
+                    G = y;
+                    F =  - x;
                 }
-                if (Map.Map_Rohstoffe[X, Y - y] >= 300 && Map.Map_Rohstoffe[X, Y - y] < 400)
+
+                if (Plase[(x * (GrösseY)) + y] == 1) // prüfe ob es grass
                 {
-                    y1 = 1;
+                    
+                    if(Map.Map_Rohstoffe[X + F, Y + G] == 1000)
+                    {
+                        //return false;
+                    }
+                   
+
                 }
-               
-                if (Map.Map_Rohstoffe[X, Y] >= 300 && Map.Map_Rohstoffe[X, Y] < 400)
+                else if (Plase[(x * (GrösseY)) + y] == 2)
                 {
-                    sum +=  + x2 + x1 + y1 + y2;
+                    
+                    int x2 = 0, x1 = 0, y1 = 0, y2 = 0;
+                    int sum = 0;
+                    if (Map.Map_Rohstoffe[X + F + 1, Y + G] >= 300 && Map.Map_Rohstoffe[X + F + 1, Y + G] < 400)
+                    {
+                        x2 = 1;
+                    }
+                    if (Map.Map_Rohstoffe[X + F - 1, Y + G] >= 300 && Map.Map_Rohstoffe[X + F - 1, Y + G] < 400)
+                    {
+                        x1 = 1;
+                    }
+                    if (Map.Map_Rohstoffe[X + F, Y + G + 1] >= 300 && Map.Map_Rohstoffe[X + F, Y + G + 1] < 400)
+                    {
+                        y2 = 1;
+                    }
+                    if (Map.Map_Rohstoffe[X + F, Y +  G -1] >= 300 && Map.Map_Rohstoffe[X + F, Y + G - 1] < 400)
+                    {
+                        y1 = 1;
+                    }
+                    if (Map.Map_Rohstoffe[X+F, Y+G] >= 300 && Map.Map_Rohstoffe[X + F,Y+ G] < 400)
+                    {
+                        
+                        sum = x2 + x1 + y1 + y2;
+
+                    }
+                    if(sum < 2)
+                    {
+                        return false;
+                    }
+
                 }
+                else if (Plase[(x * (GrösseY)) + y] == 3) // prüfe ob es strasse ist 
+                {
+                    if (!straße.singleton.Passt(new Vector3(X, 3, Y)))
+                    {
+                        return false;
+                    }
+                }
+
             }
-        }    
-   
- 
-        if (sum >= 6 ) // formel zur berechnug der nachberteile ZK otto
-        {
-            return true;
         }
-        return false;
-
-
+        return true;
     }
     private Vector3 Get_World_Postion(Vector3 world)
     {
@@ -134,19 +200,45 @@ class MieneEditor: Editor
         Miene Mine = (Miene)target;
 
         var style = new GUIStyle(GUI.skin.button);
-        if(Mine.plase.GetLength(0) != Mine.GrösseX || Mine.plase.GetLength(1) != Mine.GrösseY) Mine.plase = new int[Mine.GrösseX, Mine.GrösseY];
-
+        while (Mine.Plase.Count <=  Mine.GrösseX  * Mine.GrösseY +1)
+        {
+            Mine.Plase.Add(0);
+        }
+        while (Mine.Plase.Count > Mine.GrösseX * Mine.GrösseY  +1)
+        {
+            Mine.Plase.RemoveAt(Mine.Plase.Count-1);
+        }
         for (int i = 0; i < Mine.GrösseX; i++)
         {
             GUILayout.BeginHorizontal();
             for (int s = 0; s < Mine.GrösseY; s++)
             {
-                if (GUILayout.Button(System.Convert.ToString(Mine.plase[i,s]),style, GUILayout.Height(100)))
+                
+                GUI.backgroundColor = Color.black;
+                if (Mine.Plase[(i * (Mine.GrösseY)) + s] == 1)
                 {
-                    
-                   Mine.plase[i,s] = 1+Mine.plase[i, s];
-                   Debug.Log(Mine.plase[i,s]);
+                    GUI.backgroundColor = Color.green;
                 }
+                if (Mine.Plase[(i * (Mine.GrösseY)) + s] == 2)
+                {
+                    GUI.backgroundColor = Color.red;
+                }
+                if (Mine.Plase[(i * (Mine.GrösseY)) + s] == 3)
+                {
+                    GUI.backgroundColor = Color.gray;
+                }
+                
+                if (GUILayout.Button(" ", style, GUILayout.Height(100)))
+                {
+
+                    Mine.Plase[(i * (Mine.GrösseY)) + s] = 1+ Mine.Plase[(i * (Mine.GrösseY)) + s];
+                    if (Mine.Plase[(i * (Mine.GrösseY)) + s] == 4)
+                    {
+                        Mine.Plase[(i * (Mine.GrösseY)) + s] = 0;
+                    }
+                    
+                }
+                
             }
             GUILayout.EndHorizontal();
         }

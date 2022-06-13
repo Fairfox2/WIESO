@@ -95,11 +95,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stein_ecke:
     list:
-    - item: {fileID: -8679921383154817045, guid: e800516ca3594a3499589520b5872679, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 74cc5c0f883e6b24fa196934fc7b1ada, type: 3}
       weight: 3
     - item: {fileID: -8679921383154817045, guid: 0598fe56470e34d4498df2e839648198, type: 3}
       weight: 3
-    - item: {fileID: -8679921383154817045, guid: 74cc5c0f883e6b24fa196934fc7b1ada, type: 3}
+    - item: {fileID: -8679921383154817045, guid: e800516ca3594a3499589520b5872679, type: 3}
       weight: 3
   "Stein_ecke_h\xF6che":
     list:
@@ -109,17 +109,15 @@ MonoBehaviour:
       weight: 5
     - item: {fileID: -8679921383154817045, guid: 9a23842e342d58f48838fa883c6c028a, type: 3}
       weight: 2
-    - item: {fileID: -8679921383154817045, guid: a8d201eeebea8834c910f693a6ff9a56, type: 3}
-      weight: 5
   Stein_rand:
     list:
-    - item: {fileID: -8679921383154817045, guid: fa5312532cc40854e8bea7c0af3cab25, type: 3}
-      weight: 1
-    - item: {fileID: -8679921383154817045, guid: 659ed2f68ee47c944959e62e4009f800, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 316a30b7e82945a41a6f3960b08518f3, type: 3}
       weight: 1
     - item: {fileID: -8679921383154817045, guid: 4d7fb4d2df560bc449c34a750f99888c, type: 3}
       weight: 1
-    - item: {fileID: -8679921383154817045, guid: 316a30b7e82945a41a6f3960b08518f3, type: 3}
+    - item: {fileID: -8679921383154817045, guid: 659ed2f68ee47c944959e62e4009f800, type: 3}
+      weight: 1
+    - item: {fileID: -8679921383154817045, guid: fa5312532cc40854e8bea7c0af3cab25, type: 3}
       weight: 1
   "Stein_rand_h\xF6che":
     list:
@@ -145,6 +143,14 @@ MonoBehaviour:
     list:
     - item: {fileID: -8679921383154817045, guid: de0759f6a98bd6a459e300618f144d16, type: 3}
       weight: 1
+  Stein_kurve_Komisch:
+    list:
+    - item: {fileID: -8679921383154817045, guid: b8fa57abd8f40f24e80d7ce8fecfab28, type: 3}
+      weight: 1
+  Stein_Komische_Ecke:
+    list:
+    - item: {fileID: -8679921383154817045, guid: b8fa57abd8f40f24e80d7ce8fecfab28, type: 3}
+      weight: 1
   Stein_spitze:
     list:
     - item: {fileID: -8679921383154817045, guid: fc9d5ffe6b5b0dd4fb47895680d09e3a, type: 3}
@@ -153,7 +159,7 @@ MonoBehaviour:
       weight: 1
   "Stein_br\xFCcke":
     list:
-    - item: {fileID: -8679921383154817045, guid: 95d5c40b8520d554d86e18359a47cfb0, type: 3}
+    - item: {fileID: -8679921383154817045, guid: c0ecebac3a88c8c45ade665b19d17b9e, type: 3}
       weight: 1
   Stein_boden:
     list:

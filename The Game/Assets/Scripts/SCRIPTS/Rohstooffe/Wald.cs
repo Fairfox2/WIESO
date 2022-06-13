@@ -5,7 +5,7 @@ using UnityEngine;
 public class Wald : Rohstoffe
 {
     #region Wald
-    public static bool random = Global.random;
+    public static bool random = true;
     public WeightedRandomList<Transform> Wälder;
     public WeightedRandomList<Transform> Boden;
     public WeightedRandomList<Transform> Wald_Boden;
@@ -19,10 +19,10 @@ public class Wald : Rohstoffe
        random = Random;
         if (random == true)
         {
-            Objekt.index_boden = Boden.GetRandom();
+            Objekt.Index_Boden = Boden.GetRandom();
             Objekt.Set_Rotation_Random();
         }
-        Objekt.Boden = Boden.Get(Objekt.index_boden);
+        Objekt.Boden = Boden.Get(Objekt.Index_Boden);
 
     }
     public void Wald_boden(Grid_opjekt Objekt, bool Random)
@@ -30,27 +30,21 @@ public class Wald : Rohstoffe
         random = Random;
         if (random == true)
         {
-            Objekt.index_boden = Wald_Boden.GetRandom();
+            Objekt.Index_Boden = Wald_Boden.GetRandom();
             Objekt.Set_Rotation_Random();
         }
-        Objekt.Boden = Wald_Boden.Get(Objekt.index_boden);
+        Objekt.Boden = Wald_Boden.Get(Objekt.Index_Boden);
 
     }
-    public void Wald_erstellen(int GX, int GY, int ZONE, int ZONE_MAX, int anzahl)
-    {
-
+    public void Wald_erstellen( int ZONE, int ZONE_MAX, int anzahl)
+    { 
         bool voll = false;
-
+        int xm = 12;            //Die Maximal grösse des Waldes in de x kordinate 
+        int ym = 12;            //Die Maximal grösse des Waldes in de Y kordinate 
+        int Y ;              //dise Variablen werden später noch verwendent           
+        int X ;
         int[] Chunck_position = new int[4];
-        int xm = 12;
-        int ym = 12;
-        int Y = 0;
-        int X = 0;
-
-
         int[,] Bäume = new int[xm, ym];                                                                     // nur positnin steinfelck 
-        int[,] Wald_block = new int[GY + 2, GX + 2];      // Alle Steine in diesem Chunck  
-
         if (!voll)
         {
             int Zonepos = System.Convert.ToInt32((((Map.Map_grösse - 1) / 2) - ZONE_MAX) * Map.chunck_grösse) - Map.chunck_grösse / 2; // hier brechne ich wie vile zone es gesamt gibt und schau wo mein moentane zone im arra liegt 
@@ -77,7 +71,7 @@ public class Wald : Rohstoffe
                     generieren(min, max, Bäume);
                     Grösse = größe_feststellen(Bäume);
 
-                    bool passt = false;
+                    bool passt;
                     int Kor = 0;
                     int zähler = 0;
                     do
@@ -157,17 +151,15 @@ public class Wald : Rohstoffe
             }
         }
     }
-
     public void Baum(Grid_opjekt Objekt, bool Random)
     {
         random = Random;
         if (random == true)
         {
-            Objekt.index = Wälder.GetRandom();
+            Objekt.Index_Top = Wälder.GetRandom();
             Objekt.Set_Rotation_Random();
         }
-        Objekt.Rohstoff = Wälder.Get(Objekt.index);
-        Objekt.rohstoff = true;
+        Objekt.Rohstoff = Wälder.Get(Objekt.Index_Top);
 
 
     }

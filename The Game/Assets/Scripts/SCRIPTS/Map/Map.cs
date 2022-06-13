@@ -5,7 +5,8 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     // Globale array
-    public static int[,] Map_Rohstoffe;
+    public static long[,] Map_Rohstoffe;
+    public static long[,] Map_Rohstoffe_Boden;
     public static int[,] Map_Straße;
     // save
     public static int[,] Biom = new int[10,3];
@@ -30,12 +31,12 @@ public class Map : MonoBehaviour
         Wald Wälder = new Wald();
         Lehm Lehm = new Lehm();
 
-        Lehm.Lehm_Genarator(6,25,2.3f,4);  // ein lehm der zimlich fix ist das man am anfang lehm hat 
-        Lehm.Lehm_Genarator(Random.Range(10,14),Random.Range(34,45), Random.Range(4,4.5f), 5);  //Random Lehm Biom mit 5-8 lehmstücken und mit dem radius 30-54 auf der Zone 2-3.5 und mit einer Toleranz von 6
-        Wälder.Wald_erstellen(15, 15, 0, 4, 100);
+        //Lehm.Lehm_Genarator(6,25,2.3f,4);  // ein lehm der zimlich fix ist das man am anfang lehm hat 
+        //Lehm.Lehm_Genarator(Random.Range(10,14),Random.Range(34,45), Random.Range(4,4.5f), 5);  //Random Lehm Biom mit 5-8 lehmstücken und mit dem radius 30-54 auf der Zone 2-3.5 und mit einer Toleranz von 6
+        //Wälder.Wald_erstellen(0, 4, 100);
         Berge.Stein_Genarator(0.8,4,25);
-        Wälder.Wald_erstellen(15, 15, 4, 6, 400);
-        Wälder.Wald_erstellen(15, 15,6, 7, 2300);
+       // Wälder.Wald_erstellen( 4, 6, 400);
+        //Wälder.Wald_erstellen(6, 7, 2300);
         // Die Mitte kann auch als rand verwendet werden 
   
         
@@ -62,7 +63,7 @@ public class Map : MonoBehaviour
     }
     public void Awake()
     {
-        Map_Rohstoffe = Map_Straße = new int[System.Convert.ToInt32(chunck_grösse * Map_grösse), System.Convert.ToInt32(chunck_grösse * Map_grösse)];
+        Map_Rohstoffe = Map_Rohstoffe_Boden= new long[System.Convert.ToInt64(chunck_grösse * Map_grösse), System.Convert.ToInt32(chunck_grösse * Map_grösse)];
         Camara_body = transform.Find("Camera_body");
         GeneratMap();
         

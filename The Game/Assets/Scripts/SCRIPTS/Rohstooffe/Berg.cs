@@ -13,6 +13,8 @@ public class Berg : Rohstoffe
     public WeightedRandomList<Transform> Stein_mitte;
     public WeightedRandomList<Transform> Stein_Lose;
     public WeightedRandomList<Transform> Stein_kurve;
+    public WeightedRandomList<Transform> Stein_kurve_Komisch;
+    public WeightedRandomList<Transform> Stein_Komische_Ecke;
     public WeightedRandomList<Transform> Stein_spitze;
     public WeightedRandomList<Transform> Stein_brücke;
     public WeightedRandomList<Transform> Stein_boden;
@@ -28,9 +30,9 @@ public class Berg : Rohstoffe
         random = Random;
         if(random == true)
         {
-            Objekt.index_boden = Berg_wiese.GetRandom();
+            Objekt.Index_Boden = Berg_wiese.GetRandom();
         }
-        Objekt.Boden = Berg_wiese.Get(Objekt.index_boden);
+        Objekt.Boden = Berg_wiese.Get(Objekt.Index_Boden);
     }
     public void Stein_Genarator(double ZONE, int ZONE_MAX, int anzahl)
     {
@@ -43,7 +45,7 @@ public class Berg : Rohstoffe
         int ym = 40;
 
         int[,] Steine = new int[xm, ym];                                                                     // nur positnin steinfelck 
-        int[,] Wald_block = new int[40 + 2, 40 + 2];      // Alle Steine in diesem Chunck  
+              // Alle Steine in diesem Chunck  
 
         int X;
         int Y;
@@ -90,11 +92,11 @@ public class Berg : Rohstoffe
                                 if (Steine[i, r] != 0)
                                 {
 
-                                    if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] > 1001)
+                                    if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 00001000000 && Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 0000000000)
                                     {
 
-                                        passt = false;
-                                        zähler++;
+                                       // passt = false;
+                                        ///zähler++;
                                     }
 
                                     double XK = i - 1 + X - (Zonepos_Max) / 2;
@@ -141,8 +143,8 @@ public class Berg : Rohstoffe
                         {
                             if (Steine[i, r] != 0)
                             {
-
-                                Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 300; //200 weil essicher ein walt wird
+                                print("Berg_wurde_gesetzt");
+                                Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 00010100000;
                             }
                         }
                     }
@@ -150,44 +152,50 @@ public class Berg : Rohstoffe
                     {
                         for (int r = 0; r < Steine.GetLength(1); r++)
                         {
-                            if (Rohstoffe.singleton.BiomVereinfacher(i + Zonepos + X, r + Zonepos + Y, 299, 399, 1, 7) == false)
+                            if (Rohstoffe.singleton.BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 00010100000, 1, 7,100) == false)
                             {
-                                if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] == 1000 || Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] == 0)
-                                    Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 300;
-                                Steine[i, r] = 1;
+                                //if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] == 1000 || Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] == 0)
+                                  //  Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 00010100000;
+                                //Steine[i, r] = 1;
                             }
 
 
                         }
                     }
 
-
+                    
                     for (int i = 0; i < Steine.GetLength(0) + 4 && !voll; i++) // in einem radius von 2 blöcken wird der boden random verändert
                     {
                         for (int r = 0; r < Steine.GetLength(1) + 4; r++)
                         {
-                            if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] == 1000 || Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] == 0)
-                            {
-                                if (BiomVereinfacher(i + Zonepos + X, r + Zonepos + Y, 299, 399, 2, 3) == false)
-                                    Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 1050;
 
-                            }
+                                if (BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 00010100000, 2, 3,100) == false)
+                                {
+                                   ////Map.Map_Rohstoffe_Boden[i + Zonepos + X, r + Zonepos + Y] = 00010100000;
+                                }
+
+
+                            
 
                         }
                     }
+                    
                     for (int b = 0; b < 100; b++)   // hir verwenden wir eine for schleife mit fix hundert schritten wenn der berg mehr wie hundert ebene aht blöd keine while schleife aus sicher heits gründe
                     {
                         for (int i = 0; i < Steine.GetLength(0) && !voll; i++)
                         {
                             for (int r = 0; r < Steine.GetLength(1); r++)
                             {
-                                if (Rohstoffe.singleton.BiomVereinfacher(i + Zonepos + X, r + Zonepos + Y, 299 + b, 350, 1, 9) == false) //hier werden dier ebenen bestimmt 
+
+                                if (Rohstoffe.singleton.BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 10100000 + b, 1, 8,1) == false) //hier werden dier ebenen bestimmt 
                                 {
-                                    Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 301 + b;
+                                    
+                                    Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] ++;
                                 }
                             }
                         }
                     }
+                    
                     //++++ ins grid setzen 
 
                 }
@@ -195,266 +203,233 @@ public class Berg : Rohstoffe
             }
         }
     }
-    public void Berg_setzen(int[,] Stein_block, Grid_opjekt gr, int X, int Y,bool Random)
+    public void Berg_setzen(long [,] Stein_block, Grid_opjekt gr, int X, int Y,bool Random)
     {
         random = Random;
         //   ?
         int q = X;
         int e = Y;
-        int ebene = gr.Rohstoffe_ID - 300; 
+        int ebene = gr.zusatz_Top ; 
 
-        int Obergrenze = 400;
-        if(ebene > 0) { Obergrenze = 350;  } // ab ebene 1 werden  gebäude nicht mehr gezählt da alle gebäde au ebene 0 sind 
-        if (Stein_block[q, e] == 300 + ebene)   // ? # ?
-        {                           //   ?
-
-            //    ?
-            if (Stein_block[q - 1, e] >= 300  && Stein_block[q - 1, e] < Obergrenze)
-                 // '# # ?
-            {                     //    ?
-
-                //    ?
-                if (Stein_block[q + 1, e] >= 300 + ebene && Stein_block[q + 1, e] < Obergrenze)   //  # # '#
-                {                           //    ?
-
-                    //   ?
-                    if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < Obergrenze)   // # # #
-                    {                           //  '#
-
-                        //  '
-                        if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)   // # # #
-                        {
+     
 
 
-                            if (Stein_block[q + 1, e + 1] >= 300 + ebene && Stein_block[q + 1, e + 1] < Obergrenze)
-                            {
-                                if (Stein_block[q - 1, e + 1] >= 300 + ebene && Stein_block[q - 1, e + 1] < Obergrenze)
-                                {
-                                    if (Stein_block[q + 1, e - 1] >= 300 + ebene && Stein_block[q + 1, e - 1] < Obergrenze)
-                                    {
-                                        if (Stein_block[q - 1, e - 1] >= 300 + ebene && Stein_block[q - 1, e - 1] < Obergrenze)
-                                        {
-                                            Stein_Mitte(gr);
-                                        
-                                        }
-                                        else
-                                        {
-                                            Stein_Kurve(gr, 0);
-                                        }
-                                         
-                                    }
-                                    else
-                                    {
-                                        Stein_Kurve(gr, 270);
-                                    }
+        int[,] Umkreis = new int[3,3];
+        #region Abtasten
 
-                                }
-                                else
-                                {
-                                    Stein_Kurve(gr, 90);
-                                }
-                            }
-                            else
-                            {
-                                Stein_Kurve(gr, 180);
-                            }
-
-                        }
-                        else
-                        {
-                            if (Stein_block[q - 1, e - 1] >= 300 + ebene && Stein_block[q - 1, e - 1] < Obergrenze || ebene == 0)
-                            {
-                                if (Stein_block[q + 1, e - 1] >= 300 + ebene && Stein_block[q + 1, e - 1] < Obergrenze || ebene == 0)
-                                {
-                                    
-                                        Stein_Rand(gr, 180, ebene);
-                                    
-                                }
-                                else
-                                {
-
-                                    Stein_Ecke(gr, 270, ebene); //
-                                }
-                            }
-                            else
-                            {
-
-                                Stein_Ecke(gr, 180, ebene);    //
-                            }
-                        }
-                    }
-                    else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)
-                    {
-                        if (Stein_block[q - 1, e + 1] >= 300 + ebene && Stein_block[q - 1, e + 1] < Obergrenze || ebene == 0)
-                        {
-                            if (Stein_block[q + 1, e + 1] >= 300 + ebene && Stein_block[q + 1, e + 1] < Obergrenze || ebene == 0)
-                            {
-                             
-                                    Stein_Rand(gr, 0, ebene);
-                                 
-                            }
-                            else
-                            {
-
-                                Stein_Ecke(gr, 0, ebene); //
-                            }
-                        }
-                        else
-                        {
-
-                            Stein_Ecke(gr, 90, ebene); //
-                        }
-                    }
-                    else if (ebene < 1)  // nicht mehr in eben 1 und drüber 
-                    {
-                        Stein_Brücke(gr, 180);
-                    }
-                    else
-                    {
-                        Stein_Mitte(gr);
-                    }
+        if (Stein_block[q-1, e - 1] % 100000000 - Stein_block[q - 1, e - 1] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)   // # # #
+        {
+            Umkreis[0, 0] = 1;
+        }
+        if (Stein_block[q - 1, e ] % 100000000 - Stein_block[q - 1, e ] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)    // # # #
+        {
+            Umkreis[0, 1] = 1;
+        }
+        if (Stein_block[q - 1, e+1] % 100000000 - Stein_block[q - 1, e+1] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)    // # # #
+        {
+            Umkreis[0, 2] = 1;
+        }
+        if (Stein_block[q , e - 1] % 100000000 - Stein_block[q , e - 1] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)   // # # #
+        {
+            Umkreis[1, 0] = 1;
+        }
 
 
-                }                               //    ?
-                else if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < Obergrenze)  //  # # -
-                {                               //   '#
+        if (Stein_block[q, e + 1] % 100000000 - Stein_block[q, e + 1] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)  // # # #
+        {
+            Umkreis[1, 2] = 1;
+        }
+        if (Stein_block[q+1, e - 1] % 100000000 - Stein_block[q+1, e - 1] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)   // # # #
+        {
+            Umkreis[2, 0] = 1;
+        }
+        if (Stein_block[q + 1, e ] % 100000000 - Stein_block[q + 1, e] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)   // # # #
+        {
+            Umkreis[2, 1] = 1;
+        }
+        if (Stein_block[q + 1, e+1] % 100000000 - Stein_block[q + 1, e+1] % 10000 == 00010100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)   // # # #
+        {
+            Umkreis[2, 2] = 1;
+        }
+        #endregion
+        //hier bild ich die summe 
+        int Summe = Umkreis[1, 0] + Umkreis[0, 1] + Umkreis[1, 2] + Umkreis[2, 1];
+        int Summe2 = 0;
+        for (int i = 0; i < Umkreis.GetLength(0); i++)
+        {
+            for (int f = 0; f < Umkreis.GetLength(1); f++)
+            {
+                Summe2 += Umkreis[i, f];
+            }
+        }
 
-                    //  '#
-                    if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)     // # # -
-                    {                                                                           //   #
-                        if (Stein_block[q - 1, e - 1] >= 300 + ebene && Stein_block[q - 1, e - 1] < Obergrenze || ebene == 0)
-                        {
-                            if (Stein_block[q - 1, e + 1] >= 300 + ebene && Stein_block[q - 1, e + 1] < Obergrenze || ebene == 0)
-                            {
-                                 Stein_Rand(gr, 270, ebene);
-                                
-                            }
-                            else
-                            {
+        if(Summe == 0 && ebene != 0)
+        {
+            Stein_Spitze(gr);
+        }
+        if(Summe == 1)
+        {        
+            Stein_Mitte(gr);
+            
+        }
+        if(Summe == 2)
+        {
+         
+            //ecken
+            if(Umkreis[0, 1] == 1 && Umkreis[1, 0] == 1 && Umkreis[0, 0] == 1)
+            {
+                Stein_Ecke(gr, 270,ebene);
+            }
+            else if(Umkreis[0, 1] == 1 && Umkreis[1, 2] == 1 && Umkreis[0, 2] == 1)
+            {
+                Stein_Ecke(gr, 0, ebene);
+            }
+            else if(Umkreis[2, 1] == 1 && Umkreis[1, 2] == 1 && Umkreis[2, 2] == 1)
+            {
+                Stein_Ecke(gr, 90, ebene);
+            }
+            else if(Umkreis[1, 0] == 1 && Umkreis[2, 1] == 1 && Umkreis[2, 0] == 1)
+            {
+                Stein_Ecke(gr, 180, ebene);
+            }
+            else
+            {
+                Stein_Mitte(gr);
+            }
 
-                                Stein_Ecke(gr, 270, ebene);
-                            }
-                        }
-                        else
-                        {
-
-                            Stein_Ecke(gr, 0, ebene);
-                        }
-                    }
-                    else
+        }
+        if(Summe == 3)
+        {
+            if (Umkreis[2, 1] == 1 && Umkreis[0, 1] == 1 && Umkreis[1, 0] == 1 && Umkreis[1, 2] == 0)
+            {
+                Stein_Rand(gr, 180, ebene);
+                if ((Summe2 == 4 || Summe2 == 5))
+                {
+                    if (Umkreis[2, 0] == 0)
                     {
                         Stein_Ecke(gr, 270, ebene);
                     }
-
-                }
-
-                //  '#
-                else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)  // # # -
-                {                                                                             //   -
-                    Stein_Ecke(gr, 0, ebene);
-                }
-
-                else if (ebene < 1) // nicht mehr in eben 1 und drüber 
-                {
-                    Stein_lose(gr, 180);
-
-                }
-                else
-                {
-                    Stein_Mitte(gr);
-                }
-
-
-            }                          //   ?
-            else if (Stein_block[q + 1, e] >= 300 + ebene && Stein_block[q + 1, e] < Obergrenze) // - # '#
-            {                          //   ?
-
-                //   ?
-                if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < Obergrenze)   // - # #
-                {                           //  '#
-
-                    //  '#
-                    if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)     // - # #
-                    {                                   //   #
-                        if (Stein_block[q + 1, e + 1] >= 300 + ebene && Stein_block[q + 1, e + 1] < Obergrenze || ebene == 0)
-                        {
-                            if (Stein_block[q + 1, e - 1] >= 300 + ebene && Stein_block[q + 1, e - 1] < Obergrenze)
-                            {
-                            
-                                    Stein_Rand(gr, 90, ebene);
-                                
-                            }
-                            else
-                            {
-
-                                Stein_Ecke(gr, 90, ebene);
-                            }
-                        }
-                        else
-                        {
-
-                            Stein_Ecke(gr, 00, ebene);
-                        }
-                    }
-                    else
+                    if (Umkreis[0, 0] == 0)
                     {
                         Stein_Ecke(gr, 180, ebene);
                     }
-                }                                       //  '#
-                else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)    // - # #
-                {                                       //   -
-                    Stein_Ecke(gr, 90, ebene);
                 }
-                else if (ebene < 1) // nicht mehr in eben 1 und drüber 
-                {
-                    Stein_lose(gr, 0);
-                }
-                else
-                {
-                    Stein_Mitte(gr);
-                }
-            }                                //   ?
-            else if (Stein_block[q, e - 1] >= 300 + ebene && Stein_block[q, e - 1] < Obergrenze)    // - # -
-            {                                //  '#
-
-                //  '#
-                if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < 400 && ebene < 1)   // - # -
-                {                           //   #
-                    Stein_Brücke(gr, 180);
-                }
-                else if (ebene < 1) // nicht mehr in eben 1 und drüber 
-                {
-                    Stein_lose(gr, 90);
-                }
-                else
-                {
-                    Stein_Mitte(gr);
-                }
-
+       
             }
-            else if (Stein_block[q, e + 1] >= 300 + ebene && Stein_block[q, e + 1] < Obergrenze)
+            else if (Umkreis[1, 0] == 1 && Umkreis[1, 2] == 1 && Umkreis[2, 1] == 0 && Umkreis[0, 1] == 1)
             {
-
-                if (ebene > 0)
+                Stein_Rand(gr, 270, ebene);
+                if ((Summe2 == 4|| Summe2 == 5))
                 {
-                    Stein_Spitze(gr);
-                }
-                else
-                {
-                    if (ebene > 0)
+                    if (Umkreis[0, 0] == 0)
                     {
-                        Stein_Mitte(gr);
+                        Stein_Ecke(gr, 0, ebene);
                     }
-                    else
+                    if (Umkreis[0, 2] == 0)
                     {
-                        Stein_lose(gr, 270);
-
+                        Stein_Ecke(gr,270, ebene);
                     }
                 }
             }
-            else { Stein_Spitze(gr); }
+            else if (Umkreis[1, 0] == 0 && Umkreis[1, 2] == 1 && Umkreis[2, 1] == 1 && Umkreis[0, 1] == 1)
+            {  
+                Stein_Rand(gr, 00, ebene);
+                if ( (Summe2 == 4 || Summe2 == 5))
+                {
+                    if (Umkreis[2, 2] == 0)
+                    {
+                        Stein_Ecke(gr, 0, ebene);
+                    }
+                    if(Umkreis[0, 2] == 0)
+                    {
+                        Stein_Ecke(gr, 90, ebene);
+                    }
+                }
+            }
+            
+            else if (Umkreis[1, 0] == 1 && Umkreis[1, 2] == 1 && Umkreis[2, 1] == 1 && Umkreis[0, 1] == 0)      
+            {
+                Stein_Rand(gr, 90, ebene);
+                if ((Summe2 == 4 || Summe2 == 5))
+                {
+                    if (Umkreis[2, 2] == 0)
+                    {
+                        Stein_Ecke(gr, 180, ebene);
+                    }
+                    if (Umkreis[0, 2] == 0)
+                    {
+                        Stein_Ecke(gr, 90, ebene);
+                    }
+                }
+            }
+
+            if (Summe2 == 3)
+            {
+                Stein_Spitze(gr);
+            }
 
         }
+        if(Summe == 4)
+        {
+            if(Summe2== 8)
+            {
+                Stein_Mitte(gr);
+            }
+            else if (Summe2 == 7)
+            {
+                if (Umkreis[0, 0] == 1 && Umkreis[2, 0] == 1 && Umkreis[2, 2] == 1 && Umkreis[0, 2] == 0)
+                {
+                    Stein_Kurve(gr, 90);
+                }
+                if (Umkreis[0, 0] == 1 && Umkreis[2, 0] == 1 && Umkreis[2, 2] == 0 && Umkreis[0, 2] == 1)
+                {
+                    Stein_Kurve(gr, 180);
+                }
+                if (Umkreis[0, 0] == 1 && Umkreis[2, 0] == 0 && Umkreis[2, 2] == 1 && Umkreis[0, 2] == 1)
+                {
+                    Stein_Kurve(gr, 270);
+                }
+                if (Umkreis[0, 0] == 0 && Umkreis[2, 0] == 1 && Umkreis[2, 2] == 1 && Umkreis[0, 2] == 1)
+                {
+                    Stein_Kurve(gr, 0);
+                }
+            }
+            else if (Summe2 == 6)
+            {
+
+                if (Umkreis[0, 0] == 1 && Umkreis[2, 2] == 1)
+                {
+                    Stein_Kurve_Komisch(gr, 90);
+                }
+                else if (Umkreis[0, 2] == 1 && Umkreis[2, 0] == 1)
+                {
+                    Stein_Kurve_Komisch(gr, 0);
+                }
+                else if (Umkreis[0, 0] == 1)
+                {
+                    Stein_Rand(gr, -90, ebene);
+                }
+                else if (Umkreis[2, 2] == 1)
+                {
+                    Stein_Rand(gr, 90, ebene);
+                }
+                else if (Umkreis[0, 2] == 1)
+                {
+                    Stein_Rand(gr, 10, ebene);
+                }
+                else if (Umkreis[2, 0] == 1)
+                {
+                    Stein_Rand(gr, 50, ebene);
+                }
+            }
+            if(Summe2 == 3)
+            {
+                Stein_Spitze(gr);
+            }
+
+        }
+
+
         if(random == true) gr.value += ebene * 1.3f; ;
         
       
@@ -462,9 +437,9 @@ public class Berg : Rohstoffe
         {
             if(random == true)
             {
-                gr.index_boden = Stein_boden.GetRandom();
+                gr.Index_Boden = Stein_boden.GetRandom();
             }
-            gr.Boden = Stein_boden.Get(gr.index_boden);
+            gr.Boden = Stein_boden.Get(gr.Index_Boden);
         }
         else
         {
@@ -478,20 +453,18 @@ public class Berg : Rohstoffe
     {
         if (random == true)
         {
-            Objekt.index = Stein_ecke_höche.GetRandom();
+            Objekt.Index_Top = Stein_ecke_höche.GetRandom();
             if (ebene <= 0)
             {
-                Objekt.index = Stein_ecke.GetRandom();
+                Objekt.Index_Top = Stein_ecke.GetRandom();
             }
         }
         Transform element = null; ;
+
+        element = Stein_ecke_höche.Get(Objekt.Index_Top);
         if (ebene <= 0)
         {
-            element = Stein_ecke.Get(Objekt.index);
-        }
-        else
-        {
-            element = Stein_ecke_höche.Get(Objekt.index);
+            element = Stein_ecke.Get(Objekt.Index_Top);
         }
         Objekt.Rohstoff = element;
         Objekt.Setrotation(winkel);
@@ -500,27 +473,37 @@ public class Berg : Rohstoffe
     {
         if (random == true)
         {
-            Objekt.index = Stein_Lose.GetRandom();
+            Objekt.Index_Top = Stein_Lose.GetRandom();
         }
-        Objekt.Rohstoff = Stein_Lose.Get(Objekt.index);
+        Objekt.Rohstoff = Stein_Lose.Get(Objekt.Index_Top);
         Objekt.Setrotation(winkel);
     }
     private void Stein_Brücke(Grid_opjekt Objekt, int winkel)
     {
         if (random == true)
         {
-            Objekt.index = Stein_Lose.GetRandom();
+            Objekt.Index_Top = Stein_Lose.GetRandom();
         }
-        Objekt.Rohstoff = Stein_Lose.Get(Objekt.index);
+        Objekt.Rohstoff = Stein_Lose.Get(Objekt.Index_Top);
         Objekt.Setrotation(winkel);
     }
     private void Stein_Kurve(Grid_opjekt Objekt, int winkel)
     {
         if (random == true)
         {
-            Objekt.index = Stein_kurve.GetRandom();
+            Objekt.Index_Top = Stein_kurve.GetRandom();
         }
-        Objekt.Rohstoff = Stein_kurve.Get(Objekt.index);
+        Objekt.Rohstoff = Stein_kurve.Get(Objekt.Index_Top);
+        Objekt.Setrotation(winkel);
+    }
+    private void Stein_Kurve_Komisch(Grid_opjekt Objekt, int winkel)
+    {
+        if (random == true)
+        {
+            Objekt.Index_Top = Stein_kurve_Komisch.GetRandom();
+        }
+        print("kureve ");
+        Objekt.Rohstoff = Stein_kurve_Komisch.Get(Objekt.Index_Top);
         Objekt.Setrotation(winkel);
     }
 
@@ -528,40 +511,40 @@ public class Berg : Rohstoffe
     {
         if (random == true)
         {
-            Objekt.index = Stein_spitze.GetRandom();
+            Objekt.Index_Top = Stein_spitze.GetRandom();
             Objekt.Set_Rotation_Random();
         }
-        Objekt.Rohstoff = Stein_spitze.Get(Objekt.index);
+        Objekt.Rohstoff = Stein_spitze.Get(Objekt.Index_Top);
 
     }
     private void Stein_Mitte(Grid_opjekt Objekt)
     {
         if (random == true)
         {
-            Objekt.index = Stein_mitte.GetRandom();
+            Objekt.Index_Top = Stein_mitte.GetRandom();
             Objekt.Set_Rotation_Random();
         }
-        Objekt.Rohstoff = Stein_mitte.Get(Objekt.index);
+        Objekt.Rohstoff = Stein_mitte.Get(Objekt.Index_Top);
         
     }
     private void Stein_Rand(Grid_opjekt Objekt, int winkel,int ebene)
     {
         if (random == true)
         {
-            Objekt.index = Stein_rand_höche.GetRandom();
+            Objekt.Index_Top = Stein_rand_höche.GetRandom();
             if (ebene <= 0)
             {
-                Objekt.index = Stein_rand.GetRandom();
+                Objekt.Index_Top = Stein_rand.GetRandom();
             }
         }
         Transform element = null;
         if (ebene <= 0)
         {
-            element = Stein_rand.Get(Objekt.index);
+            element = Stein_rand.Get(Objekt.Index_Top);
         }
         else
         {
-            element = Stein_rand_höche.Get(Objekt.index);
+            element = Stein_rand_höche.Get(Objekt.Index_Top);
         }
         Objekt.Rohstoff = element;
         Objekt.Setrotation(winkel);

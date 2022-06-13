@@ -32,7 +32,7 @@ public class Lager : MonoBehaviour
         }
         if (Setzen == true)
         {
-            Objekt.Mine = lager;
+            Objekt.Building = lager;
         }
 
     }

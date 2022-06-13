@@ -5,9 +5,7 @@ using UnityEngine;
 public class Rohstoffe : MonoBehaviour
 {
     public static Rohstoffe singleton { set; get; }
-
     bool voll;
-
     private void Awake()
     {
         singleton = this;
@@ -16,16 +14,15 @@ public class Rohstoffe : MonoBehaviour
     public void generieren(int Min, int Max, int[,] element)
     {
         int min = Min, max = Max;
-        int safe = 0;                                                               // safevariable dass wir nicht in der whilöe schleife hängenbleiben 
-        if (min < 1) { min = 0; }
-        if (max < 2) { max = 2; }
-        if (min == 0 && max == 1)
+        int safe = 0;                                                               // safevariable dass wir nicht in der while schleife hängenbleiben 
+        if (min < 1) { min = 0; }                                                   // Sicherheits vorkehrung 
+        if (max < 2) { max = 2; }                                                   // Sicherheits vorkehrung 
+        if (min == 0 && max == 1)                                                   // Fals min gleich null ist und max == 1 kann man nicht generieren 
         {
-            print("Fehler: Chunck ist zu klein element hat keinen platz");
             voll = true;
         }
 
-        if (max > ((element.GetLength(0) - 2) * (element.GetLength(0) - 2)))        // sicherheit
+        if (max > ((element.GetLength(0) - 2) * (element.GetLength(0) - 2)))        // Sicherheits vorkehrung max darf nmicht grösser sein wie es pltz gibt im Array
         {
             print("max erreicht ");
             max = ((element.GetLength(0) - 2) * (element.GetLength(0) - 2));
@@ -33,37 +30,36 @@ public class Rohstoffe : MonoBehaviour
 
         element_rücksetzen(element);                                                // rücksetzen des elment fals es schon beschriebenen ist
 
-        int sum = 4;
-        int sum_z = 4;
+   
         int x = element.GetLength(0) / 2;
         int y = element.GetLength(1) / 2;
-        int Ra = Random.Range(min, max + 1);
+        element[x, y] = 1;                                      // Genau in der mit den erste punkt setzen 
+        int sum = 1;
+        int sum_z = 1;                                         // die Summe ist nun 1
+        int Ra = Random.Range(min, max + 1);                   // diese variable gibt an wie viele pixel gesetzt werden 
         for (int i = 0; i < Ra; i++)                           // Random defiiniert wei viele pixels erstellt werden 
         {
             do
             {
                 safe++;                                                            // safe variable hochzächlen 
-                int h = Random.Range(0, 4);
-                if (h == 3 && x != element.GetLength(0) - 2) { x++; }
+                int h = Random.Range(0, 4);                                        // in eine Random richtung gehen
+                if (h == 3 && x != element.GetLength(0) - 2) { x++; }              // je nach der random zahl gehen wir in eine Richtung 
                 if (h == 2 && y != element.GetLength(1) - 2) { y++; }
                 if (h == 1 && x != 1) { x--; }
                 if (h == 0 && y != 1) { y--; }
-                if (element[x, y] != 1)
+                if (element[x, y] != 1)                                            //wir sind in die richtung gegangen und fals dieser pixel noch micht 1 ist setzen wir es ein und die summe wird um 1 erhöcht
                 {
                     element[x, y] = 1;
                     sum++;
                 }
-            } while (sum == sum_z && safe >= 1000);
-            safe = 0;
-            sum_z = sum;
+            } while (sum == sum_z && safe >= 1000);                          //  dieser Vorgang wird so lang gemacht bis die summe um 1 erhöcht wird oder wir die safevariable überschritten haben 
+            safe = 0;           //safe variable rücksetzen 
+            sum_z = sum;        //summe gleich der summesafe setzen
         }
-        if (voll)
+        if (voll)   
         {
             element_rücksetzen(element);
         }
-        // schauen ob ein teil eingeschlossen ist 
-
-
     }
     public void generieren_spezial(int Min, int Max, int[,] element)
     {
@@ -186,7 +182,7 @@ public class Rohstoffe : MonoBehaviour
     public int[] größe_feststellen(int[,] element)
     {
 
-        int[] cords = new int[4];
+        int[] cords = new int[4]; // hier verwende ich ein arry damit ich nicht vier variablen habe 
         cords[0] = 0;
         cords[1] = 0;
         cords[2] = element.GetLength(0);
@@ -241,24 +237,21 @@ public class Rohstoffe : MonoBehaviour
         }
         return element;
     }
-
-    #endregion
-    public bool BiomVereinfacher(int X, int Y, int element, int element2, int radius, int anzahl)
+    public bool BiomVereinfacher(long[,] Map ,int X, int Y, long element, int radius, int anzahl,int diffident)
     {
-
         int elemnte = 0;
         for (int i = 0; i < radius * 2 + 1; i++) //radius mal 2 da durchmesser 
         {
             for (int r = 0; r < radius * 2 + 1; r++)
             {
-                if (Map.Map_Rohstoffe[X + i - radius, Y + r - radius] > element && Map.Map_Rohstoffe[X + i - radius, Y + r - radius] < element2)
+                if ((Map[X + i - radius, Y + r - radius]% 1000000000) - (Map[X + i - radius, Y + r - radius]% diffident) == element )
                 {
                     elemnte++;
                 }
                     
                 if (elemnte == anzahl)
                 {
-                    elemnte = 0;
+                    
                     return false;
                 }
             }
@@ -266,6 +259,7 @@ public class Rohstoffe : MonoBehaviour
      
         return true;
     }
-}  
+    #endregion
+}
 
 
