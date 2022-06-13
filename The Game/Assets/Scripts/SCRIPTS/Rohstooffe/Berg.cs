@@ -92,11 +92,11 @@ public class Berg : Rohstoffe
                                 if (Steine[i, r] != 0)
                                 {
 
-                                    if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 00001000000 && Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 0000000000)
+                                    if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 00010000000 && Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 0000000000)
                                     {
 
-                                       // passt = false;
-                                        ///zähler++;
+                                       passt = false;
+                                       zähler++;
                                     }
 
                                     double XK = i - 1 + X - (Zonepos_Max) / 2;
@@ -180,20 +180,33 @@ public class Berg : Rohstoffe
                         }
                     }
                     
-                    for (int b = 0; b < 100; b++)   // hir verwenden wir eine for schleife mit fix hundert schritten wenn der berg mehr wie hundert ebene aht blöd keine while schleife aus sicher heits gründe
+                    for (int b = 0; b < 30; b++)   // hir verwenden wir eine for schleife mit fix hundert schritten wenn der berg mehr wie hundert ebene aht blöd keine while schleife aus sicher heits gründe
                     {
                         for (int i = 0; i < Steine.GetLength(0) && !voll; i++)
                         {
                             for (int r = 0; r < Steine.GetLength(1); r++)
                             {
 
-                                if (Rohstoffe.singleton.BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 10100000 + b, 1, 8,1) == false) //hier werden dier ebenen bestimmt 
+                                if (Rohstoffe.singleton.BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 10100000 + b, 1, 9,1) == false) //hier werden dier ebenen bestimmt 
                                 {
                                     
-                                    Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] ++;
+                                    Steine[i,r]++;
                                 }
                             }
                         }
+                        for (int i = 0; i < Steine.GetLength(0) && !voll; i++)
+                        {
+                            for (int r = 0; r < Steine.GetLength(1); r++)
+                            {
+
+                                if (Steine[i, r] == 2 + b)
+                                {
+                                    Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 10100000 + b + 1;
+                                }
+                                
+                            }
+                        }
+
                     }
                     
                     //++++ ins grid setzen 
@@ -209,7 +222,7 @@ public class Berg : Rohstoffe
         //   ?
         int q = X;
         int e = Y;
-        int ebene = gr.zusatz_Top ; 
+        int ebene = gr.Zusatz_Top; 
 
      
 
@@ -217,37 +230,37 @@ public class Berg : Rohstoffe
         int[,] Umkreis = new int[3,3];
         #region Abtasten
 
-        if (Stein_block[q-1, e - 1] % 100000000 - Stein_block[q - 1, e - 1] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)   // # # #
+        if (Stein_block[q-1, e - 1] % 100000000 - Stein_block[q - 1, e - 1] % 10000 == 10100000 && (Stein_block[q - 1, e - 1] % 100) >= ebene)   // # # #
         {
             Umkreis[0, 0] = 1;
         }
-        if (Stein_block[q - 1, e ] % 100000000 - Stein_block[q - 1, e ] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)    // # # #
+        if (Stein_block[q - 1, e ] % 100000000 - Stein_block[q - 1, e ] % 10000 == 10100000 && (Stein_block[q - 1, e ] % 100) >= ebene)    // # # #
         {
             Umkreis[0, 1] = 1;
         }
-        if (Stein_block[q - 1, e+1] % 100000000 - Stein_block[q - 1, e+1] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)    // # # #
+        if (Stein_block[q - 1, e+1] % 100000000 - Stein_block[q - 1, e+1] % 10000 == 10100000 && (Stein_block[q - 1, e + 1] % 100) >= ebene)    // # # #
         {
             Umkreis[0, 2] = 1;
         }
-        if (Stein_block[q , e - 1] % 100000000 - Stein_block[q , e - 1] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)   // # # #
+        if (Stein_block[q , e - 1] % 100000000 - Stein_block[q , e - 1] % 10000 == 10100000 && (Stein_block[q , e - 1] % 100) >= ebene)   // # # #
         {
             Umkreis[1, 0] = 1;
         }
 
 
-        if (Stein_block[q, e + 1] % 100000000 - Stein_block[q, e + 1] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)  // # # #
+        if (Stein_block[q, e + 1] % 100000000 - Stein_block[q, e + 1] % 10000 == 10100000 && (Stein_block[q , e+ 1] % 100) >= ebene)  // # # #
         {
             Umkreis[1, 2] = 1;
         }
-        if (Stein_block[q+1, e - 1] % 100000000 - Stein_block[q+1, e - 1] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)   // # # #
+        if (Stein_block[q+1, e - 1] % 100000000 - Stein_block[q+1, e - 1] % 10000 == 10100000 && (Stein_block[q + 1, e - 1] % 100) >= ebene)   // # # #
         {
             Umkreis[2, 0] = 1;
         }
-        if (Stein_block[q + 1, e ] % 100000000 - Stein_block[q + 1, e] % 10000 == 10100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)   // # # #
+        if (Stein_block[q + 1, e ] % 100000000 - Stein_block[q + 1, e] % 10000 == 10100000 &&( Stein_block[q + 1, e ] % 100) >= ebene)   // # # #
         {
             Umkreis[2, 1] = 1;
         }
-        if (Stein_block[q + 1, e+1] % 100000000 - Stein_block[q + 1, e+1] % 10000 == 00010100000 && Stein_block[q - 1, e - 1] % 100 == gr.zusatz_Top)   // # # #
+        if (Stein_block[q + 1, e+1] % 100000000 - Stein_block[q + 1, e+1] % 10000 == 00010100000 && (Stein_block[q + 1, e + 1] % 100) >= ebene)   // # # #
         {
             Umkreis[2, 2] = 1;
         }
@@ -303,8 +316,7 @@ public class Berg : Rohstoffe
             if (Umkreis[2, 1] == 1 && Umkreis[0, 1] == 1 && Umkreis[1, 0] == 1 && Umkreis[1, 2] == 0)
             {
                 Stein_Rand(gr, 180, ebene);
-                if ((Summe2 == 4 || Summe2 == 5))
-                {
+
                     if (Umkreis[2, 0] == 0)
                     {
                         Stein_Ecke(gr, 270, ebene);
@@ -313,14 +325,13 @@ public class Berg : Rohstoffe
                     {
                         Stein_Ecke(gr, 180, ebene);
                     }
-                }
+                
        
             }
             else if (Umkreis[1, 0] == 1 && Umkreis[1, 2] == 1 && Umkreis[2, 1] == 0 && Umkreis[0, 1] == 1)
             {
                 Stein_Rand(gr, 270, ebene);
-                if ((Summe2 == 4|| Summe2 == 5))
-                {
+
                     if (Umkreis[0, 0] == 0)
                     {
                         Stein_Ecke(gr, 0, ebene);
@@ -329,13 +340,12 @@ public class Berg : Rohstoffe
                     {
                         Stein_Ecke(gr,270, ebene);
                     }
-                }
+                
             }
             else if (Umkreis[1, 0] == 0 && Umkreis[1, 2] == 1 && Umkreis[2, 1] == 1 && Umkreis[0, 1] == 1)
             {  
                 Stein_Rand(gr, 00, ebene);
-                if ( (Summe2 == 4 || Summe2 == 5))
-                {
+
                     if (Umkreis[2, 2] == 0)
                     {
                         Stein_Ecke(gr, 0, ebene);
@@ -344,23 +354,22 @@ public class Berg : Rohstoffe
                     {
                         Stein_Ecke(gr, 90, ebene);
                     }
-                }
+                
             }
             
             else if (Umkreis[1, 0] == 1 && Umkreis[1, 2] == 1 && Umkreis[2, 1] == 1 && Umkreis[0, 1] == 0)      
             {
                 Stein_Rand(gr, 90, ebene);
-                if ((Summe2 == 4 || Summe2 == 5))
-                {
+
                     if (Umkreis[2, 2] == 0)
                     {
                         Stein_Ecke(gr, 180, ebene);
                     }
-                    if (Umkreis[0, 2] == 0)
+                    if (Umkreis[2, 0] == 0)
                     {
                         Stein_Ecke(gr, 90, ebene);
                     }
-                }
+               
             }
 
             if (Summe2 == 3)
@@ -430,7 +439,7 @@ public class Berg : Rohstoffe
         }
 
 
-        if(random == true) gr.value += ebene * 1.3f; ;
+        gr.value = 2 + ebene * 1.3f; ;
         
       
         if (ebene > 0)

@@ -259,6 +259,28 @@ public class Rohstoffe : MonoBehaviour
      
         return true;
     }
+    public bool BiomVereinfacher(int[,] Map, int X, int Y, long element, int radius, int anzahl, int diffident)
+    {
+        int elemnte = 0;
+        for (int i = 0; i < radius * 2 + 1; i++) //radius mal 2 da durchmesser 
+        {
+            for (int r = 0; r < radius * 2 + 1; r++)
+            {
+                if ((Map[X + i - radius, Y + r - radius] % 1000000000) - (Map[X + i - radius, Y + r - radius] % diffident) == element)
+                {
+                    elemnte++;
+                }
+
+                if (elemnte == anzahl)
+                {
+
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
     #endregion
 }
 

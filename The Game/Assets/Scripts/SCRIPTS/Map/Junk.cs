@@ -138,7 +138,7 @@ public class Junk : MonoBehaviour
                     if (ga.Rohstoff != null)
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.value + 1, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.Rohstoff, Position, Quaternion.Euler(0, ga.Rotation_Top, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.Rohstoff, Position, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
                         Rohstoff.parent = Berg;
                     }
                     if (ga.Building != null)
@@ -206,7 +206,7 @@ public class Junk : MonoBehaviour
     {
         default_Fläche();
         load();
-        random = false;
+
     }
 
 
@@ -393,7 +393,7 @@ public class Junk : MonoBehaviour
                     if (ga.Rohstoff != null)
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.value + 1, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.Rohstoff, Position, Quaternion.Euler(0, ga.Rotation_Top, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.Rohstoff, Position, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
                         Rohstoff.parent = Berg;
                     }
 
@@ -465,6 +465,7 @@ public class Junk : MonoBehaviour
 
             }
         }
+        random = false;
     }
 
 }

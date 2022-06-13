@@ -81,7 +81,7 @@ public class Grid_opjekt
     {
         
         ID[1] = Id;
-        Rotation_Top = System.Convert.ToInt16(Id / 100000000);     
+        Rotation_Top = System.Convert.ToInt16(Id / 100000000) * 90;     
         Biom = System.Convert.ToInt16((Id% 100000000) / 10000000);
         Art_Top = System.Convert.ToInt16((Id% 10000000) / 100000);
         Building_Top = System.Convert.ToInt16((Id% 100000) / 10000);
@@ -98,7 +98,7 @@ public class Grid_opjekt
     public void Id_Boden(long Id)
     {
         ID[0] = Id;
-        Rotation_Boden = System.Convert.ToInt16(Id / 1000000000);
+        Rotation_Boden = System.Convert.ToInt16(Id / 1000000000) * 90;
         Biom = System.Convert.ToInt16((Id % 100000000) / 10000000);
         Art_Boden = System.Convert.ToInt16((Id % 10000000) / 100000);
         Building_Boden = System.Convert.ToInt16((Id % 100000) / 10000);
