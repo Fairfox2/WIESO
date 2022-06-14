@@ -88,7 +88,7 @@ public class Wald : Rohstoffe
                                 if (Bäume[i, r] != 0)
                                 {
 
-                                    if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 00010000000)
+                                    if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 00100000000)
                                     {
 
                                         passt = false;
@@ -140,7 +140,8 @@ public class Wald : Rohstoffe
                             if (Bäume[i, r] != 0)
                             {
 
-                                Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 00010200000; //200 weil essicher ein walt wird
+                                Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 00102000000; //200 weil essicher ein walt wird
+                                Map.Map_Rohstoffe_Boden[i + Zonepos + X, r + Zonepos + Y] = 00102000000;
                             }
                         }
                     }

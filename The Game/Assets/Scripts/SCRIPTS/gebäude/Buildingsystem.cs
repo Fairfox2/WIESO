@@ -95,7 +95,7 @@ public class Buildingsystem : MonoBehaviour
         }
         else if (Global.buildmoide == 1 && straﬂe.singleton.Passt(World_pos))
         {
-            Map.Map_Rohstoffe[X, Y] = 1710;
+            Map.Map_Rohstoffe[X, Y] = 100010000;
         }
         else if (Global.buildmoide == 3)
         {

@@ -24,7 +24,7 @@ public class Junk : MonoBehaviour
     private Grid_script<Grid_opjekt> grid;
     bool random = true;
     //
-    int X_POS,Y_POS;
+    int X_POS, Y_POS;
 
 
     public void default_Fläche()
@@ -42,7 +42,7 @@ public class Junk : MonoBehaviour
         }
 
     }
-    
+
 
     public void load()
     {
@@ -52,25 +52,25 @@ public class Junk : MonoBehaviour
 
         if (transform.position.x >= 0)
         {
-            X = System.Convert.ToInt32(((transform.position.x )  + (Map.Map_grösse * Map.chunck_grösse) / 2)- 17 );
+            X = System.Convert.ToInt32(((transform.position.x) + (Map.Map_grösse * Map.chunck_grösse) / 2) - 17);
         }
         if (transform.position.z >= 0)
         {
-            Y = System.Convert.ToInt32(((transform.position.z ) + (Map.Map_grösse * Map.chunck_grösse) / 2) -17 );
+            Y = System.Convert.ToInt32(((transform.position.z) + (Map.Map_grösse * Map.chunck_grösse) / 2) - 17);
         }
 
         if (transform.position.x < 0)
         {
-            X = System.Convert.ToInt32(((transform.position.x ) + (Map.Map_grösse * Map.chunck_grösse) / 2) -17 );
+            X = System.Convert.ToInt32(((transform.position.x) + (Map.Map_grösse * Map.chunck_grösse) / 2) - 17);
         }
         if (transform.position.z < 0)
         {
-            Y = System.Convert.ToInt32(((transform.position.z ) + (Map.Map_grösse * Map.chunck_grösse) / 2) -17);
+            Y = System.Convert.ToInt32(((transform.position.z) + (Map.Map_grösse * Map.chunck_grösse) / 2) - 17);
         }
-      
+
         Save.Lode_Chunck(X, Y, grid);
-        Save.Relod_Chunk(X,Y,grid);
-        Relod(X,Y);
+        Save.Relod_Chunk(X, Y, grid);
+        Relod(X, Y);
         X_POS = X;
         Y_POS = Y;
 
@@ -118,22 +118,18 @@ public class Junk : MonoBehaviour
                 Grid_opjekt ga = grid.GetGridOpjekt(x, y);
                 if (ga != null)
                 {
-                    // grassfläche erstellen 
-                    Vector3 tilePosition = new Vector3(-Map.chunck_grösse / 2 + x, ga.value, -Map.chunck_grösse / 2 + y) + transform.position;
-                    Transform newTile = Instantiate(ga.Boden, tilePosition, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
-                    newTile.parent = mapMolder; // noch umbennenen
+
                     if (ga.Boden != null)
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.value, -Map.chunck_grösse / 2 + y) + transform.position;
                         Transform Rohstoff = Instantiate(ga.Boden, Position, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
                         Rohstoff.parent = mapMolder;
-                        if (ga.Boden == Grass1)
+                        if(ga.Boden == Grass1)
                         {
-                            Vector3 Positio = new Vector3(-Map.chunck_grösse / 2 + x, ga.value + 1.2f, -Map.chunck_grösse / 2 + y) + transform.position;
-                            Transform Gras = Instantiate(Grass, Positio, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
-                            Gras.parent = mapMolder;
+                            Vector3 Position1 = new Vector3(-Map.chunck_grösse / 2 + x, ga.value+1.15f, -Map.chunck_grösse / 2 + y) + transform.position;
+                            Transform Rohstoff1 = Instantiate(Grass, Position1, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
+                            Rohstoff1.parent = mapMolder;
                         }
-  
                     }
                     if (ga.Rohstoff != null)
                     {
@@ -156,7 +152,7 @@ public class Junk : MonoBehaviour
 
                 }
 
-                
+
             }
         }
     }
@@ -164,11 +160,11 @@ public class Junk : MonoBehaviour
     private Bauen BuildingsystemsAktions;
     void Build()
     {
-        if(focus == true && Global.buildmoide >= 1)
+        if (focus == true && Global.buildmoide >= 1)
         {
-           mous_erstellen(); 
+           mous_erstellen();
         }
-            
+
 
     }
     private void OnEnable()
@@ -206,17 +202,18 @@ public class Junk : MonoBehaviour
     {
         default_Fläche();
         load();
-
+        Map_update();
     }
 
 
-    bool geladen= false;
+    bool geladen = false;
     int X_render = 40;
     int Y_render = 40;
     void Update()
     {
+        
         if (Map.Camara_body != null)
-        { 
+        {
             if (Map.Camara_body.position.x < transform.position.x + X_render && Map.Camara_body.position.x > transform.position.x - X_render && Map.Camara_body.position.z < transform.position.z + Y_render && Map.Camara_body.position.z > transform.position.z - Y_render && geladen == false)
             {
                 Map_update();
@@ -240,27 +237,28 @@ public class Junk : MonoBehaviour
                 mous();
             }
 
-         
+
         }
         
+
     }
 
 
     bool Load = false;
     private void mous()
     {
-            int grösse =  Map.chunck_grösse / 2;
-        
-            Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
+        int grösse = Map.chunck_grösse / 2;
 
-            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
+
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (plane.Raycast(ray, out float distance))
         {
             if (ray.GetPoint(distance).x > transform.position.x - grösse && ray.GetPoint(distance).x < transform.position.x + grösse && ray.GetPoint(distance).z > transform.position.z - grösse && ray.GetPoint(distance).z < transform.position.z + grösse)
             {
-               focus = true;
-               Buildingsystem.singleton.hm(ray.GetPoint(distance));
+                focus = true;
+                Buildingsystem.singleton.hm(ray.GetPoint(distance));
             }
             else
             {
@@ -282,13 +280,22 @@ public class Junk : MonoBehaviour
 
             Relod_strasse(X_POS, Y_POS);
             Relod(X_POS, Y_POS);
-            streed_update();
-            Berg_update();
+            if(Global.buildmoide == 1)
+            {
+                streed_update();
+            }
+            if (Global.buildmoide == 2)
+            {
+                Berg_update();
+            }
 
         }
-       
-        
+
+
     }
+
+
+    #region Relode
     private void Relod_strasse(int X, int Y)
     {
         Save.Lode_Chunck(X, Y, grid);
@@ -299,9 +306,9 @@ public class Junk : MonoBehaviour
                 Grid_opjekt ga = grid.GetGridOpjekt(x, y);
                 if (ga != null) // prufen ob sich etwas verender hat 
                 {
-                    if(ga.Biom == 1)
+                    if (ga.Biom == 1)
                     {
-                        if(ga.Building_Top == 1)
+                        if (ga.Building_Top == 1)
                         {
 
                             straße.singleton.Straße_setzen(ga, X + x, Y + y, random);
@@ -321,7 +328,7 @@ public class Junk : MonoBehaviour
                             }
                         }
                     }
-                  
+
                 }
 
             }
@@ -355,7 +362,7 @@ public class Junk : MonoBehaviour
                         Transform Rohstoff = Instantiate(ga.streed, Position, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
                         Rohstoff.parent = streed;
                     }
-                    if  (ga.Building != null)
+                    if (ga.Building != null)
                     {
                         ga.Rohstoff = null;
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.Element_hight + 1, -Map.chunck_grösse / 2 + y) + transform.position;
@@ -401,7 +408,7 @@ public class Junk : MonoBehaviour
             }
         }
     }
-    private void Relod(int X,int Y)
+    private void Relod(int X, int Y)
     {
         for (int x = 0; x < Map.chunck_grösse; x++)
         {
@@ -413,15 +420,15 @@ public class Junk : MonoBehaviour
 
                     ga.Id_Load(Map.Map_Rohstoffe[X + x, Y + y]);
                     ga.Id_Boden(Map.Map_Rohstoffe_Boden[x + X, Y + y]);
-                    print("sp_top " + Map.Map_Rohstoffe[X + x, Y + y]);
-                    print("sp_top " + Map.Map_Rohstoffe[X + x, Y + y]%100);
 
+                    print(ga.Art_Boden);
+                    print(ga.Biom);
                     if (ga.Biom == 1)
                     {
-            
+
                         if (ga.Art_Boden == 1)
                         {
-                         Berg.singleton.Berg_Boden(ga, random);
+                            Berg.singleton.Berg_Boden(ga, random);
                         }
                         if (ga.Art_Boden == 0)
                         {
@@ -452,22 +459,18 @@ public class Junk : MonoBehaviour
                         {
                             Lehm.singleton.Lehm_setzen(Map.Map_Rohstoffe, ga, X + x, Y + y, random);
                         }
-
                         if (ga.Art_Top == 2)
                         {
-                            Lehm.singleton.Lehm_Boden(ga);
+                            Lehm.singleton.Lehm_Baum(ga, random);
                         }
                     }
-    
-
 
                 }
-
             }
         }
         random = false;
     }
-
+    #endregion 
 }
 
 

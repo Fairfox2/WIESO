@@ -31,12 +31,12 @@ public class Map : MonoBehaviour
         Wald Wälder = new Wald();
         Lehm Lehm = new Lehm();
 
-        //Lehm.Lehm_Genarator(6,25,2.3f,4);  // ein lehm der zimlich fix ist das man am anfang lehm hat 
-        //Lehm.Lehm_Genarator(Random.Range(10,14),Random.Range(34,45), Random.Range(4,4.5f), 5);  //Random Lehm Biom mit 5-8 lehmstücken und mit dem radius 30-54 auf der Zone 2-3.5 und mit einer Toleranz von 6
-        Wälder.Wald_erstellen(0, 4, 100);
-        Berge.Stein_Genarator(0.8,4,25);
-        Wälder.Wald_erstellen( 4, 6, 400);
-        Wälder.Wald_erstellen(6, 7, 2300);
+        Lehm.Lehm_Genarator(6,25,2.3f,4);  // ein lehm der zimlich fix ist das man am anfang lehm hat 
+       Lehm.Lehm_Genarator(Random.Range(10,14),Random.Range(34,45), Random.Range(4,4.5f), 5);  //Random Lehm Biom mit 5-8 lehmstücken und mit dem radius 30-54 auf der Zone 2-3.5 und mit einer Toleranz von 6
+       Wälder.Wald_erstellen(0, 4, 100);
+       Berge.Stein_Genarator(0.8,4,25);
+       Wälder.Wald_erstellen( 4, 6, 400);
+       Wälder.Wald_erstellen(6, 7, 2300);
         // Die Mitte kann auch als rand verwendet werden 
   
         
@@ -68,7 +68,8 @@ public class Map : MonoBehaviour
         {
             for (int i = 0; i < Map_Rohstoffe.GetLength(1); i++)
             {
-                Map_Rohstoffe[x, i] = 00010000000;
+                Map_Rohstoffe[x, i] = 00100000000;
+                Map_Rohstoffe_Boden[x, i] = 00100000000;
             }
 
         }
@@ -84,6 +85,8 @@ public class Map : MonoBehaviour
        
        
     }
+
+    
     private void Update()
     {
     }

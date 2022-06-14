@@ -41,7 +41,7 @@ public class straße : MonoBehaviour
         Vector3 World_pos = Get_World_Postion(World);
         int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
         int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
-        if (Map.Map_Rohstoffe[X,Y] == 1000)
+        if (Map.Map_Rohstoffe[X,Y] == 00100000000)                 //MIte boden machen 
         {
             return true;
         }
@@ -63,26 +63,29 @@ public class straße : MonoBehaviour
     }
     public void Straße_setzen(Grid_opjekt Objekt, int X, int Y,bool random)
     {
-       
-        if (Map.Map_Rohstoffe[X, Y] >= 1700 && Map.Map_Rohstoffe[X, Y] < 1800 )   // ? # ?
+        int Rohstoff = 000010000;
+        
+
+        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X - 1, Y], Rohstoff))   // ? # ?
         {                           //   ?
             Objekt.Building_placed = true;
             Strasse_licht(Objekt, 90);
+            print("streed");
 
             int x2 = 0, y2 = 0, x = 0, y = 0;
-            if (Map.Map_Rohstoffe[X - 1, Y] >= 1700 && Map.Map_Rohstoffe[X - 1, Y] < 1800)
+            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X - 1, Y], Rohstoff))
             {
                 x2 = 1;
             }
-            if (Map.Map_Rohstoffe[X + 1, Y] >= 1700 && Map.Map_Rohstoffe[X + 1, Y] < 1800)
+            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X + 1, Y], Rohstoff))
             {
                 x = 1;
             }
-            if (Map.Map_Rohstoffe[X, Y - 1] >= 1700 && Map.Map_Rohstoffe[X, Y - 1] < 1800)
+            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X , Y-1], Rohstoff))
             {
                 y2 = 1;
             }
-            if (Map.Map_Rohstoffe[X, Y + 1] >= 1700 && Map.Map_Rohstoffe[X, Y + 1] < 1800)
+            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X, Y +1], Rohstoff))
             {
                 y = 1;
             }

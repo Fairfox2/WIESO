@@ -92,7 +92,7 @@ public class Berg : Rohstoffe
                                 if (Steine[i, r] != 0)
                                 {
 
-                                    if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 00010000000 && Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 0000000000)
+                                    if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 100000000 && Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] != 0000000000)
                                     {
 
                                        passt = false;
@@ -144,7 +144,7 @@ public class Berg : Rohstoffe
                             if (Steine[i, r] != 0)
                             {
                                 print("Berg_wurde_gesetzt");
-                                Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 00010100000;
+                                Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 101000000;
                             }
                         }
                     }
@@ -152,7 +152,7 @@ public class Berg : Rohstoffe
                     {
                         for (int r = 0; r < Steine.GetLength(1); r++)
                         {
-                            if (Rohstoffe.singleton.BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 00010100000, 1, 7,100) == false)
+                            if (Rohstoffe.singleton.BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 101000000, 1, 7,100) == false)
                             {
                                 //if (Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] == 1000 || Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] == 0)
                                   //  Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 00010100000;
@@ -169,7 +169,7 @@ public class Berg : Rohstoffe
                         for (int r = 0; r < Steine.GetLength(1) + 4; r++)
                         {
 
-                                if (BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 00010100000, 2, 3,100) == false)
+                                if (BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 101000000, 2, 3,100) == false)
                                 {
                                    ////Map.Map_Rohstoffe_Boden[i + Zonepos + X, r + Zonepos + Y] = 00010100000;
                                 }
@@ -187,7 +187,7 @@ public class Berg : Rohstoffe
                             for (int r = 0; r < Steine.GetLength(1); r++)
                             {
 
-                                if (Rohstoffe.singleton.BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 10100000 + b, 1, 9,1) == false) //hier werden dier ebenen bestimmt 
+                                if (Rohstoffe.singleton.BiomVereinfacher(Map.Map_Rohstoffe,i + Zonepos + X, r + Zonepos + Y, 0101000000 + b, 1, 9,1) == false) //hier werden dier ebenen bestimmt 
                                 {
                                     
                                     Steine[i,r]++;
@@ -201,7 +201,7 @@ public class Berg : Rohstoffe
 
                                 if (Steine[i, r] == 2 + b)
                                 {
-                                    Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 10100000 + b + 1;
+                                    Map.Map_Rohstoffe[i + Zonepos + X, r + Zonepos + Y] = 0101000000 + b + 1;
                                 }
                                 
                             }
@@ -230,37 +230,37 @@ public class Berg : Rohstoffe
         int[,] Umkreis = new int[3,3];
         #region Abtasten
 
-        if (Stein_block[q-1, e - 1] % 100000000 - Stein_block[q - 1, e - 1] % 10000 == 10100000 && (Stein_block[q - 1, e - 1] % 100) >= ebene)   // # # #
+        if (Stein_block[q-1, e - 1] % 1000000000 - Stein_block[q - 1, e - 1] % 100000 == 0101000000 && (Stein_block[q - 1, e - 1] % 100) >= ebene)   // # # #
         {
             Umkreis[0, 0] = 1;
         }
-        if (Stein_block[q - 1, e ] % 100000000 - Stein_block[q - 1, e ] % 10000 == 10100000 && (Stein_block[q - 1, e ] % 100) >= ebene)    // # # #
+        if (Stein_block[q - 1, e ] % 1000000000 - Stein_block[q - 1, e ] % 100000 == 0101000000 && (Stein_block[q - 1, e ] % 100) >= ebene)    // # # #
         {
             Umkreis[0, 1] = 1;
         }
-        if (Stein_block[q - 1, e+1] % 100000000 - Stein_block[q - 1, e+1] % 10000 == 10100000 && (Stein_block[q - 1, e + 1] % 100) >= ebene)    // # # #
+        if (Stein_block[q - 1, e+1] % 1000000000 - Stein_block[q - 1, e+1] % 100000 == 0101000000 && (Stein_block[q - 1, e + 1] % 100) >= ebene)    // # # #
         {
             Umkreis[0, 2] = 1;
         }
-        if (Stein_block[q , e - 1] % 100000000 - Stein_block[q , e - 1] % 10000 == 10100000 && (Stein_block[q , e - 1] % 100) >= ebene)   // # # #
+        if (Stein_block[q , e - 1] % 1000000000 - Stein_block[q , e - 1] % 100000 == 0101000000 && (Stein_block[q , e - 1] % 100) >= ebene)   // # # #
         {
             Umkreis[1, 0] = 1;
         }
 
 
-        if (Stein_block[q, e + 1] % 100000000 - Stein_block[q, e + 1] % 10000 == 10100000 && (Stein_block[q , e+ 1] % 100) >= ebene)  // # # #
+        if (Stein_block[q, e + 1] % 1000000000 - Stein_block[q, e + 1] % 100000 == 0101000000 && (Stein_block[q , e+ 1] % 100) >= ebene)  // # # #
         {
             Umkreis[1, 2] = 1;
         }
-        if (Stein_block[q+1, e - 1] % 100000000 - Stein_block[q+1, e - 1] % 10000 == 10100000 && (Stein_block[q + 1, e - 1] % 100) >= ebene)   // # # #
+        if (Stein_block[q+1, e - 1] % 1000000000 - Stein_block[q+1, e - 1] % 100000 == 0101000000 && (Stein_block[q + 1, e - 1] % 100) >= ebene)   // # # #
         {
             Umkreis[2, 0] = 1;
         }
-        if (Stein_block[q + 1, e ] % 100000000 - Stein_block[q + 1, e] % 10000 == 10100000 &&( Stein_block[q + 1, e ] % 100) >= ebene)   // # # #
+        if (Stein_block[q + 1, e ] % 1000000000 - Stein_block[q + 1, e] % 100000 == 0101000000 && ( Stein_block[q + 1, e ] % 100) >= ebene)   // # # #
         {
             Umkreis[2, 1] = 1;
         }
-        if (Stein_block[q + 1, e+1] % 100000000 - Stein_block[q + 1, e+1] % 10000 == 00010100000 && (Stein_block[q + 1, e + 1] % 100) >= ebene)   // # # #
+        if (Stein_block[q + 1, e+1] % 1000000000 - Stein_block[q + 1, e+1] % 100000 == 0101000000 && (Stein_block[q + 1, e + 1] % 100) >= ebene)   // # # #
         {
             Umkreis[2, 2] = 1;
         }

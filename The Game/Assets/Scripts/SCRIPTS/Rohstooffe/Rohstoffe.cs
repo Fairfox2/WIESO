@@ -259,6 +259,22 @@ public class Rohstoffe : MonoBehaviour
      
         return true;
     }
+    public bool BiomRostoff_test(long ID, int ID_test) // diese Funktion pass hier nicht her änder dass ZK Otto
+    {
+        if (ID % 100000000 - ID % 10000 == ID_test)
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool Rohstoff_test(long ID, int ID_test) // diese Funktion pass hier nicht her änder dass ZK Otto
+    {
+        if (ID % 10000000M - ID % 10000 == ID_test)
+        {
+            return true;
+        }
+        return false;
+    }
     public bool BiomVereinfacher(int[,] Map, int X, int Y, long element, int radius, int anzahl, int diffident)
     {
         int elemnte = 0;

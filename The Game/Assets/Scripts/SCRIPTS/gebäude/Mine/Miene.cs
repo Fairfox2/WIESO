@@ -19,8 +19,11 @@ public class Miene : Building_base
     [SerializeField] Transform Courser_Building_passt;
     [SerializeField] Transform Courser_Building_passt_nicht;
 
+    int Resurce = 00010100000;
 
-    
+
+
+
     public void Awake()
     {
         singelton = this;
@@ -53,7 +56,7 @@ public class Miene : Building_base
 
         if (Plase[(x * (GrösseY)) + y] == 1) // prüfe ob es grass
         {
-            if (Map.Map_Rohstoffe[X + 1, Y] == 1000)
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y], 00010000000))
             {
                 return Courser_straße_passt;
             }
@@ -62,23 +65,23 @@ public class Miene : Building_base
         }
         if (Plase[(x * (GrösseY)) + y] == 2)
         {
-            if (Map.Map_Rohstoffe[X + 1, Y] >= 300 && Map.Map_Rohstoffe[X + 1, Y] < 400)
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X +1, Y], 00010100000))
             {
                 x2 = 1;
             }
-            if (Map.Map_Rohstoffe[X - 1, Y] >= 300 && Map.Map_Rohstoffe[X - 1, Y] < 400)
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X - 1, Y], 00010100000))
             {
                 x1 = 1;
             }
-            if (Map.Map_Rohstoffe[X, Y + 1] >= 300 && Map.Map_Rohstoffe[X, Y + 1] < 400)
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X , Y+1], 00010100000))
             {
                 y2 = 1;
             }
-            if (Map.Map_Rohstoffe[X, Y - 1] >= 300 && Map.Map_Rohstoffe[X, Y - 1] < 400)
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X , Y-1], 00010100000))
             {
                 y1 = 1;
             }
-            if (Map.Map_Rohstoffe[X, Y] >= 300 && Map.Map_Rohstoffe[X, Y] < 400)
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y + 1], 00010100000))
             {
                 sum = +x2 + x1 + y1 + y2;
             }
@@ -127,9 +130,9 @@ public class Miene : Building_base
                 if (Plase[(x * (GrösseY)) + y] == 1) // prüfe ob es grass
                 {
                     
-                    if(Map.Map_Rohstoffe[X + F, Y + G] == 1000)
+                    if(Map.Map_Rohstoffe[X + F, Y + G] == 00010000000) // hajskdghfucjuaaaaaaaaaa help
                     {
-                        //return false;
+                        return false;
                     }
                    
 
@@ -139,29 +142,29 @@ public class Miene : Building_base
                     
                     int x2 = 0, x1 = 0, y1 = 0, y2 = 0;
                     int sum = 0;
-                    if (Map.Map_Rohstoffe[X + F + 1, Y + G] >= 300 && Map.Map_Rohstoffe[X + F + 1, Y + G] < 400)
+                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X + F+1, Y + G ], 00010100000))
                     {
                         x2 = 1;
                     }
-                    if (Map.Map_Rohstoffe[X + F - 1, Y + G] >= 300 && Map.Map_Rohstoffe[X + F - 1, Y + G] < 400)
+                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X + F-1, Y + G  ], 00010100000))
                     {
                         x1 = 1;
                     }
-                    if (Map.Map_Rohstoffe[X + F, Y + G + 1] >= 300 && Map.Map_Rohstoffe[X + F, Y + G + 1] < 400)
+                    if( Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X + F, Y + G - 1], 00010100000))
                     {
                         y2 = 1;
                     }
-                    if (Map.Map_Rohstoffe[X + F, Y +  G -1] >= 300 && Map.Map_Rohstoffe[X + F, Y + G - 1] < 400)
+                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X + F, Y + G + 1], 00010100000))
                     {
                         y1 = 1;
                     }
-                    if (Map.Map_Rohstoffe[X+F, Y+G] >= 300 && Map.Map_Rohstoffe[X + F,Y+ G] < 400)
+                    if (Map.Map_Rohstoffe[X+F, Y+G] >= 300 && Map.Map_Rohstoffe[X + F,Y+ G] < 00010100000)
                     {
                         
                         sum = x2 + x1 + y1 + y2;
 
                     }
-                    if(sum < 2)
+                    if(sum != 3)
                     {
                         return false;
                     }
