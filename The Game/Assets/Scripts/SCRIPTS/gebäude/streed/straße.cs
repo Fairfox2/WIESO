@@ -66,7 +66,7 @@ public class straße : MonoBehaviour
         int Rohstoff = 000010000;
         
 
-        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X - 1, Y], Rohstoff))   // ? # ?
+        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X , Y], Rohstoff))   // ? # ?
         {                           //   ?
             Objekt.Building_placed = true;
             Strasse_licht(Objekt, 90);
@@ -160,19 +160,17 @@ public class straße : MonoBehaviour
     }
     private void Strasse_licht(Grid_opjekt Objekt, int winkel)
     {
-      Objekt.streed = Straße_licht;
-        
-
-        Objekt.Setrotation(winkel);
+        print(winkel);
+        Objekt.Setrotation(winkel,false);
+        Objekt.streed = Straße_licht;
+        print(Objekt.Rotation_Top);
     }
     private void Strasse_Kurve(Grid_opjekt Objekt, int winkel)
     {
    
-            Objekt.streed = StraßeKurve;
-        
+        Objekt.streed = StraßeKurve;
 
-
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel, false);
     }
     private void Strasse_Kreuzung(Grid_opjekt Objekt, int winkel)
     {
@@ -182,24 +180,27 @@ public class straße : MonoBehaviour
             Objekt.Index_Top = Kreuzung.GetRandom();
         }
         Objekt.streed = Kreuzung.Get(Objekt.Index_Top);
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel, false);
     }
     private void Strasse_split(Grid_opjekt Objekt, int winkel)
     {
-  
-            Objekt.streed = Straßesplit;
+
+
+        Objekt.Setrotation(winkel, false);
+
+        Objekt.streed = Straßesplit;
        
         
      
 
-        Objekt.Setrotation(winkel);
     }
     private void Strasse_ende(Grid_opjekt Objekt, int winkel)
     {
-    
-            Objekt.streed = Straße_licht;
+        Objekt.Setrotation(winkel, false);
+
+        Objekt.streed = Straße_licht;
     
 
-        Objekt.Setrotation(winkel);
+      
     }
 }

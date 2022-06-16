@@ -427,7 +427,7 @@ public class Lehm : Rohstoffe
         if(random == true)
         {
             Objekt.Index_Top = Lehm_bäume.GetRandom();
-            Objekt.Set_Rotation_Random();
+            Objekt.Set_Rotation_Random(false);
         }
         Objekt.Rohstoff = Lehm_bäume.Get(Objekt.Index_Top);
 
@@ -438,7 +438,7 @@ public class Lehm : Rohstoffe
         if (random == true)
         {
             Objekt.Index_Top = Lehm_boden.GetRandom();
-            Objekt.Set_Rotation_Random();
+            Objekt.Set_Rotation_Random(true);
         }
         Objekt.Boden = Lehm_boden.Get(Objekt.Index_Top);
 
@@ -450,7 +450,7 @@ public class Lehm : Rohstoffe
             Objekt.Index_Top = Lehm_ecke.GetRandom();
         }
         Objekt.Rohstoff = Lehm_ecke.Get(Objekt.Index_Top);
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel,false);
         Objekt.boden_Rohstoff = true;
     }
     private void Lehm_Mitte(Grid_opjekt Objekt)
@@ -458,7 +458,7 @@ public class Lehm : Rohstoffe
         if (random == true)
         {
             Objekt.Index_Top = Lehm_mitte.GetRandom();
-            Objekt.Set_Rotation_Random();
+            Objekt.Set_Rotation_Random(false);
         }
         Objekt.Rohstoff = Lehm_mitte.Get(Objekt.Index_Top);
         Objekt.boden_Rohstoff = true;
@@ -470,7 +470,7 @@ public class Lehm : Rohstoffe
             Objekt.Index_Top = Lehm_rand.GetRandom();
         }
         Objekt.Rohstoff = Lehm_rand.Get(Objekt.Index_Top);
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel, false);
         Objekt.boden_Rohstoff = true;
     }
     private void Lehm_Kurve(Grid_opjekt Objekt, int winkel)
@@ -480,7 +480,7 @@ public class Lehm : Rohstoffe
             Objekt.Index_Top = Lehm_kurve.GetRandom();
         }
         Objekt.Rohstoff = Lehm_kurve.Get(Objekt.Index_Top);
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel,false);
         Objekt.boden_Rohstoff = true;
     }
 

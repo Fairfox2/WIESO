@@ -20,7 +20,7 @@ public class Wald : Rohstoffe
         if (random == true)
         {
             Objekt.Index_Boden = Boden.GetRandom();
-            Objekt.Set_Rotation_Random();
+            Objekt.Set_Rotation_Random(true);
         }
         Objekt.Boden = Boden.Get(Objekt.Index_Boden);
 
@@ -31,7 +31,7 @@ public class Wald : Rohstoffe
         if (random == true)
         {
             Objekt.Index_Boden = Wald_Boden.GetRandom();
-            Objekt.Set_Rotation_Random();
+            Objekt.Set_Rotation_Random(true);
         }
         Objekt.Boden = Wald_Boden.Get(Objekt.Index_Boden);
 
@@ -158,7 +158,7 @@ public class Wald : Rohstoffe
         if (random == true)
         {
             Objekt.Index_Top = Wälder.GetRandom();
-            Objekt.Set_Rotation_Random();
+            Objekt.Set_Rotation_Random(false);
         }
         Objekt.Rohstoff = Wälder.Get(Objekt.Index_Top);
 

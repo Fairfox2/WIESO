@@ -224,8 +224,6 @@ public class Berg : Rohstoffe
         int e = Y;
         int ebene = gr.Zusatz_Top; 
 
-     
-
 
         int[,] Umkreis = new int[3,3];
         #region Abtasten
@@ -476,7 +474,7 @@ public class Berg : Rohstoffe
             element = Stein_ecke.Get(Objekt.Index_Top);
         }
         Objekt.Rohstoff = element;
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel, false);
     }
     private void Stein_lose(Grid_opjekt Objekt, int winkel)
     {
@@ -485,7 +483,7 @@ public class Berg : Rohstoffe
             Objekt.Index_Top = Stein_Lose.GetRandom();
         }
         Objekt.Rohstoff = Stein_Lose.Get(Objekt.Index_Top);
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel, false);
     }
     private void Stein_Brücke(Grid_opjekt Objekt, int winkel)
     {
@@ -494,7 +492,7 @@ public class Berg : Rohstoffe
             Objekt.Index_Top = Stein_Lose.GetRandom();
         }
         Objekt.Rohstoff = Stein_Lose.Get(Objekt.Index_Top);
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel, false);
     }
     private void Stein_Kurve(Grid_opjekt Objekt, int winkel)
     {
@@ -503,7 +501,7 @@ public class Berg : Rohstoffe
             Objekt.Index_Top = Stein_kurve.GetRandom();
         }
         Objekt.Rohstoff = Stein_kurve.Get(Objekt.Index_Top);
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel, false);
     }
     private void Stein_Kurve_Komisch(Grid_opjekt Objekt, int winkel)
     {
@@ -513,7 +511,7 @@ public class Berg : Rohstoffe
         }
         print("kureve ");
         Objekt.Rohstoff = Stein_kurve_Komisch.Get(Objekt.Index_Top);
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel, false);
     }
 
     private void Stein_Spitze(Grid_opjekt Objekt)
@@ -521,7 +519,7 @@ public class Berg : Rohstoffe
         if (random == true)
         {
             Objekt.Index_Top = Stein_spitze.GetRandom();
-            Objekt.Set_Rotation_Random();
+            Objekt.Set_Rotation_Random(false);
         }
         Objekt.Rohstoff = Stein_spitze.Get(Objekt.Index_Top);
 
@@ -531,7 +529,7 @@ public class Berg : Rohstoffe
         if (random == true)
         {
             Objekt.Index_Top = Stein_mitte.GetRandom();
-            Objekt.Set_Rotation_Random();
+            Objekt.Set_Rotation_Random(false);
         }
         Objekt.Rohstoff = Stein_mitte.Get(Objekt.Index_Top);
         
@@ -556,7 +554,7 @@ public class Berg : Rohstoffe
             element = Stein_rand_höche.Get(Objekt.Index_Top);
         }
         Objekt.Rohstoff = element;
-        Objekt.Setrotation(winkel);
+        Objekt.Setrotation(winkel, false);
     }
  
 

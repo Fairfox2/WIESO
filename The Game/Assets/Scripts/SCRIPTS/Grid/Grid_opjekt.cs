@@ -56,26 +56,30 @@ public class Grid_opjekt
         }
 
     }
-    public void Setrotation(int Winkel)
+    public void Setrotation(int Winkel,bool Boden)
     {
-        if(Building_placed == true)
+        if(Boden == true)
         {
             Rotation_Top = Winkel;
-            return;
         }
-        Rotation_Boden = Winkel;
-    }
-    public void Set_Rotation_Random()
-    {
-        if (Building_placed == true)
+        if (Boden == false)
         {
-            Rotation_Top = 90 * Random.Range(0, 4);
-            return;
+            Rotation_Boden = Winkel;
         }
-        Rotation_Boden = 90 * Random.Range(0, 4);
+       
+    }
+    
+    public void Set_Rotation_Random(bool boden)
+    {
+        
+        if (boden == true)
+        {
+            Rotation_Boden = 90 * Random.Range(0, 4);
+        }
+
+
 
     }
-
 
     public void Id_Load(long Id)
     {
@@ -90,8 +94,8 @@ public class Grid_opjekt
     }
     public long[] Create_ID()
     {
-        ID[0] = Rotation_Boden * 10000000000 + Biom * 100000000 + Art_Boden * 1000000 + Building_Boden * 10000 + Index_Boden*1000 + Zusatz_Boden;
-        ID[1] = Rotation_Top * 10000000000 + Biom * 100000000 + Art_Top * 1000000 + Building_Top * 10000 + Index_Top *1000 + Zusatz_Top;
+        ID[0] = Rotation_Boden/90 * 10000000000 + Biom * 100000000 + Art_Boden * 1000000 + Building_Boden * 10000 + Index_Boden*1000 + Zusatz_Boden;
+        ID[1] = Rotation_Top / 90 * 10000000000 + Biom * 100000000 + Art_Top * 1000000 + Building_Top * 10000 + Index_Top *1000 + Zusatz_Top;
 
         return ID;
     }

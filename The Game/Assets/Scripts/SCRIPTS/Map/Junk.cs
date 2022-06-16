@@ -160,9 +160,11 @@ public class Junk : MonoBehaviour
     private Bauen BuildingsystemsAktions;
     void Build()
     {
-        if (focus == true && Global.buildmoide >= 1)
+
+        if ( Global.buildmoide >= 1)
         {
-           mous_erstellen();
+            
+            mous_erstellen();
         }
 
 
@@ -170,7 +172,7 @@ public class Junk : MonoBehaviour
     private void OnEnable()
     {
         BuildingsystemsAktions.Buildings.Build.performed += _ => Build();
-        BuildingsystemsAktions.Buildings.Build.Enable();
+        
 
     }
     public void Awake()
@@ -257,12 +259,12 @@ public class Junk : MonoBehaviour
         {
             if (ray.GetPoint(distance).x > transform.position.x - grösse && ray.GetPoint(distance).x < transform.position.x + grösse && ray.GetPoint(distance).z > transform.position.z - grösse && ray.GetPoint(distance).z < transform.position.z + grösse)
             {
-                focus = true;
+                BuildingsystemsAktions.Buildings.Build.Enable();
                 Buildingsystem.singleton.hm(ray.GetPoint(distance));
             }
             else
             {
-                focus = false;
+                BuildingsystemsAktions.Buildings.Build.Disable();
             }
 
 
@@ -276,11 +278,12 @@ public class Junk : MonoBehaviour
 
         if (plane.Raycast(ray, out float distance))
         {
+
             Buildingsystem.singleton.Build1(ray.GetPoint(distance));
 
             Relod_strasse(X_POS, Y_POS);
             Relod(X_POS, Y_POS);
-            if(Global.buildmoide == 1)
+            if (Global.buildmoide == 1)
             {
                 streed_update();
             }
@@ -288,10 +291,7 @@ public class Junk : MonoBehaviour
             {
                 Berg_update();
             }
-
         }
-
-
     }
 
 
@@ -360,13 +360,16 @@ public class Junk : MonoBehaviour
                     {
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.Element_hight + 1, -Map.chunck_grösse / 2 + y) + transform.position;
                         Transform Rohstoff = Instantiate(ga.streed, Position, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
+                        print(ga.Rotation_Top);
+                        print(ga.Rotation_Boden);
                         Rohstoff.parent = streed;
                     }
                     if (ga.Building != null)
                     {
                         ga.Rohstoff = null;
                         Vector3 Position = new Vector3(-Map.chunck_grösse / 2 + x, ga.Element_hight + 1, -Map.chunck_grösse / 2 + y) + transform.position;
-                        Transform Rohstoff = Instantiate(ga.Building, Position, Quaternion.Euler(0, ga.Rotation_Boden, 0)) as Transform;
+                        Transform Rohstoff = Instantiate(ga.Building, Position, Quaternion.Euler(0, ga.Rotation_Top, 0)) as Transform;
+   
                         Rohstoff.parent = streed;
                     }
 
@@ -421,8 +424,7 @@ public class Junk : MonoBehaviour
                     ga.Id_Load(Map.Map_Rohstoffe[X + x, Y + y]);
                     ga.Id_Boden(Map.Map_Rohstoffe_Boden[x + X, Y + y]);
 
-                    print(ga.Art_Boden);
-                    print(ga.Biom);
+
                     if (ga.Biom == 1)
                     {
 

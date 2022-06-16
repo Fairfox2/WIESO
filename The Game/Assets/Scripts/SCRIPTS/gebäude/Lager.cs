@@ -28,7 +28,7 @@ public class Lager : MonoBehaviour
         {
             Rotation = Global.Buildingrotation + 90;
             Objekt.Building_placed = true;// Muss alls erstes pasieren sonst wird die rotaion nicht gesetzz
-            Objekt.Setrotation(Rotation);
+            Objekt.Setrotation(Rotation,false);
         }
         if (Setzen == true)
         {
