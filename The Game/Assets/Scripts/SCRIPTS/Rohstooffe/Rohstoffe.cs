@@ -259,9 +259,9 @@ public class Rohstoffe : MonoBehaviour
      
         return true;
     }
-    public bool BiomRostoff_test(long ID, int ID_test) // diese Funktion pass hier nicht her änder dass ZK Otto
+    public bool BiomRostoff_test(long ID, int Biom,int Rohstoff) // diese Funktion pass hier nicht her änder dass ZK Otto
     {
-        if (ID % 100000000 - ID % 10000 == ID_test)
+        if ((ID % 10000000000) / 100000000 == Biom && (ID % 100000000) / 1000000 == Rohstoff)
         {
             return true;
         }
@@ -269,7 +269,15 @@ public class Rohstoffe : MonoBehaviour
     }
     public bool Rohstoff_test(long ID, int ID_test) // diese Funktion pass hier nicht her änder dass ZK Otto
     {
-        if (ID % 10000000M - ID % 10000 == ID_test)
+        if ((ID % 1000000) / 10000 == ID_test)
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool Biom_test(long ID, int ID_test) // diese Funktion pass hier nicht her änder dass ZK Otto
+    {
+        if ((ID % 10000000000) / 100000000 == ID_test)
         {
             return true;
         }

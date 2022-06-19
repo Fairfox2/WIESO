@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+
 public class Streed_gohst : MonoBehaviour
 {
     public static Streed_gohst singleton { set; get; }
@@ -11,19 +12,117 @@ public class Streed_gohst : MonoBehaviour
     [SerializeField] Transform Mine;
     [SerializeField] Transform passt;
     [SerializeField] Transform passtnicht;
+    bool leftbuttonpressed = false;
+
+    private Bauen BuildingsystemsAktions;
 
     Transform newr;
     public void Awake()
     {
         singleton = this;
         Global.Mine_Focus = s;
+        BuildingsystemsAktions = new Bauen();
+        BuildingsystemsAktions.Buildings.Build.performed += _ => Build(_.ReadValueAsButton());
+        BuildingsystemsAktions.Buildings.Build.Enable();
+    }
+
+    void Build(bool bu)
+    {
+        leftbuttonpressed = bu;
+        if (bu == false)
+        {
+         
+            foreach ( Vector2 vec2 in d)
+            {
+                Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)] = 100100001; //wie speicher ich das ich zk Otto
+            }
+            foreach (Vector2 vec2 in f)
+            {
+                Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)] = 100100001; //wie speicher ich das ich zk Otto
+            }
+            f.Clear();
+            d.Clear();
+        }
+    }
+    new List<Vector2> d = new List<Vector2>();
+    new List<Vector2> f = new List<Vector2>();
+
+    int X1 = 0;
+    int Y1 = 0;
+    int helpco = 0;
+    private void streed_Build(Vector3 World)
+    {
+      
+            Vector3 World_pos = straﬂe.singleton.Get_World_Postion(World);
+
+        int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
+        int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
+
+        if (leftbuttonpressed == true && !(X1 == X &&  Y1 == Y))
+        {
+            X1 = X;
+            Y1 = Y;
+
+
+
+            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X, Y], 10))
+            {
+                print("ssssssssssssssss");
+                for (int x = 0; x < 3; x++)
+                {
+                    for (int y = 0; y < 3; y++)
+                    {
+                        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X + x - 1, Y + y - 1], 10)) // minus eins da wir einmal rundherum kommen kann schˆnner gemacht weerden 
+                        {
+                            if (x != 1 && y != 1)
+                            {
+                                f.Add(new Vector2(X + x - 1, Y + y - 1));
+                                Map.Map_Rohstoffe[X + x - 1, Y + y - 1] = 100010001;
+                            }
+                            else
+                            {
+                                f.Add(new Vector2(X + x - 1, Y + y - 1));
+                                Map.Map_Rohstoffe[X + x - 1, Y + y - 1] = 100010001;
+                            }
+
+
+                        }
+                        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X + x - 1, Y + y - 1], 1)) // minus eins da wir einmal rundherum kommen kann schˆnner gemacht weerden 
+                        {
+                            d.Add(new Vector2(X + x - 1, Y + y - 1));
+                            Map.Map_Rohstoffe[X + x - 1, Y + y - 1] = 100010002;
+                        }
+                    }
+                }
+                helpco = 0;
+            }
+            else
+            {
+                helpco++;
+                Map.Map_Rohstoffe[X, Y] = 100010001;
+                if (helpco == 2)
+                {
+                    foreach (Vector2 vec2 in f)
+                    {
+                        Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)] = 100100001; //wie speicher ich das ich zk Otto
+                    }
+                    f.Clear();
+                }
+                if (!d.Contains(new Vector2(X, Y)))
+                {
+                    d.Add(new Vector2(X, Y));
+                }
+
+            }
+            
+        }                                                                                                                                             
+
     }
     // Update is called once per frame
     private void Update()
     {
-        
         Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
-
+                        
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         
         if (plane.Raycast(ray, out float distance))
@@ -42,18 +141,18 @@ public class Streed_gohst : MonoBehaviour
             Target1.x = Mathf.Floor(Target1.x);
             if (Global.buildmoide == 1)
             {
-        
-
+                streed_Build(ray.GetPoint(distance));
                 if (straﬂe.singleton.Passt(ray.GetPoint(distance)))
                 {
                     Mine = passt;
+                    
                 }
                 else
                 {
                     Mine = passtnicht;
                 }
                 if(Mine != null)newr = Instantiate(Mine, transform.position, Quaternion.Euler(0, 0, 0)) as Transform;
-                if(newr != null)newr.parent = courser; 
+                if(newr != null)newr.parent = courser;    
             }
             if (Global.buildmoide == 2)
             {

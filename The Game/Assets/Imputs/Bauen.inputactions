@@ -7,12 +7,12 @@
             "actions": [
                 {
                     "name": "Build",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "8d5a7c11-64f5-402a-9ae6-2b0e22b81297",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Rotate",

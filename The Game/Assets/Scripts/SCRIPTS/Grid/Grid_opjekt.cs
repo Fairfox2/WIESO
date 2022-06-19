@@ -28,8 +28,7 @@ public class Grid_opjekt
     public int Zusatz_Boden;
     public int Rotation_Top = 0;
     public int Rotation_Boden = 0;
-    public int zusatz_Top = 0;
-    public int zusatz_Boden = 0;
+
 
     public int Fix_Rohstoffe_ID = 1000;
     public bool boden_Rohstoff = false;
@@ -46,7 +45,7 @@ public class Grid_opjekt
         {
             return true;
         }
-        else if (Rohstoff == true|| Building == true || streed == true ||Building_placed == true)
+        else if (Rohstoff == true || Building == true || streed == true || Building_placed == true)
         {
             return false;
         }
@@ -56,58 +55,79 @@ public class Grid_opjekt
         }
 
     }
-    public void Setrotation(int Winkel,bool Boden)
+    public void Setrotation(int Winkel, bool oden)
     {
-        if(Boden == true)
+        if (oden == false)
         {
             Rotation_Top = Winkel;
         }
-        if (Boden == false)
+        if (oden == true)
         {
             Rotation_Boden = Winkel;
         }
-       
+
     }
-    
-    public void Set_Rotation_Random(bool boden)
+
+    public void Set_Rotation_Random(bool oden)
     {
-        
-        if (boden == true)
+
+        if (oden == false)
+        {
+            Rotation_Top = 90 * Random.Range(0, 4);
+        }
+        if (oden == true)
         {
             Rotation_Boden = 90 * Random.Range(0, 4);
         }
-
 
 
     }
 
     public void Id_Load(long Id)
     {
-        
+
         ID[1] = Id;
-        Rotation_Top = System.Convert.ToInt16(Id / 10000000000) * 90;     
-        Biom = System.Convert.ToInt16((Id% 10000000000) / 100000000);
-        Art_Top = System.Convert.ToInt16((Id% 100000000) / 1000000);
-        Building_Top = System.Convert.ToInt16((Id% 1000000) / 10000);
-        Index_Top = System.Convert.ToInt16((Id% 10000) / 1000);
-        Zusatz_Top = System.Convert.ToInt16((Id % 1000));
+        Rotation_Top = System.Convert.ToInt32(Id / 10000000000) * 90;
+        Biom = System.Convert.ToInt16((Id % 10000000000) / 100000000);
+        Art_Top = System.Convert.ToInt16((Id % 100000000) / 1000000);
+        Building_Top = System.Convert.ToInt16((Id % 1000000) / 10000);
+        Index_Top = System.Convert.ToInt16((Id % 10000) / 100);
+        Zusatz_Top = System.Convert.ToInt16((Id % 100));
     }
     public long[] Create_ID()
     {
-        ID[0] = Rotation_Boden/90 * 10000000000 + Biom * 100000000 + Art_Boden * 1000000 + Building_Boden * 10000 + Index_Boden*1000 + Zusatz_Boden;
-        ID[1] = Rotation_Top / 90 * 10000000000 + Biom * 100000000 + Art_Top * 1000000 + Building_Top * 10000 + Index_Top *1000 + Zusatz_Top;
+        ID[0] = (Rotation_Boden / 90) * 10000000000 + Biom * 100000000 + Art_Boden * 1000000 + Building_Boden * 10000 + Index_Boden * 100 + Zusatz_Boden;
+        ID[1] = (Rotation_Top / 90) * 10000000000 + Biom * 100000000 + Art_Top * 1000000 + Building_Top * 10000 + Index_Top * 100 + Zusatz_Top;
 
+        Id_Load(ID[1]);
+        Id_Boden(ID[0]);
         return ID;
     }
     public void Id_Boden(long Id)
     {
         ID[0] = Id;
-        Rotation_Boden = System.Convert.ToInt16(Id / 10000000000) * 90;
+        Rotation_Boden = System.Convert.ToInt32(Id / 10000000000) * 90;
         Biom = System.Convert.ToInt16((Id % 10000000000) / 100000000);
         Art_Boden = System.Convert.ToInt16((Id % 100000000) / 1000000);
         Building_Boden = System.Convert.ToInt16((Id % 1000000) / 10000);
-        Index_Boden = System.Convert.ToInt16((Id % 10000) / 1000);
-        Zusatz_Boden = System.Convert.ToInt16((Id % 1000));
+        Index_Boden = System.Convert.ToInt16((Id % 10000) / 100);
+        Zusatz_Boden = System.Convert.ToInt16((Id % 100));
     }
 
+    public void Set_Map_ID_Boden(long Id)
+    {
+        Biom = System.Convert.ToInt16((Id % 10000000000) / 100000000);
+        Art_Boden = System.Convert.ToInt16((Id % 100000000) / 1000000);
+        Building_Boden = System.Convert.ToInt16((Id % 1000000) / 10000);
+        Zusatz_Boden = System.Convert.ToInt16((Id % 100));
+    }
+    public void Set_Map_ID_Top(long Id)
+    {
+        
+        Biom = System.Convert.ToInt16((Id % 10000000000) / 100000000);
+        Art_Top = System.Convert.ToInt16((Id % 100000000) / 1000000);
+        Building_Top = System.Convert.ToInt16((Id % 1000000) / 10000);
+        Zusatz_Top = System.Convert.ToInt32((Id % 100) / 1);
+
+    }
 }

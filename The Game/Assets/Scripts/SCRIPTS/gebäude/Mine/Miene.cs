@@ -31,12 +31,11 @@ public class Miene : Building_base
     }
     override public void setzen(Grid_opjekt Objekt,bool Setzen)
     {
-
         Objekt.Rohstoff = null;
         if (Objekt.Building_placed != true)     // fals es zum esrsten mal plziert wwird rotaion setzen 
         {
             Rotation = Global.Buildingrotation + 90;
-            Objekt.Building_placed = true;// Muss alls erstes pasieren sonst wird die rotaion nicht gesetzz
+            Objekt.Building_placed = true;
             Objekt.Setrotation(Rotation, false);
         } 
         if(Setzen == true)
@@ -56,7 +55,7 @@ public class Miene : Building_base
 
         if (Plase[(x * (GrösseY)) + y] == 1) // prüfe ob es grass
         {
-            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y], 00010000000))
+            if (Rohstoffe.singleton.Biom_test(Map.Map_Rohstoffe[X, Y], 1))
             {
                 return Courser_straße_passt;
             }
@@ -65,23 +64,23 @@ public class Miene : Building_base
         }
         if (Plase[(x * (GrösseY)) + y] == 2)
         {
-            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X +1, Y], 00010100000))
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X +1, Y], 1,1))
             {
                 x2 = 1;
             }
-            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X - 1, Y], 00010100000))
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X - 1, Y], 1, 1))
             {
                 x1 = 1;
             }
-            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X , Y+1], 00010100000))
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X , Y+1], 1, 1))
             {
                 y2 = 1;
             }
-            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X , Y-1], 00010100000))
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X , Y-1], 1, 1))
             {
                 y1 = 1;
             }
-            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y + 1], 00010100000))
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y ], 1, 1))
             {
                 sum = +x2 + x1 + y1 + y2;
             }
@@ -104,82 +103,65 @@ public class Miene : Building_base
     }
     override public bool Mine_Can_build(int X,int Y)
     {
-       
-        for (int x = 0; x < Global.Mine_Focus.GrösseX; x++) // float da minus zahlen
-        {
-            for (int y = 0; y < Global.Mine_Focus.GrösseY; y++)
-            {
-                int F = x, G = y;
+    
+        int x2 = 0, x1 = 0, y1 = 0, y2 = 0;
 
-                if (Global.Buildingrotation == 90)
-                {
-                    G =  - y;
-                    F = x;
-                }
-                if (Global.Buildingrotation == 0)
-                {
-                    G =  - x;
-                    F = - y;
-                }
-                if (Global.Buildingrotation == 270)
-                {
-                    G = y;
-                    F =  - x;
-                }
+        int sum = 0;
+
+        for (int x = 0; x < GrösseX; x++)
+        {
+            for (int y = 0; y < GrösseY; y++)
+            {
 
                 if (Plase[(x * (GrösseY)) + y] == 1) // prüfe ob es grass
                 {
-                    
-                    if(Map.Map_Rohstoffe[X + F, Y + G] == 00010000000) // hajskdghfucjuaaaaaaaaaa help
+                    if (!Rohstoffe.singleton.Biom_test(Map.Map_Rohstoffe[X, Y], 1))
                     {
                         return false;
                     }
-                   
-
-                }
-                else if (Plase[(x * (GrösseY)) + y] == 2)
-                {
                     
-                    int x2 = 0, x1 = 0, y1 = 0, y2 = 0;
-                    int sum = 0;
-                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X + F+1, Y + G ], 00010100000))
+                    //return Courser_straße_passt_nicht;
+                }
+                if (Plase[(x * (GrösseY)) + y] == 2)
+                {
+                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X + 1, Y], 1, 1))
                     {
                         x2 = 1;
                     }
-                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X + F-1, Y + G  ], 00010100000))
+                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X - 1, Y], 1, 1))
                     {
                         x1 = 1;
                     }
-                    if( Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X + F, Y + G - 1], 00010100000))
+                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y + 1], 1, 1))
                     {
                         y2 = 1;
                     }
-                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X + F, Y + G + 1], 00010100000))
+                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y - 1], 1, 1))
                     {
                         y1 = 1;
                     }
-                    if (Map.Map_Rohstoffe[X+F, Y+G] >= 300 && Map.Map_Rohstoffe[X + F,Y+ G] < 00010100000)
+                    if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y], 1, 1))
                     {
-                        
-                        sum = x2 + x1 + y1 + y2;
-
+                        sum = +x2 + x1 + y1 + y2;
                     }
-                    if(sum != 3)
+                    if (sum != 3)
                     {
                         return false;
                     }
-
+                    
                 }
-                else if (Plase[(x * (GrösseY)) + y] == 3) // prüfe ob es strasse ist 
+                if (Plase[(x * (GrösseY)) + y] == 3) // prüfe ob es strasse ist 
                 {
-                    if (!straße.singleton.Passt(new Vector3(X, 3, Y)))
+                    if (straße.singleton.Passt(new Vector3(X, 3, Y)))
                     {
                         return false;
                     }
+                    
                 }
-
             }
         }
+ 
+
         return true;
     }
     private Vector3 Get_World_Postion(Vector3 world)

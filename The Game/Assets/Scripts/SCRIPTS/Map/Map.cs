@@ -82,8 +82,6 @@ public class Map : MonoBehaviour
         Random_Map();
         Save.Save_Array();
         //Save.Load_maP();
-       
-       
     }
 
     

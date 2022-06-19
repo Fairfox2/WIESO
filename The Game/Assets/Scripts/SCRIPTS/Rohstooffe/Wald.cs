@@ -29,7 +29,7 @@ public class Wald : Rohstoffe
     {
         random = Random;
         if (random == true)
-        {
+        { 
             Objekt.Index_Boden = Wald_Boden.GetRandom();
             Objekt.Set_Rotation_Random(true);
         }

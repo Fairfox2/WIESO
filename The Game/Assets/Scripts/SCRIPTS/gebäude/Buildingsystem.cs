@@ -66,7 +66,6 @@ public class Buildingsystem : MonoBehaviour
 
         if (Global.buildmoide == 2 && Global.Mine_Focus.Mine_Can_build(X, Y))
         {
-            print(Global.Mine_Focus.Mine_Can_build(X, Y));
             for (int x1 = 0; x1 < Global.Mine_Focus.GrösseX; x1++) // noch eigene funktion für schöneheit zukunfts Otto
             {
                 for (int y1 = 0; y1 < Global.Mine_Focus.GrösseY; y1++)
@@ -87,19 +86,24 @@ public class Buildingsystem : MonoBehaviour
                         G = y1;
                         F = -x1;
                     }
-                    Map.Map_Rohstoffe[System.Convert.ToInt16(X + G), System.Convert.ToInt16(Y + F)] = 350;
+                    if (Global.Mine_Focus.Plase[(x1 * (Global.Mine_Focus.GrösseY)) + y1] == 2)
+                    {
+                        Map.Map_Rohstoffe[System.Convert.ToInt32(X + G), System.Convert.ToInt16(Y + F)] = 0101020001;
+
+                    }//Muss noch durch ID variable der MIne erstzt weerden ZK Otto und mach achu eine funktion drasu
                 }
             }
-            Map.Map_Rohstoffe[System.Convert.ToInt16(X), System.Convert.ToInt16(Y)] = 399;
+            Map.Map_Rohstoffe[System.Convert.ToInt16(X), System.Convert.ToInt16(Y)] = 0101020000;
+
             // sicher heit ein bauen
         }
         else if (Global.buildmoide == 1 && straße.singleton.Passt(World_pos))
         {
-            Map.Map_Rohstoffe[X, Y] = 100010000;
+            //Map.Map_Rohstoffe[X, Y] = 100010000;
         }
         else if (Global.buildmoide == 3)
         {
-            Map.Map_Rohstoffe[X, Y] = 1910;
+            Map.Map_Rohstoffe[X, Y] = 100030000;
         }
     }
     void Switch()

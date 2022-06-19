@@ -13,8 +13,8 @@ public class Lager : MonoBehaviour
     public Transform CourserPasst;
     public int ID;
     public int Rotation;
-    [SerializeField] public int GrösseX;
-    [SerializeField] public int GrösseY;
+    public int GrösseX;
+    public int GrösseY;
     public void Awake()
     {
         singelton = this;
@@ -42,7 +42,7 @@ public class Lager : MonoBehaviour
         Vector3 World_pos = Get_World_Postion(World);
         int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
         int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
-        if (Map.Map_Rohstoffe[X, Y] == 1000)
+        if (Map.Map_Rohstoffe[X, Y] == 100000000)
         {
             return true;
         }

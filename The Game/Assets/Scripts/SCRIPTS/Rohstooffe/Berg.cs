@@ -38,9 +38,8 @@ public class Berg : Rohstoffe
     {
         // man könnte noch die postionen vonn allen bergen speichern
 
-        bool voll = false;
-
-        int[] Chunck_position = new int[4];
+        bool voll = false; 
+        int[] Chunck_position;
         int xm = 40;
         int ym = 40;
 
@@ -66,7 +65,7 @@ public class Berg : Rohstoffe
             int max = 160;
             int min = 100;
             voll = false;
-            int[] Grösse = new int[5];
+            int[] Grösse ;
 
             if (!voll)
             {
@@ -75,7 +74,7 @@ public class Berg : Rohstoffe
                     Rohstoffe.singleton.generieren_spezial(min, max, Steine);
                     Grösse = Rohstoffe.singleton.größe_feststellen(Steine);
 
-                    bool passt = false;
+                    bool passt ;
                     int Kor = 0;
                     int zähler = 0;
                     do
@@ -222,7 +221,8 @@ public class Berg : Rohstoffe
         //   ?
         int q = X;
         int e = Y;
-        int ebene = gr.Zusatz_Top; 
+        int ebene = gr.Zusatz_Top;
+        if (gr.Building_Top == 2 ) ebene = 0;
 
 
         int[,] Umkreis = new int[3,3];
@@ -466,7 +466,7 @@ public class Berg : Rohstoffe
                 Objekt.Index_Top = Stein_ecke.GetRandom();
             }
         }
-        Transform element = null; ;
+        Transform element ;
 
         element = Stein_ecke_höche.Get(Objekt.Index_Top);
         if (ebene <= 0)
@@ -544,7 +544,7 @@ public class Berg : Rohstoffe
                 Objekt.Index_Top = Stein_rand.GetRandom();
             }
         }
-        Transform element = null;
+        Transform element ;
         if (ebene <= 0)
         {
             element = Stein_rand.Get(Objekt.Index_Top);

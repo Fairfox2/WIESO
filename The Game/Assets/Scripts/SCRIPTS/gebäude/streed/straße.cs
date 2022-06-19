@@ -28,90 +28,113 @@ public class straße : MonoBehaviour
     private int X = 0;
     private int Y = 0;
 
+    bool leftbuttonpressed;
+
     Vector3 World_pos;
     private void Awake()
     {
         singleton = this;
         cameraActions = new CameraControlsAktion();
-       
+        BuildingsystemsAktions = new Bauen();
+        BuildingsystemsAktions.Buildings.Build.performed += _ => Build(_.ReadValueAsButton());
+        BuildingsystemsAktions.Buildings.Build.Enable();
     }
-   
+
+    
+    void Build(bool bu)
+    {
+        leftbuttonpressed = bu;
+    }
     public bool Passt(Vector3 World)
     {
         Vector3 World_pos = Get_World_Postion(World);
         int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
         int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
-        if (Map.Map_Rohstoffe[X,Y] == 00100000000)                 //MIte boden machen 
+        if (Rohstoffe.singleton.Biom_test(Map.Map_Rohstoffe_Boden[X,Y], 01) )                 //MIte boden machen 
         {
             return true;
         }
         return false;
     }
-    private Vector3 Get_World_Postion(Vector3 world)
+    public Vector3 Get_World_Postion(Vector3 world)
     {
         Vector3 position;
         position.x = Mathf.Floor(world.x);
         position.y = Mathf.Floor(world.y);
         position.z = Mathf.Floor(world.z);
         return position;
-
     }
 
-    private void Update()
-    {
-
-    }
     public void Straße_setzen(Grid_opjekt Objekt, int X, int Y,bool random)
     {
-        int Rohstoff = 000010000;
+         
+        int Rohstoff = 1;
         
 
-        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X , Y], Rohstoff))   // ? # ?
+        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X , Y], Rohstoff) && Map.Map_Rohstoffe[X, Y]%100 == 1 )   // ? # ?
         {                           //   ?
             Objekt.Building_placed = true;
             Strasse_licht(Objekt, 90);
-            print("streed");
 
             int x2 = 0, y2 = 0, x = 0, y = 0;
-            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X - 1, Y], Rohstoff))
+            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X - 1, Y], Rohstoff) )
             {
                 x2 = 1;
             }
-            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X + 1, Y], Rohstoff))
+            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X + 1, Y], Rohstoff) )
             {
                 x = 1;
+ 
+
             }
-            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X , Y-1], Rohstoff))
+            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X , Y-1], Rohstoff) )
             {
                 y2 = 1;
+   
+
             }
-            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X, Y +1], Rohstoff))
+            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X, Y +1], Rohstoff) )
             {
                 y = 1;
+
+
             }
-            int sum = x + y + x2 + y2;
+            int sum = x + y  + x2  + y2 ;
             if (sum == 4)
             {
-                Strasse_Kreuzung(Objekt, 90);
+
+                    Strasse_Kreuzung(Objekt, 90);
+                
             }
             if (sum == 3)
             {
-                if (x == 1 && x2 == 1 && y == 1)
+                if (x == 1 && x2 == 1 && y == 1 )
                 {
-                    Strasse_split(Objekt, 0);
+
+                        Strasse_split(Objekt, 0);
+                    
+                    
                 }
-                if (x == 1 && y2 == 1 && y == 1)
+                else if (x == 1 && y2 == 1 && y == 1)
                 {
-                    Strasse_split(Objekt, 90);
+
+                        Strasse_split(Objekt, 90);
+                    
                 }
+
                 if (x == 1 && x2 == 1 && y2 == 1)
                 {
-                    Strasse_split(Objekt, 180);
+
+                        Strasse_split(Objekt, 180);
+                    
                 }
-                if (y2 == 1 && x2 == 1 && y == 1)
+                if (y2 == 1 && x2 == 1 && y == 1 )
                 {
-                    Strasse_split(Objekt, 270);
+
+                        Strasse_split(Objekt, 270);
+                    
                 }
+
             }
             if (sum == 2)
             {
@@ -150,20 +173,14 @@ public class straße : MonoBehaviour
                 {
                     Strasse_licht(Objekt, 90);
                 }
-            }
-            
-        }
-
-
-        
-
+            }  
+        } 
     }
     private void Strasse_licht(Grid_opjekt Objekt, int winkel)
     {
-        print(winkel);
         Objekt.Setrotation(winkel,false);
         Objekt.streed = Straße_licht;
-        print(Objekt.Rotation_Top);
+
     }
     private void Strasse_Kurve(Grid_opjekt Objekt, int winkel)
     {
