@@ -28,19 +28,18 @@ public class Streed_gohst : MonoBehaviour
 
     void Build(bool bu)
     {
+        X1= X;
+        Y1 = Y;
         leftbuttonpressed = bu;
         if (bu == false)
         {
          
             foreach ( Vector2 vec2 in d)
             {
-                Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)] = 100100001; //wie speicher ich das ich zk Otto
+                
+                Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)] = 100100000 + Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)]%100;  //wie speicher ich das ich zk Otto hier kˆnnnte man nioch eine funktion machen
+                
             }
-            foreach (Vector2 vec2 in f)
-            {
-                Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)] = 100100001; //wie speicher ich das ich zk Otto
-            }
-            f.Clear();
             d.Clear();
         }
     }
@@ -50,67 +49,46 @@ public class Streed_gohst : MonoBehaviour
     int X1 = 0;
     int Y1 = 0;
     int helpco = 0;
+    int X, Y;
     private void streed_Build(Vector3 World)
     {
       
-            Vector3 World_pos = straﬂe.singleton.Get_World_Postion(World);
+        Vector3 World_pos = straﬂe.singleton.Get_World_Postion(World);
 
-        int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
-        int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
-
-        if (leftbuttonpressed == true && !(X1 == X &&  Y1 == Y))
+        X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
+        Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
+        if(X1==0 || Y1 == 0)
         {
             X1 = X;
             Y1 = Y;
-
-
-
-            if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X, Y], 10))
+        }
+        if (leftbuttonpressed == true && !(X1 == X &&  Y1 == Y))
+        {
+            int ‹bersprungene_tieles = Mathf.Abs(X1 - X) + Mathf.Abs(Y1 - Y);
+            for (int i = 0; i < ‹bersprungene_tieles; i++)
             {
-                print("ssssssssssssssss");
-                for (int x = 0; x < 3; x++)
+                if(Mathf.Abs(X1 - X) > Mathf.Abs(Y1 - Y) && X1 != X)
                 {
-                    for (int y = 0; y < 3; y++)
-                    {
-                        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X + x - 1, Y + y - 1], 10)) // minus eins da wir einmal rundherum kommen kann schˆnner gemacht weerden 
-                        {
-                            if (x != 1 && y != 1)
-                            {
-                                f.Add(new Vector2(X + x - 1, Y + y - 1));
-                                Map.Map_Rohstoffe[X + x - 1, Y + y - 1] = 100010001;
-                            }
-                            else
-                            {
-                                f.Add(new Vector2(X + x - 1, Y + y - 1));
-                                Map.Map_Rohstoffe[X + x - 1, Y + y - 1] = 100010001;
-                            }
-
-
-                        }
-                        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X + x - 1, Y + y - 1], 1)) // minus eins da wir einmal rundherum kommen kann schˆnner gemacht weerden 
-                        {
-                            d.Add(new Vector2(X + x - 1, Y + y - 1));
-                            Map.Map_Rohstoffe[X + x - 1, Y + y - 1] = 100010002;
-                        }
-                    }
+                    if(X>X1) X1 ++;
+                    else X1--;
                 }
-                helpco = 0;
-            }
-            else
-            {
-                helpco++;
-                Map.Map_Rohstoffe[X, Y] = 100010001;
-                if (helpco == 2)
+                else if (Mathf.Abs(X1 - X) <= Mathf.Abs(Y1 - Y) && Y1 != Y)
                 {
-                    foreach (Vector2 vec2 in f)
-                    {
-                        Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)] = 100100001; //wie speicher ich das ich zk Otto
-                    }
-                    f.Clear();
+                    if (Y > Y1) Y1++;
+                    else Y1--;
                 }
-                if (!d.Contains(new Vector2(X, Y)))
+                if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X1, Y1], 10))
                 {
-                    d.Add(new Vector2(X, Y));
+                    Map.Map_Rohstoffe[X, Y] = 100010000 + Map.Map_Rohstoffe[X1, Y1] % 100;
+                    helpco = 0;
+                }
+                else
+                {
+                    if (!d.Contains(new Vector2(X1, Y1)))
+                    {
+                        d.Add(new Vector2(X1, Y1));
+                    }
+                    Map.Map_Rohstoffe[X1, Y1] = 100010000 + Map.Map_Rohstoffe[X1, Y1] % 100;
                 }
 
             }
@@ -135,12 +113,14 @@ public class Streed_gohst : MonoBehaviour
             courser.parent = transform;
             courser.position = transform.position;
 
-            Vector3 Target1 = ray.GetPoint(distance);
-            Target1.y = 3;
-            Target1.z = Mathf.Floor(Target1.z);
-            Target1.x = Mathf.Floor(Target1.x);
             if (Global.buildmoide == 1)
             {
+
+                Vector3 World_pos = straﬂe.singleton.Get_World_Postion(ray.GetPoint(distance));
+
+                int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
+                int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
+
                 streed_Build(ray.GetPoint(distance));
                 if (straﬂe.singleton.Passt(ray.GetPoint(distance)))
                 {
@@ -181,8 +161,6 @@ public class Streed_gohst : MonoBehaviour
                         }
                        
                          Mine = Global.Mine_Focus.getcourser(new Vector3(ray.GetPoint(distance).x + G, 0, ray.GetPoint(distance).z + F),System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
-                       
-
                         if(Mine != null)newr = Instantiate(Mine, new Vector3(transform.position.x+G,transform.position.y,transform.position.z +F), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
                         if(newr != null)newr.parent = courser;
                     }
@@ -209,7 +187,11 @@ public class Streed_gohst : MonoBehaviour
                 }
                 Mine = null;
             }
-            
+            Vector3 Target1 = ray.GetPoint(distance);
+            Target1.x = Mathf.Floor(Target1.x);
+            Target1.z = Mathf.Floor(Target1.z);
+            Target1.y = 3;
+
             transform.position = Vector3.Lerp(transform.position, Target1, Time.deltaTime * 8);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, Global.Buildingrotation,0), Time.deltaTime * 8);
         }

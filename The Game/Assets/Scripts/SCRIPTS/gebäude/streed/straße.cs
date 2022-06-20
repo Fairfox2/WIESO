@@ -71,12 +71,39 @@ public class straße : MonoBehaviour
         int Rohstoff = 1;
         
 
-        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X , Y], Rohstoff) && Map.Map_Rohstoffe[X, Y]%100 == 1 )   // ? # ?
+        if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X , Y], Rohstoff)  )   // ? # ?
         {                           //   ?
             Objekt.Building_placed = true;
             Strasse_licht(Objekt, 90);
-
+            string bin = "";
+            int quatient = Objekt.Zusatz_Top;
             int x2 = 0, y2 = 0, x = 0, y = 0;
+            if (Map.Map_Rohstoffe[X, Y] % 100 != 0)
+            {
+
+                while (quatient != 0)
+                {
+                    bin += System.Convert.ToString(quatient % 2) + ",";
+                    quatient = quatient / 2;
+                }
+                string[] split = bin.Split(',');
+                if (split.Length > 1)
+                {
+                    y2 = System.Convert.ToInt16(split[0]);
+                }
+                if (split.Length > 2)
+                {
+                    y = System.Convert.ToInt16(split[1]);
+                }
+                if (split.Length > 3)
+                {
+                    x2 = System.Convert.ToInt16(split[2]);
+                }
+                if (split.Length > 4)
+                {
+                    x = System.Convert.ToInt16(split[3]);
+                }
+            }
             if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X - 1, Y], Rohstoff) )
             {
                 x2 = 1;
@@ -99,7 +126,13 @@ public class straße : MonoBehaviour
 
 
             }
+
+          
+                Objekt.Zusatz_Top = x * 8 + x2 * 4 + y * 2 + y2 * 1;
+                Map.Map_Rohstoffe[X, Y] += Objekt.Zusatz_Top;
+            
             int sum = x + y  + x2  + y2 ;
+            
             if (sum == 4)
             {
 
@@ -176,6 +209,9 @@ public class straße : MonoBehaviour
             }  
         } 
     }
+
+ 
+
     private void Strasse_licht(Grid_opjekt Objekt, int winkel)
     {
         Objekt.Setrotation(winkel,false);
@@ -184,14 +220,11 @@ public class straße : MonoBehaviour
     }
     private void Strasse_Kurve(Grid_opjekt Objekt, int winkel)
     {
-   
         Objekt.streed = StraßeKurve;
-
         Objekt.Setrotation(winkel, false);
     }
     private void Strasse_Kreuzung(Grid_opjekt Objekt, int winkel)
     {
-      
         if(random == true)
         {
             Objekt.Index_Top = Kreuzung.GetRandom();
@@ -201,14 +234,8 @@ public class straße : MonoBehaviour
     }
     private void Strasse_split(Grid_opjekt Objekt, int winkel)
     {
-
-
         Objekt.Setrotation(winkel, false);
-
         Objekt.streed = Straßesplit;
-       
-        
-     
 
     }
     private void Strasse_ende(Grid_opjekt Objekt, int winkel)

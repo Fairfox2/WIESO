@@ -85,8 +85,6 @@ public class Grid_opjekt
 
     public void Id_Load(long Id)
     {
-
-        ID[1] = Id;
         Rotation_Top = System.Convert.ToInt32(Id / 10000000000) * 90;
         Biom = System.Convert.ToInt16((Id % 10000000000) / 100000000);
         Art_Top = System.Convert.ToInt16((Id % 100000000) / 1000000);
@@ -94,18 +92,16 @@ public class Grid_opjekt
         Index_Top = System.Convert.ToInt16((Id % 10000) / 100);
         Zusatz_Top = System.Convert.ToInt16((Id % 100));
     }
-    public long[] Create_ID()
+    public void Create_ID(int X,int Y)
     {
-        ID[0] = (Rotation_Boden / 90) * 10000000000 + Biom * 100000000 + Art_Boden * 1000000 + Building_Boden * 10000 + Index_Boden * 100 + Zusatz_Boden;
-        ID[1] = (Rotation_Top / 90) * 10000000000 + Biom * 100000000 + Art_Top * 1000000 + Building_Top * 10000 + Index_Top * 100 + Zusatz_Top;
 
-        Id_Load(ID[1]);
-        Id_Boden(ID[0]);
-        return ID;
+        Map.Map_Rohstoffe_Boden[X, Y] = (Rotation_Boden / 90) * 10000000000 + (Biom * 100000000) + Art_Boden * 1000000 + Building_Boden * 10000 + Index_Boden * 100 + Zusatz_Boden;
+        Map.Map_Rohstoffe[X,Y] = (Rotation_Top / 90) * 10000000000 + (Biom * 100000000) + (Art_Top * 1000000) + (Building_Top * 10000) + (Index_Top * 100) + Zusatz_Top;
+       
+        
     }
     public void Id_Boden(long Id)
     {
-        ID[0] = Id;
         Rotation_Boden = System.Convert.ToInt32(Id / 10000000000) * 90;
         Biom = System.Convert.ToInt16((Id % 10000000000) / 100000000);
         Art_Boden = System.Convert.ToInt16((Id % 100000000) / 1000000);

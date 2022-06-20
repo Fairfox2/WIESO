@@ -312,6 +312,7 @@ public class Junk : MonoBehaviour
                         if (ga.Building_Top == 1)
                         {
                             straﬂe.singleton.Straﬂe_setzen(ga, X + x, Y + y, random);
+                            
                         }
                         if (ga.Building_Top == 2)
                         {
@@ -334,9 +335,12 @@ public class Junk : MonoBehaviour
                                 Lager.singelton.Lager_setzen(ga, true);
                         }
                     }
-                    long[] Id = ga.Create_ID();
-                    Map.Map_Rohstoffe[X + x, Y + y] = Id[1];
-                    Map.Map_Rohstoffe_Boden[X + x, Y + y] = Id[0];
+                    
+                   ga.Create_ID(X + x, Y + y);
+
+
+                    
+
 
                 }
 
@@ -470,9 +474,7 @@ public class Junk : MonoBehaviour
                             Lehm.singleton.Lehm_Baum(ga, random);
                         }
                     }
-                    long[] Id = ga.Create_ID();
-                    Map.Map_Rohstoffe[X + x, Y + y] = Id[1];
-                    Map.Map_Rohstoffe_Boden[X + x, Y + y] = Id[0];
+                    ga.Create_ID(X + x, Y + y);
 
                     
                 }
