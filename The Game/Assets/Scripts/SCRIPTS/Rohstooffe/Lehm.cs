@@ -97,44 +97,45 @@ public class Lehm : Rohstoffe
         random = Random;
         int q = X;
         int e = Y;
-        int ID = 00201000000;
+        int Rohstoff = 1;
+        int Biom = 2;
         //   ?
-        if (Lehm_block[q, e] == ID)   // ? # ?
+        if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e],Biom,Rohstoff ))   // ? # ?
         {                       //   ?
 
 
             //    ?
-            if (Lehm_block[q - 1, e] == ID) // '# # ?
+            if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q-1, e],Biom,Rohstoff )) // '# # ?
             {                     //    ?
 
                 //    ?
-                if (Lehm_block[q + 1, e] == ID)   //  # # '#
+                if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q +1, e], Biom, Rohstoff))   //  # # '#
                 {                           //    ?
 
                     //   ?
-                    if (Lehm_block[q, e - 1] == ID)   // # # #
+                    if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e-1], Biom, Rohstoff))   // # # #
                     {                               //  '#
 
                         //  '#
-                        if (Lehm_block[q, e + 1] == ID)      // # # #
+                        if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e+1], Biom, Rohstoff))      // # # #
                         {                                   //   #
 
-                            if (Lehm_block[q + 1, e - 1] != ID)
+                            if (!Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q+1, e-1], Biom, Rohstoff))
                             {
 
                                 Lehm_Kurve(gr, 0);
                             }
-                            else if (Lehm_block[q - 1, e + 1] != ID)
+                            else if (!Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q - 1, e + 1], Biom, Rohstoff))
                             {
 
                                 Lehm_Kurve(gr, 180);
                             }
-                            else if (Lehm_block[q - 1, e - 1] != ID)
+                            else if (!Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q - 1, e - 1], Biom, Rohstoff))
                             {
 
                                 Lehm_Kurve(gr, 90);
                             }
-                            else if (Lehm_block[q + 1, e + 1] != ID)
+                            else if (!Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q + 1, e + 1], Biom, Rohstoff))
                             {
                                 Lehm_Kurve(gr, 270);
                             }
@@ -149,7 +150,7 @@ public class Lehm : Rohstoffe
                             Lehm_Rand(gr, 270);
                         }
                     }
-                    else if (Lehm_block[q, e + 1] == ID)
+                    else if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q , e + 1], Biom, Rohstoff))
                     {
                         Lehm_Rand(gr, 90);
                     }
@@ -160,11 +161,11 @@ public class Lehm : Rohstoffe
 
 
                 }                               //    ?
-                else if (Lehm_block[q, e - 1] == ID)  //  # # -
+                else if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e - 1], Biom, Rohstoff))  //  # # -
                 {                               //   '#
 
                     //  '#
-                    if (Lehm_block[q, e + 1] == ID)   // # # -
+                    if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e + 1], Biom, Rohstoff))   // # # -
                     {                                 //   #
                         Lehm_Rand(gr, 0);
                     }
@@ -176,7 +177,7 @@ public class Lehm : Rohstoffe
                 }
 
                 //  '#
-                else if (Lehm_block[q, e + 1] == ID)  // # # -
+                else if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e + 1], Biom, Rohstoff))  // # # -
                 {                               //   -
                     Lehm_Ecke(gr, 270);
                 }
@@ -188,15 +189,15 @@ public class Lehm : Rohstoffe
 
 
             }                          //   ?
-            else if (Lehm_block[q + 1, e] == ID) // - # '#
+            else if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q+1, e ], Biom, Rohstoff)) // - # '#
             {                          //   ?
 
                 //   ?
-                if (Lehm_block[q, e - 1] == ID)          // - # #
+                if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e - 1], Biom, Rohstoff))          // - # #
                 {                                       //  '#
 
                     //  '#
-                    if (Lehm_block[q, e + 1] == ID)      // - # #
+                    if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e + 1], Biom, Rohstoff))      // - # #
                     {                                   //   #
                         Lehm_Rand(gr, 180);
                     }
@@ -205,7 +206,7 @@ public class Lehm : Rohstoffe
                         Lehm_Ecke(gr, 90);
                     }
                 }                                       //  '#
-                else if (Lehm_block[q, e + 1] == ID)     // - # #
+                else if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e + 1], Biom, Rohstoff))     // - # #
                 {                                       //   -
                     Lehm_Ecke(gr, 0);
                 }
@@ -214,11 +215,11 @@ public class Lehm : Rohstoffe
                     Lehm_Rand(gr, 90);
                 }
             }                                //   ?
-            else if (Lehm_block[q, e - 1] == ID)   // - # -
+            else if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e - 1], Biom, Rohstoff))   // - # -
             {                                //  '#
 
                 //  '#
-                if (Lehm_block[q, e + 1] == ID)   // - # -
+                if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e + 1], Biom, Rohstoff))   // - # -
                 {                           //   #
                     Debug.Log("Fehler: Lehmprefab gib es nicht");
                 }
@@ -228,7 +229,7 @@ public class Lehm : Rohstoffe
                 }
 
             }
-            else if (Lehm_block[q, e + 1] == ID)
+            else if (Rohstoffe.singleton.BiomRostoff_test(Lehm_block[q, e + 1], Biom, Rohstoff))
             {
                 Debug.Log("Fehler: Lehmprefab gib es nicht");
             }
@@ -286,7 +287,7 @@ public class Lehm : Rohstoffe
                             {
                                 if (Bäume[i, r] != 0)
                                 {
-                                    if (Map.Map_Rohstoffe[i + X + X_sp, r + Y + Y_sp] != 200000000)
+                                    if (Map.Map_Rohstoffe[i + X + X_sp, r + Y + Y_sp] != 00200000000)
                                     {
                                         zähler++;
                                         passt = false;
@@ -311,7 +312,7 @@ public class Lehm : Rohstoffe
                         {
                             if (Bäume[i, r] != 0)
                             {
-                                Map.Map_Rohstoffe[i + X + X_sp, r + Y + Y_sp] = 000201000000;
+                                Map.Map_Rohstoffe[i + X + X_sp, r + Y + Y_sp] = 00201000000;
                             }
                         }
                     }
@@ -321,9 +322,9 @@ public class Lehm : Rohstoffe
                     for (int t = 0; t <= Radius_Biom * 2; t++)
                     {
                         
-                        if (BiomVereinfacher(Map.Map_Rohstoffe,i + Map.Biom[0, 0], t + Map.Biom[0, 1], 000201000000, 3, 3,100)) // hier vereinfachen wir das biom
+                        if (BiomVereinfacher(Map.Map_Rohstoffe,i + Map.Biom[0, 0], t + Map.Biom[0, 1], 00201000000, 3, 3,100)) // hier vereinfachen wir das biom
                         {
-                            Map.Map_Rohstoffe[i + Map.Biom[0, 0], t + Map.Biom[0, 1]] = 000100000000;
+                            Map.Map_Rohstoffe[i + Map.Biom[0, 0], t + Map.Biom[0, 1]] = 00100000000;
                         }
                         
                     }
@@ -382,7 +383,7 @@ public class Lehm : Rohstoffe
                                 if (Bäume[i, r] != 0)
                                 {
 
-                                    if (Map.Map_Rohstoffe[i + X + X_sp, r + Y + Y_sp] != 000200000000)
+                                    if (Map.Map_Rohstoffe[i + X + X_sp, r + Y + Y_sp] != 00200000000)
                                     {
                                         zähler++;
                                         passt = false;
@@ -408,7 +409,7 @@ public class Lehm : Rohstoffe
                         {
                             if (Bäume[i, r] != 0)
                             {
-                                Map.Map_Rohstoffe[i + X + X_sp, r + Y + Y_sp] = 000202000000;
+                                Map.Map_Rohstoffe[i + X + X_sp, r + Y + Y_sp] = 00202000000;
                             }
 
                         }

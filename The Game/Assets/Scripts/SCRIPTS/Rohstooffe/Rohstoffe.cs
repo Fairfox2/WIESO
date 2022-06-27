@@ -267,6 +267,14 @@ public class Rohstoffe : MonoBehaviour
         }
         return false;
     }
+    public bool BiomRostoff_test(long ID, int Biom, int Rohstoff,int Gebäude) // diese Funktion pass hier nicht her änder dass ZK Otto
+    {
+        if ((ID % 10000000000) / 100000000 == Biom && (ID % 100000000) / 1000000 == Rohstoff && (ID % 1000000) / 10000 == Gebäude)
+        {
+            return true;
+        }
+        return false;
+    }
     public bool Rohstoff_test(long ID, int ID_test) // diese Funktion pass hier nicht her änder dass ZK Otto
     {
         if ((ID % 1000000) / 10000 == ID_test)

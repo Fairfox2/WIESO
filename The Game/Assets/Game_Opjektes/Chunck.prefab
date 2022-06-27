@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7042655591599431949}
   - component: {fileID: 4281479215933994208}
   - component: {fileID: 533655599172331296}
-  - component: {fileID: 3436619175675850686}
+  - component: {fileID: 3164189372027539928}
   m_Layer: 0
   m_Name: Chunck
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8954803181163201107}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 1.2030001, z: 2.3780003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -273,6 +273,7 @@ MonoBehaviour:
   "Stra\xDFe_passtnicht": {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
   "Stra\xDFeKurve": {fileID: -8679921383154817045, guid: 23e05caa0102ae44f9c4e1d3a7dfb523, type: 3}
   "Stra\xDFesplit": {fileID: -8679921383154817045, guid: b7942de60bbe297478ccced3c3c106a2, type: 3}
+  "Stra\xDFe_ende": {fileID: -8679921383154817045, guid: eae364f3c2548834ebb42446495b22ac, type: 3}
   Kreuzung:
     list:
     - item: {fileID: -8679921383154817045, guid: 1b2a12a357afa9f4eaf761d0a8789c14, type: 3}
@@ -281,23 +282,16 @@ MonoBehaviour:
       weight: 2
   "Stra\xDFe_idel": {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
   b: {fileID: -8679921383154817045, guid: 125771eb5dec02b4387338148fc88124, type: 3}
---- !u!114 &3436619175675850686
-MonoBehaviour:
+--- !u!65 &3164189372027539928
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8954803181163201107}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 755342fb858fe0043ad8a279b3730216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Building: {fileID: 535268240038381830, guid: f00c7cb1cb5a56d4db500d3a2b18cd14, type: 3}
-  lager: {fileID: 535268240038381830, guid: f00c7cb1cb5a56d4db500d3a2b18cd14, type: 3}
-  CourserPasstnicht: {fileID: -8679921383154817045, guid: ee5955a27f849b84ebaaa11f274a77ca, type: 3}
-  CourserPasst: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
-  ID: 0
-  Rotation: 0
-  "Gr\xF6sseX": 0
-  "Gr\xF6sseY": 0
+  serializedVersion: 2
+  m_Size: {x: 20, y: 6, z: 20}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -3,62 +3,174 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-
-public class Lager : MonoBehaviour
+[CreateAssetMenu(fileName = "new Building", menuName = "Building/Lager")]
+public class Lager : Building_base
 {
     public static Lager singelton { set; get; }
     [SerializeField] Transform Building;
-    [SerializeField] Transform lager;
-    public Transform CourserPasstnicht;
-    public Transform CourserPasst;
-    public int ID;
-    public int Rotation;
-    public int GrösseX;
-    public int GrösseY;
+    [SerializeField] Transform trans;
+
+    [SerializeField] Transform Courser_passt;
+    [SerializeField] Transform Courser_passt_nicht;
+
+    [SerializeField] Transform Courser_straße_passt;
+    [SerializeField] Transform Courser_straße_passt_nicht;
+
+    [SerializeField] Transform Courser_Building_passt;
+    [SerializeField] Transform Courser_Building_passt_nicht;
+
+    int Resurce = 00010100000;
+
     public void Awake()
     {
         singelton = this;
-
     }
-    public void Lager_setzen(Grid_opjekt Objekt, bool Setzen)
+    override public void setzen(Grid_opjekt Objekt, bool Setzen)
     {
-
         Objekt.Rohstoff = null;
         if (Objekt.Building_placed != true)     // fals es zum esrsten mal plziert wwird rotaion setzen 
         {
-            Rotation = Global.Buildingrotation + 90;
-            Objekt.Building_placed = true;// Muss alls erstes pasieren sonst wird die rotaion nicht gesetzz
-            Objekt.Setrotation(Rotation,false);
+            Rotation = Global.Buildingrotation;
+            Objekt.Building_placed = true;
+            Objekt.Setrotation(Rotation, false);
         }
         if (Setzen == true)
         {
-            Objekt.Building = lager;
+            Objekt.Building = trans;
         }
-
     }
-
-    public bool Lager_Can_build(Vector3 World)
+    override public Transform getcourser(Vector3 World, int x, int y)
     {
-        Vector3 World_pos = Get_World_Postion(World);
+        Vector3 World_pos = Buildingsystem.singleton.Get_World_Postion(World);
         int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
         int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
-        if (Map.Map_Rohstoffe[X, Y] == 100000000)
+        int x2 = 0, x1 = 0, y1 = 0, y2 = 0;
+
+        int sum = 0;
+
+        if (Plase[(x * (GrösseY)) + y] == 1) // prüfe ob es grass
         {
-            return true;
+            if (Rohstoffe.singleton.Biom_test(Map.Map_Rohstoffe[X, Y], 1))
+            {
+                return Courser_straße_passt;
+            }
+            return Courser_straße_passt_nicht;
+            //return Courser_straße_passt_nicht;
         }
-        return false;
+        if (Plase[(x * (GrösseY)) + y] == 2)
+        {
+        
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y], 1, 0))
+            {
+                return Courser_Building_passt;
+            }
+            return Courser_Building_passt_nicht;
+        }
+        if (Plase[(x * (GrösseY)) + y] == 3) // prüfe ob es strasse ist 
+        {
 
+
+        }
+        return CourserPasst;
     }
-    private Vector3 Get_World_Postion(Vector3 world)
+    override public bool Can_build(Vector3 World)
     {
-        Vector3 position;
-        position.x = Mathf.Floor(world.x);
-        position.y = Mathf.Floor(world.y);
-        position.z = Mathf.Floor(world.z);
-        return position;
 
+        Vector3 World_pos = Buildingsystem.singleton.Get_World_Postion(World);
+        int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
+        int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
+
+        for (int x = 0; x < GrösseX; x++)
+        {
+            for (int y = 0; y < GrösseY; y++)
+            {
+
+                if (Plase[(x * (GrösseY)) + y] == 1) // prüfe ob es grass
+                {
+                    if (!Rohstoffe.singleton.Biom_test(Map.Map_Rohstoffe[X, Y], 1))
+                    {
+                        return false;
+                    }
+                    //return Courser_straße_passt_nicht;
+                }
+                if (Plase[(x * (GrösseY)) + y] == 2)
+                {
+                    if (!Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y], 1, 0))
+                    {
+                        return false;
+                    }
+                }
+                if (Plase[(x * (GrösseY)) + y] == 3) // prüfe ob es strasse ist 
+                {
+
+
+                }
+            }
+        }
+
+
+        return true;
     }
 }
+
+[CustomEditor(typeof(Lager))]
+class LagerEditor : Editor
+{
+
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        Lager building = (Lager)target;
+
+        var style = new GUIStyle(GUI.skin.button);
+        while (building.Plase.Count <= building.GrösseX * building.GrösseY + 1)
+        {
+            building.Plase.Add(0);
+        }
+        while (building.Plase.Count > building.GrösseX * building.GrösseY + 1)
+        {
+            building.Plase.RemoveAt(building.Plase.Count - 1);
+        }
+        for (int i = 0; i < building.GrösseX; i++)
+        {
+            GUILayout.BeginHorizontal();
+            for (int s = 0; s < building.GrösseY; s++)
+            {
+
+                GUI.backgroundColor = Color.black;
+                if (building.Plase[(i * (building.GrösseY)) + s] == 1)
+                {
+                    GUI.backgroundColor = Color.green;
+                }
+                if (building.Plase[(i * (building.GrösseY)) + s] == 2)
+                {
+                    GUI.backgroundColor = Color.red;
+                }
+                if (building.Plase[(i * (building.GrösseY)) + s] == 3)
+                {
+                    GUI.backgroundColor = Color.gray;
+                }
+
+                if (GUILayout.Button(" ", style, GUILayout.Height(100)))
+                {
+
+                    building.Plase[(i * (building.GrösseY)) + s] = 1 + building.Plase[(i * (building.GrösseY)) + s];
+                    if (building.Plase[(i * (building.GrösseY)) + s] == 4)
+                    {
+                        building.Plase[(i * (building.GrösseY)) + s] = 0;
+                    }
+                }
+            }
+            GUILayout.EndHorizontal();
+        }
+    }
+}
+
+
+
+
+
+
 
 
 

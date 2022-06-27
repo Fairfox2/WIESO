@@ -9,7 +9,9 @@ public class Streed_gohst : MonoBehaviour
     public static Streed_gohst singleton { set; get; }
     [SerializeField] Transform go;
     [SerializeField] Miene s;
+    [SerializeField] Lager Lager_Global;
     [SerializeField] Transform Mine;
+    [SerializeField] Transform Courser;
     [SerializeField] Transform passt;
     [SerializeField] Transform passtnicht;
     bool leftbuttonpressed = false;
@@ -21,6 +23,7 @@ public class Streed_gohst : MonoBehaviour
     {
         singleton = this;
         Global.Mine_Focus = s;
+        Global.Lager_Focus = Lager_Global;
         BuildingsystemsAktions = new Bauen();
         BuildingsystemsAktions.Buildings.Build.performed += _ => Build(_.ReadValueAsButton());
         BuildingsystemsAktions.Buildings.Build.Enable();
@@ -31,20 +34,16 @@ public class Streed_gohst : MonoBehaviour
         X1= X;
         Y1 = Y;
         leftbuttonpressed = bu;
-        if (bu == false)
+        if (bu == false && Global.buildmoide == 1)
         {
-         
             foreach ( Vector2 vec2 in d)
             {
-                
-                Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)] = 100100000 + Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)]%100;  //wie speicher ich das ich zk Otto hier könnnte man nioch eine funktion machen
-                
+                Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)] = 100100000 + Map.Map_Rohstoffe[System.Convert.ToInt16(vec2.x), System.Convert.ToInt16(vec2.y)]%100;  //wie speicher ich das ich zk Otto hier könnnte man nioch eine funktion machen 
             }
             d.Clear();
         }
     }
     new List<Vector2> d = new List<Vector2>();
-    new List<Vector2> f = new List<Vector2>();
 
     int X1 = 0;
     int Y1 = 0;
@@ -57,19 +56,15 @@ public class Streed_gohst : MonoBehaviour
 
         X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
         Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
-        if(X1==0 || Y1 == 0)
-        {
-            X1 = X;
-            Y1 = Y;
-        }
-        if (leftbuttonpressed == true && !(X1 == X &&  Y1 == Y))
+
+        if (leftbuttonpressed == true )
         {
             int Übersprungene_tieles = Mathf.Abs(X1 - X) + Mathf.Abs(Y1 - Y);
-            for (int i = 0; i < Übersprungene_tieles; i++)
+            for (int i = 0; i < Übersprungene_tieles + 1; i++)
             {
-                if(Mathf.Abs(X1 - X) > Mathf.Abs(Y1 - Y) && X1 != X)
+                if (Mathf.Abs(X1 - X) > Mathf.Abs(Y1 - Y) && X1 != X)
                 {
-                    if(X>X1) X1 ++;
+                    if (X > X1) X1++;
                     else X1--;
                 }
                 else if (Mathf.Abs(X1 - X) <= Mathf.Abs(Y1 - Y) && Y1 != Y)
@@ -77,34 +72,160 @@ public class Streed_gohst : MonoBehaviour
                     if (Y > Y1) Y1++;
                     else Y1--;
                 }
-                if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X1, Y1], 10))
+                if(Map.Map_Rohstoffe.GetLength(0) > X1 && X1 > 0 && Map.Map_Rohstoffe.GetLength(1) > Y1 && Y1 > 0)
                 {
-                    Map.Map_Rohstoffe[X, Y] = 100010000 + Map.Map_Rohstoffe[X1, Y1] % 100;
-                    helpco = 0;
-                }
-                else
-                {
-                    if (!d.Contains(new Vector2(X1, Y1)))
+                    if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X1, Y1], 10)) // falls schon eine strasse auf dem objekt/tail ist 
                     {
-                        d.Add(new Vector2(X1, Y1));
+                        Map.Map_Rohstoffe[X1, Y1] = 100010000 + Map.Map_Rohstoffe[X1, Y1] % 100;
+                        helpco = 0;
                     }
-                    Map.Map_Rohstoffe[X1, Y1] = 100010000 + Map.Map_Rohstoffe[X1, Y1] % 100;
+                    else if (straße.singleton.Can_build(World))
+                    {
+                        if (!d.Contains(new Vector2(X1, Y1)))
+                        {
+                            d.Add(new Vector2(X1, Y1));
+                        }
+                        Map.Map_Rohstoffe[X1, Y1] = 100010000 + Map.Map_Rohstoffe[X1, Y1] % 100;
+                    }
                 }
 
-            }
-            
+            }         
         }                                                                                                                                             
 
     }
+    private void Lager_Build(Vector3 World)
+    {
+
+        Vector3 World_pos = straße.singleton.Get_World_Postion(World);
+        X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
+        Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
+
+        if (leftbuttonpressed == true && Global.Lager_Focus.Can_build(World))
+        {
+           
+            
+                for (int x1 = 0; x1 < Global.Lager_Focus.GrösseX; x1++) // noch eigene funktion für schöneheit zukunfts Otto
+                {
+                    for (int y1 = 0; y1 < Global.Lager_Focus.GrösseY; y1++)
+                    {
+                        float F = y1, G = x1;
+                        if (Global.Buildingrotation == 90)
+                        {
+                            G = -y1;
+                            F = x1;
+                        }
+                        if (Global.Buildingrotation == 0)
+                        {
+                            G = -x1;
+                            F = -y1;
+                        }
+                        if (Global.Buildingrotation == 270)
+                        {
+                            G = y1;
+                            F = -x1;
+                        }
+                        if (Global.Lager_Focus.Plase[(x1 * (Global.Lager_Focus.GrösseY)) + y1] == 2)
+                        {
+                            Map.Map_Rohstoffe[System.Convert.ToInt32(X + G), System.Convert.ToInt16(Y + F)] = 0100039900;
+
+                        }//Muss noch durch ID variable der MIne erstzt weerden ZK Otto und mach achu eine funktion drasu
+                        if (Global.Lager_Focus.Plase[(x1 * (Global.Lager_Focus.GrösseY)) + y1] == 1)
+                        {
+                            int b1 = 0;
+                            int b2 = 0;
+                            int b4 = 0;
+                            int b8 = 0;
+                            if ((x1 + 1) * (Global.Lager_Focus.GrösseY) + (y1) < Global.Lager_Focus.Plase.Count && 0 <= (x1 + 1))
+                            {
+                                if (Global.Lager_Focus.Plase[((x1 + 1) * (Global.Lager_Focus.GrösseY)) + (y1)] == 2)
+                                {
+                                    
+                                    b1 = 1;
+                                }
+                            }
+                            if ((x1) * (Global.Lager_Focus.GrösseY) + (y1 + 1) < Global.Lager_Focus.Plase.Count && 0 <= (y1 + 1))
+                            {
+
+                                if (Global.Lager_Focus.Plase[((x1) * (Global.Lager_Focus.GrösseY)) + (y1 + 1)] == 2)
+                                {
+                                    
+                                    b2 = 1;
+                                }
+                            }
+                            if ((x1 - 1) * (Global.Lager_Focus.GrösseY) + (y1) < Global.Lager_Focus.Plase.Count && 0 <= (x1 - 1))
+                            {
+                                if (Global.Lager_Focus.Plase[((x1 - 1) * (Global.Lager_Focus.GrösseY)) + (y1)] == 2)
+                                {
+                                 
+                                    b4 = 1;
+                                }
+                            }
+
+                            if ((x1) * (Global.Lager_Focus.GrösseY) + (y1 - 1) < Global.Lager_Focus.Plase.Count && 0 <= (y1 - 1))
+                            {
+                                if (Global.Lager_Focus.Plase[((x1) * (Global.Lager_Focus.GrösseY)) + (y1 - 1)] == 2)
+                                {
+                                    b8 = 1;
+                                }
+                            }
+                            // je nach rotation rotieren wir die zahlen
+                            int bsafe = b1;
+                            if (Global.Buildingrotation == 0)
+                            {
+                                b1 = b8;
+                                b8 = b4;
+                                b4 = b2;
+                                b2 = bsafe;
+                            }
+                            if (Global.Buildingrotation == 90)
+                            {
+                                bsafe = b2;
+                                int bsafe_2 = b4;
+                                b2 = b8;
+                                b4 = b1;
+                                b8 = bsafe;
+                                b1 = bsafe_2;
+
+                            }
+                            if (Global.Buildingrotation == 270)
+                            {
+                                b1 = b2;
+                                b2 = b4;
+                                b4 = b8;
+                                b8 = bsafe;
+                            }
+                            int sum = (b1 * 1) + (b2 * 2) + (b4 * 4) + (b8 * 8);
+                            print(Global.Buildingrotation + " summe " + sum + "kord:" + x1 + "," + y1);
+                            Map.Map_Rohstoffe[System.Convert.ToInt32(X + G), System.Convert.ToInt16(Y + F)] = 100100000 + sum;
+
+                        }
+                    }
+                }
+                Map.Map_Rohstoffe[System.Convert.ToInt16(X), System.Convert.ToInt16(Y)] = 0100030000;
+
+                // sicher heit ein bauen
+            
+        }
+
+    }
     // Update is called once per frame
+<<<<<<< HEAD
+
+=======
+>>>>>>> parent of 5ffd4ebd (d)
     private void Update()
     {
         Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
                         
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-        
-        if (plane.Raycast(ray, out float distance))
+
+        if (Physics.Raycast(ray, out RaycastHit distance))
         {
+<<<<<<< HEAD
+
+=======
+            print(distance.point);
+>>>>>>> parent of 5ffd4ebd (d)
             if (transform.Find("curser"))
             {
                 DestroyImmediate(transform.Find("curser").gameObject);
@@ -113,68 +234,103 @@ public class Streed_gohst : MonoBehaviour
             courser.parent = transform;
             courser.position = transform.position;
 
+
             if (Global.buildmoide == 1)
             {
+<<<<<<< HEAD
+=======
 
-                Vector3 World_pos = straße.singleton.Get_World_Postion(ray.GetPoint(distance));
+             
 
-                int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
-                int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
 
-                streed_Build(ray.GetPoint(distance));
-                if (straße.singleton.Passt(ray.GetPoint(distance)))
+>>>>>>> parent of 5ffd4ebd (d)
+                streed_Build(distance.point);
+                if (straße.singleton.Passt(distance.point))
                 {
-                    Mine = passt;
-                    
+                    Mine = passt; 
                 }
                 else
                 {
                     Mine = passtnicht;
                 }
+<<<<<<< HEAD
+                if (Mine != null) newr = Instantiate(Mine, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
+=======
                 if(Mine != null)newr = Instantiate(Mine, transform.position, Quaternion.Euler(0, 0, 0)) as Transform;
                 if(newr != null)newr.parent = courser;    
+>>>>>>> parent of 5ffd4ebd (d)
             }
             if (Global.buildmoide == 2)
             {
-
                 Mine = go;
                 for (float x = 0; x < Global.Mine_Focus.GrösseX; x++) // float da minus zahlen
                 {
                     for (float y = 0; y < Global.Mine_Focus.GrösseY; y++)
                     {
-                        float F=y, G = x;
-                       
+                        float F = y, G = x;
+
                         if (Global.Buildingrotation == 90)
                         {
-                            G =  - y;
+                            G = -y;
                             F = x;
                         }
                         if (Global.Buildingrotation == 0)
                         {
-                            G = - x;
-                            F =  - y;
+                            G = -x;
+                            F = -y;
                         }
                         if (Global.Buildingrotation == 270)
                         {
                             G = y;
-                            F = - x;
+                            F = -x;
                         }
+<<<<<<< HEAD
+
+                        Mine = Global.Mine_Focus.getcourser(new Vector3(distance.point.x + G, 0, distance.point.z + F), System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
+
+
+                        if (Mine != null) newr = Instantiate(Mine, new Vector3(transform.position.x + G, transform.position.y, transform.position.z + F), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
+                        if (newr != null) newr.parent = courser;
+=======
                        
-                         Mine = Global.Mine_Focus.getcourser(new Vector3(ray.GetPoint(distance).x + G, 0, ray.GetPoint(distance).z + F),System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
+                         Mine = Global.Mine_Focus.getcourser(new Vector3(distance.point.x + G, 0, distance.point.z + F),System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
                         if(Mine != null)newr = Instantiate(Mine, new Vector3(transform.position.x+G,transform.position.y,transform.position.z +F), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
                         if(newr != null)newr.parent = courser;
+>>>>>>> parent of 5ffd4ebd (d)
                     }
                 }
             }
-            if(Global.buildmoide == 3)
+            if (Global.buildmoide == 3)
             {
-                if (straße.singleton.Passt(ray.GetPoint(distance)))
+                Global.Buildingrotation = 0;
+                Lager_Build(distance.point);
+                for (float x = 0; x < Global.Lager_Focus.GrösseX; x++) // float da minus zahlen
                 {
-                    Mine = passt;
-                }
-                else
-                {
-                    Mine = passtnicht;
+                    for (float y = 0; y < Global.Lager_Focus.GrösseY; y++)
+                    {
+                        float F = y, G = x;
+
+                        if (Global.Buildingrotation == 90)
+                        {
+                            G = -y;
+                            F = x;
+                        }
+                        if (Global.Buildingrotation == 0)
+                        {
+                            G = -x;
+                            F = -y;
+                        }
+                        if (Global.Buildingrotation == 270)
+                        {
+                            G = y;
+                            F = -x;
+                        }
+
+                        Courser = Global.Lager_Focus.getcourser(new Vector3(distance.point.x + G, 0, distance.point.z + F), System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
+
+                        if (Courser != null) newr = Instantiate(Courser, new Vector3(transform.position.x + G, transform.position.y, transform.position.z + F), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
+                        if (newr != null) newr.parent = courser;
+                    }
                 }
                 if (Mine != null) newr = Instantiate(Mine, new Vector3(transform.position.x , transform.position.y, transform.position.z ), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
                 if (newr != null) newr.parent = courser;
@@ -187,13 +343,26 @@ public class Streed_gohst : MonoBehaviour
                 }
                 Mine = null;
             }
-            Vector3 Target1 = ray.GetPoint(distance);
-            Target1.x = Mathf.Floor(Target1.x);
-            Target1.z = Mathf.Floor(Target1.z);
-            Target1.y = 3;
+<<<<<<< HEAD
 
-            transform.position = Vector3.Lerp(transform.position, Target1, Time.deltaTime * 8);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, Global.Buildingrotation,0), Time.deltaTime * 8);
+
+
+                if (newr != null) newr.parent = courser;
+=======
+            Vector3 Target1 = distance.point;
+            Target1.x = Mathf.Floor(Target1.x + 0.5f) ;
+            Target1.z = Mathf.Floor(Target1.z + 0.5f);
+>>>>>>> parent of 5ffd4ebd (d)
+
+
+
+                Vector3 Target1 = distance.point;
+                Target1.x = Mathf.Floor(Target1.x + 0.5f);
+                Target1.z = Mathf.Floor(Target1.z + 0.5f);
+                Target1.y = 3;
+                transform.position = Vector3.Lerp(transform.position, Target1, Time.deltaTime * 8);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, Global.Buildingrotation, 0), Time.deltaTime * 8);
+            
         }
 
  

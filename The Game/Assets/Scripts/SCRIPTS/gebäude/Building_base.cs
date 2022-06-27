@@ -29,11 +29,10 @@ public class Building_base : ScriptableObject
     {
         return null;
     }
-    virtual public bool Mine_Can_build(int X, int Y)
+    virtual public bool Can_build(Vector3 world)
     {
         return true;
     }
 
 }
-
 

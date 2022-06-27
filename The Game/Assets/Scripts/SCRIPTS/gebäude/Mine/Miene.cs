@@ -21,9 +21,6 @@ public class Miene : Building_base
 
     int Resurce = 00010100000;
 
-
-
-
     public void Awake()
     {
         singelton = this;
@@ -42,11 +39,10 @@ public class Miene : Building_base
         {
             Objekt.Building = trans;
         }
-        
     }
     override public Transform getcourser(Vector3 World,int x,int y)
     {
-        Vector3 World_pos = Get_World_Postion(World);
+        Vector3 World_pos = Buildingsystem.singleton.Get_World_Postion(World);
         int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
         int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
         int x2 = 0, x1 =0, y1 = 0, y2 = 0;
@@ -92,18 +88,18 @@ public class Miene : Building_base
         }
         if (Plase[(x * (GrösseY)) + y] == 3) // prüfe ob es strasse ist 
         {
-            if (!straße.singleton.Passt(new Vector3(X, 3, Y)))
-            {
-                return Courser_straße_passt;
-            }
-            return Courser_straße_passt_nicht;
+
+            
         }
     
         return CourserPasst;
     }
-    override public bool Mine_Can_build(int X,int Y)
+    override public bool Can_build(Vector3 World)
     {
-    
+        Vector3 World_pos = Buildingsystem.singleton.Get_World_Postion(World);
+        int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
+        int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
+
         int x2 = 0, x1 = 0, y1 = 0, y2 = 0;
 
         int sum = 0;
@@ -164,71 +160,66 @@ public class Miene : Building_base
 
         return true;
     }
-    private Vector3 Get_World_Postion(Vector3 world)
-    {
-        Vector3 position;
-        position.x = Mathf.Floor(world.x);
-        position.y = Mathf.Floor(world.y);
-        position.z = Mathf.Floor(world.z);
-        return position;
 
-    }
+
 }
 
+
 [CustomEditor(typeof(Miene))]
-class MieneEditor: Editor
+class MieneEditor : Editor
 {
-    
+
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        Miene Mine = (Miene)target;
+        Miene building = (Miene)target;
 
         var style = new GUIStyle(GUI.skin.button);
-        while (Mine.Plase.Count <=  Mine.GrösseX  * Mine.GrösseY +1)
+        while (building.Plase.Count <= building.GrösseX * building.GrösseY + 1)
         {
-            Mine.Plase.Add(0);
+            building.Plase.Add(0);
         }
-        while (Mine.Plase.Count > Mine.GrösseX * Mine.GrösseY  +1)
+        while (building.Plase.Count > building.GrösseX * building.GrösseY + 1)
         {
-            Mine.Plase.RemoveAt(Mine.Plase.Count-1);
+            building.Plase.RemoveAt(building.Plase.Count - 1);
         }
-        for (int i = 0; i < Mine.GrösseX; i++)
+        for (int i = 0; i < building.GrösseX; i++)
         {
             GUILayout.BeginHorizontal();
-            for (int s = 0; s < Mine.GrösseY; s++)
+            for (int s = 0; s < building.GrösseY; s++)
             {
-                
+
                 GUI.backgroundColor = Color.black;
-                if (Mine.Plase[(i * (Mine.GrösseY)) + s] == 1)
+                if (building.Plase[(i * (building.GrösseY)) + s] == 1)
                 {
                     GUI.backgroundColor = Color.green;
                 }
-                if (Mine.Plase[(i * (Mine.GrösseY)) + s] == 2)
+                if (building.Plase[(i * (building.GrösseY)) + s] == 2)
                 {
                     GUI.backgroundColor = Color.red;
                 }
-                if (Mine.Plase[(i * (Mine.GrösseY)) + s] == 3)
+                if (building.Plase[(i * (building.GrösseY)) + s] == 3)
                 {
                     GUI.backgroundColor = Color.gray;
                 }
-                
+
                 if (GUILayout.Button(" ", style, GUILayout.Height(100)))
                 {
 
-                    Mine.Plase[(i * (Mine.GrösseY)) + s] = 1+ Mine.Plase[(i * (Mine.GrösseY)) + s];
-                    if (Mine.Plase[(i * (Mine.GrösseY)) + s] == 4)
+                    building.Plase[(i * (building.GrösseY)) + s] = 1 + building.Plase[(i * (building.GrösseY)) + s];
+                    if (building.Plase[(i * (building.GrösseY)) + s] == 4)
                     {
-                        Mine.Plase[(i * (Mine.GrösseY)) + s] = 0;
+                        building.Plase[(i * (building.GrösseY)) + s] = 0;
                     }
-                    
                 }
-                
             }
             GUILayout.EndHorizontal();
         }
-      
-        
     }
-
 }
+
+
+
+
+
+

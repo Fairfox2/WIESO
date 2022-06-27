@@ -10,7 +10,6 @@ using System.IO;
 
 public class Junk : MonoBehaviour
 {
-
     public static Junk singleton { set; get; }
 
     bool focus = false;
@@ -25,7 +24,6 @@ public class Junk : MonoBehaviour
     bool random = true;
     //
     int X_POS, Y_POS;
-
 
     public void default_Fläche()
     {
@@ -42,10 +40,6 @@ public class Junk : MonoBehaviour
         }
 
     }
-
-
-
-   
 
     private Bauen BuildingsystemsAktions;
     bool leftbutto = false;         // brauch noch einen besseren namen viell beser ZK Otto
@@ -96,16 +90,25 @@ public class Junk : MonoBehaviour
 
     void Update()
     {
+        
         if (Map.Camara_body != null)
         {
+<<<<<<< HEAD
+
+=======
+>>>>>>> parent of 5ffd4ebd (d)
             if (Map.Camara_body.position.x < transform.position.x + X_render && Map.Camara_body.position.x > transform.position.x - X_render && Map.Camara_body.position.z < transform.position.z + Y_render && Map.Camara_body.position.z > transform.position.z - Y_render && geladen == false)
             {
                 Map_update();           //Junk ist in redner distance
                 geladen = true;
             }
-            else if ((Map.Camara_body.position.x > transform.position.x + X_render || Map.Camara_body.position.x < transform.position.x - X_render && Map.Camara_body.position.z > transform.position.z + Y_render || Map.Camara_body.position.z < transform.position.z - Y_render && geladen == true))
+            else if ((Map.Camara_body.position.x > transform.position.x + X_render || Map.Camara_body.position.x < transform.position.x - X_render || Map.Camara_body.position.z > transform.position.z + Y_render || Map.Camara_body.position.z < transform.position.z - Y_render && geladen == true))
             {
 
+                if (transform.Find("RE"))   //Junk ist nicht mehr in der render distance
+                {
+                    DestroyImmediate(transform.Find("RE").gameObject);
+                }
                 if (transform.Find("RE"))   //Junk ist nicht mehr in der render distance
                 {
                     DestroyImmediate(transform.Find("RE").gameObject);
@@ -126,8 +129,8 @@ public class Junk : MonoBehaviour
     #region Chuck load buildsystem
     //Render Variable 
     bool geladen = false;   // false der Chunck geladen wird ist dies variable auf true
-    int X_render = 40;      
-    int Y_render = 40;
+    int X_render = 22;      
+    int Y_render = 22;
 
 
     public void load()
@@ -169,12 +172,12 @@ public class Junk : MonoBehaviour
         Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (plane.Raycast(ray, out float distance))
+        if (Physics.Raycast(ray, out RaycastHit distance))
         {
-            if (ray.GetPoint(distance).x > transform.position.x - grösse && ray.GetPoint(distance).x < transform.position.x + grösse && ray.GetPoint(distance).z > transform.position.z - grösse && ray.GetPoint(distance).z < transform.position.z + grösse)
+            if (distance.point.x > transform.position.x - grösse && distance.point.x < transform.position.x + grösse && distance.point.z > transform.position.z - grösse && distance.point.z < transform.position.z + grösse)
             {
                 BuildingsystemsAktions.Buildings.Build.Enable();
-                Buildingsystem.singleton.hm(ray.GetPoint(distance));
+                Buildingsystem.singleton.hm(distance.point);
                 if (Global.buildmoide == 1 && Mouse.current.leftButton.isPressed)
                 {
                     Relod_strasse(X_POS, Y_POS);
@@ -193,11 +196,10 @@ public class Junk : MonoBehaviour
         Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
 
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        if (plane.Raycast(ray, out float distance))
+        
+        if (Physics.Raycast(ray, out RaycastHit distance))
         {
-
-            Buildingsystem.singleton.Build1(ray.GetPoint(distance));
+            Buildingsystem.singleton.Build1(distance.point);
 
             Relod_strasse(X_POS, Y_POS);
             Relod(X_POS, Y_POS);
@@ -317,22 +319,22 @@ public class Junk : MonoBehaviour
                         if (ga.Building_Top == 2)
                         {
 
-                            if (ga.Art_Top == 1 && ga.Zusatz_Top == 0)
+                            if (ga.Index_Top == 0)
                             {
                                 Global.Mine_Focus.setzen(ga, true);         //ZK muss noch sogemachtwerden das es auf die aktuele  MIne passt Vileicht munktion in der mine
 
                             }
-                            if (ga.Art_Top == 1 && ga.Zusatz_Top == 1)
+                            if (ga.Index_Top == 0 && ga.Zusatz_Top == 99)
                             {
                                 Global.Mine_Focus.setzen(ga, false);
 
                             }
                             
                         }
-                        if (ga.Building_Top == 3)
+                        if (ga.Building_Top == 3 && ga.Index_Top == 0)
                         {
-                            
-                                Lager.singelton.Lager_setzen(ga, true);
+                            Global.Lager_Focus.setzen(ga, true);
+                                
                         }
                     }
                     

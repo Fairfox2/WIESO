@@ -18,7 +18,7 @@ public class Grid_opjekt
 
     private int Rohstoffe_ID = 1000;
     private int Boden_ID = 1000;
-
+    public int lager_value;
     public int Biom;
     public int Art_Top;
     public int Art_Boden;
@@ -79,13 +79,12 @@ public class Grid_opjekt
         {
             Rotation_Boden = 90 * Random.Range(0, 4);
         }
-
-
     }
 
     public void Id_Load(long Id)
     {
-        Rotation_Top = System.Convert.ToInt32(Id / 10000000000) * 90;
+        lager_value = System.Convert.ToInt32(Id / 1000000000000) ;
+        Rotation_Top = System.Convert.ToInt32((Id% 1000000000000) / 10000000000) * 90;
         Biom = System.Convert.ToInt16((Id % 10000000000) / 100000000);
         Art_Top = System.Convert.ToInt16((Id % 100000000) / 1000000);
         Building_Top = System.Convert.ToInt16((Id % 1000000) / 10000);
@@ -95,7 +94,7 @@ public class Grid_opjekt
     public void Create_ID(int X,int Y)
     {
 
-        Map.Map_Rohstoffe_Boden[X, Y] = (Rotation_Boden / 90) * 10000000000 + (Biom * 100000000) + Art_Boden * 1000000 + Building_Boden * 10000 + Index_Boden * 100 + Zusatz_Boden;
+        Map.Map_Rohstoffe_Boden[X, Y] = (lager_value * 1000000000000) + (Rotation_Boden / 90) * 10000000000 + (Biom * 100000000) + Art_Boden * 1000000 + Building_Boden * 10000 + Index_Boden * 100 + Zusatz_Boden;
         Map.Map_Rohstoffe[X,Y] = (Rotation_Top / 90) * 10000000000 + (Biom * 100000000) + (Art_Top * 1000000) + (Building_Top * 10000) + (Index_Top * 100) + Zusatz_Top;
        
         
@@ -123,6 +122,7 @@ public class Grid_opjekt
         Biom = System.Convert.ToInt16((Id % 10000000000) / 100000000);
         Art_Top = System.Convert.ToInt16((Id % 100000000) / 1000000);
         Building_Top = System.Convert.ToInt16((Id % 1000000) / 10000);
+        Index_Top = System.Convert.ToInt16((Id % 10000) / 100);
         Zusatz_Top = System.Convert.ToInt32((Id % 100) / 1);
 
     }

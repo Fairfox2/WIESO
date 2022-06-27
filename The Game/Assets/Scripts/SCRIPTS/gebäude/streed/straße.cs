@@ -13,6 +13,7 @@ public class straße : MonoBehaviour
     public Transform Straße_passtnicht;
     public Transform StraßeKurve;
     public Transform Straßesplit;
+    public Transform Straße_ende;
     public WeightedRandomList<Transform> Kreuzung;
     public Transform Straße_idel;
     private CameraControlsAktion cameraActions;
@@ -50,18 +51,21 @@ public class straße : MonoBehaviour
         Vector3 World_pos = Get_World_Postion(World);
         int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
         int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
-        if (Rohstoffe.singleton.Biom_test(Map.Map_Rohstoffe_Boden[X,Y], 01) )                 //MIte boden machen 
+        if (Map.Map_Rohstoffe.GetLength(0) > X && X > 0 && Map.Map_Rohstoffe.GetLength(1) > Y && Y > 0)
         {
-            return true;
+            if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe_Boden[X, Y], 01, 00))                 //MIte boden machen 
+            {
+                return true;
+            }
         }
         return false;
     }
     public Vector3 Get_World_Postion(Vector3 world)
     {
         Vector3 position;
-        position.x = Mathf.Floor(world.x);
+        position.x = Mathf.Floor(world.x + 0.5f);
         position.y = Mathf.Floor(world.y);
-        position.z = Mathf.Floor(world.z);
+        position.z = Mathf.Floor(world.z + 0.5f);
         return position;
     }
 
@@ -74,7 +78,7 @@ public class straße : MonoBehaviour
         if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X , Y], Rohstoff)  )   // ? # ?
         {                           //   ?
             Objekt.Building_placed = true;
-            Strasse_licht(Objekt, 90);
+            Strasse_ende(Objekt, 90);
             string bin = "";
             int quatient = Objekt.Zusatz_Top;
             int x2 = 0, y2 = 0, x = 0, y = 0;
@@ -111,14 +115,10 @@ public class straße : MonoBehaviour
             if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X + 1, Y], Rohstoff) )
             {
                 x = 1;
- 
-
             }
             if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X , Y-1], Rohstoff) )
             {
                 y2 = 1;
-   
-
             }
             if (Rohstoffe.singleton.Rohstoff_test(Map.Map_Rohstoffe[X, Y +1], Rohstoff) )
             {
@@ -198,19 +198,45 @@ public class straße : MonoBehaviour
             }
             if (sum <= 1)
             {
-                if (x == 1 | x2 == 1)
+                if (x == 1 )
                 {
-                    Strasse_licht(Objekt, 0);
+                    Strasse_ende(Objekt, 180);
                 }
-                if (y == 1 | y2 == 1)
+                if (x2 == 1)
                 {
-                    Strasse_licht(Objekt, 90);
+                    Strasse_ende(Objekt, 0);
+                }
+                if (y == 1 )
+                {
+                    Strasse_ende(Objekt, 90);
+                }
+                if (y2 == 1)
+                {
+                    Strasse_ende(Objekt, 270);
                 }
             }  
         } 
     }
 
- 
+     public bool Can_build(Vector3 World)
+    {
+
+        Vector3 World_pos = Buildingsystem.singleton.Get_World_Postion(World);
+        int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
+        int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
+
+        if (Rohstoffe.singleton.BiomRostoff_test(Map.Map_Rohstoffe[X, Y], 01, 00,00))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+            
+        
+    }
+
 
     private void Strasse_licht(Grid_opjekt Objekt, int winkel)
     {
@@ -242,7 +268,7 @@ public class straße : MonoBehaviour
     {
         Objekt.Setrotation(winkel, false);
 
-        Objekt.streed = Straße_licht;
+        Objekt.streed = Straße_ende;
     
 
       

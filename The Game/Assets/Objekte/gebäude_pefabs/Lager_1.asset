@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755342fb858fe0043ad8a279b3730216, type: 3}
+  m_Name: Lager_1
+  m_EditorClassIdentifier: 
+  Building: {fileID: 535268240038381830, guid: f00c7cb1cb5a56d4db500d3a2b18cd14, type: 3}
+  CourserPasstnicht: {fileID: -8679921383154817045, guid: ee5955a27f849b84ebaaa11f274a77ca, type: 3}
+  CourserPasst: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
+  ID: 0
+  Rotation: 0
+  "Gr\xF6sseX": 2
+  "Gr\xF6sseY": 1
+  Plase: 020000000100000000000000
+  Building: {fileID: 535268240038381830, guid: f00c7cb1cb5a56d4db500d3a2b18cd14, type: 3}
+  trans: {fileID: -8679921383154817045, guid: e39daf6bd0fc88447bd16950a064d885, type: 3}
+  Courser_passt: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
+  Courser_passt_nicht: {fileID: -8679921383154817045, guid: ee5955a27f849b84ebaaa11f274a77ca, type: 3}
+  "Courser_stra\xDFe_passt": {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
+  "Courser_stra\xDFe_passt_nicht": {fileID: -8679921383154817045, guid: ee5955a27f849b84ebaaa11f274a77ca, type: 3}
+  Courser_Building_passt: {fileID: -8679921383154817045, guid: 8a1ceba731c4a304aa9956d6bca76ad9, type: 3}
+  Courser_Building_passt_nicht: {fileID: -8679921383154817045, guid: ee5955a27f849b84ebaaa11f274a77ca, type: 3}
