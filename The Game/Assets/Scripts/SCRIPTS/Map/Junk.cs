@@ -93,10 +93,7 @@ public class Junk : MonoBehaviour
         
         if (Map.Camara_body != null)
         {
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of 5ffd4ebd (d)
             if (Map.Camara_body.position.x < transform.position.x + X_render && Map.Camara_body.position.x > transform.position.x - X_render && Map.Camara_body.position.z < transform.position.z + Y_render && Map.Camara_body.position.z > transform.position.z - Y_render && geladen == false)
             {
                 Map_update();           //Junk ist in redner distance
@@ -105,9 +102,9 @@ public class Junk : MonoBehaviour
             else if ((Map.Camara_body.position.x > transform.position.x + X_render || Map.Camara_body.position.x < transform.position.x - X_render || Map.Camara_body.position.z > transform.position.z + Y_render || Map.Camara_body.position.z < transform.position.z - Y_render && geladen == true))
             {
 
-                if (transform.Find("RE"))   //Junk ist nicht mehr in der render distance
+                if (transform.Find("world"))   //Junk ist nicht mehr in der render distance
                 {
-                    DestroyImmediate(transform.Find("RE").gameObject);
+                    DestroyImmediate(transform.Find("world").gameObject);
                 }
                 if (transform.Find("RE"))   //Junk ist nicht mehr in der render distance
                 {
@@ -321,19 +318,19 @@ public class Junk : MonoBehaviour
 
                             if (ga.Index_Top == 0)
                             {
-                                Global.Mine_Focus.setzen(ga, true);         //ZK muss noch sogemachtwerden das es auf die aktuele  MIne passt Vileicht munktion in der mine
+                                Global.Mine[Global.Building_index].setzen(ga, true);         //ZK muss noch sogemachtwerden das es auf die aktuele  MIne passt Vileicht munktion in der mine
 
                             }
                             if (ga.Index_Top == 0 && ga.Zusatz_Top == 99)
                             {
-                                Global.Mine_Focus.setzen(ga, false);
+                                Global.Mine[Global.Building_index].setzen(ga, false);
 
                             }
                             
                         }
                         if (ga.Building_Top == 3 && ga.Index_Top == 0)
                         {
-                            Global.Lager_Focus.setzen(ga, true);
+                            Global.Mine[Global.Building_index].setzen(ga, true);
                                 
                         }
                     }

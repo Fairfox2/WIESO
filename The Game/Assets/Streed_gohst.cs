@@ -22,8 +22,8 @@ public class Streed_gohst : MonoBehaviour
     public void Awake()
     {
         singleton = this;
-        Global.Mine_Focus = s;
-        Global.Lager_Focus = Lager_Global;
+        Global.Mine.Add(s);
+        Global.Lager.Add( Lager_Global);
         BuildingsystemsAktions = new Bauen();
         BuildingsystemsAktions.Buildings.Build.performed += _ => Build(_.ReadValueAsButton());
         BuildingsystemsAktions.Buildings.Build.Enable();
@@ -100,13 +100,13 @@ public class Streed_gohst : MonoBehaviour
         X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
         Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
 
-        if (leftbuttonpressed == true && Global.Lager_Focus.Can_build(World))
+        if (leftbuttonpressed == true && Global.Lager[Global.Building_index].Can_build(World))
         {
            
             
-                for (int x1 = 0; x1 < Global.Lager_Focus.GrˆsseX; x1++) // noch eigene funktion f¸r schˆneheit zukunfts Otto
+                for (int x1 = 0; x1 < Global.Lager[Global.Building_index].GrˆsseX; x1++) // noch eigene funktion f¸r schˆneheit zukunfts Otto
                 {
-                    for (int y1 = 0; y1 < Global.Lager_Focus.GrˆsseY; y1++)
+                    for (int y1 = 0; y1 < Global.Lager[Global.Building_index].GrˆsseY; y1++)
                     {
                         float F = y1, G = x1;
                         if (Global.Buildingrotation == 90)
@@ -124,46 +124,46 @@ public class Streed_gohst : MonoBehaviour
                             G = y1;
                             F = -x1;
                         }
-                        if (Global.Lager_Focus.Plase[(x1 * (Global.Lager_Focus.GrˆsseY)) + y1] == 2)
+                        if (Global.Lager[Global.Building_index].Plase[(x1 * (Global.Lager[Global.Building_index].GrˆsseY)) + y1] == 2)
                         {
                             Map.Map_Rohstoffe[System.Convert.ToInt32(X + G), System.Convert.ToInt16(Y + F)] = 0100039900;
 
                         }//Muss noch durch ID variable der MIne erstzt weerden ZK Otto und mach achu eine funktion drasu
-                        if (Global.Lager_Focus.Plase[(x1 * (Global.Lager_Focus.GrˆsseY)) + y1] == 1)
+                        if (Global.Lager[Global.Building_index].Plase[(x1 * (Global.Lager[Global.Building_index].GrˆsseY)) + y1] == 1)
                         {
                             int b1 = 0;
                             int b2 = 0;
                             int b4 = 0;
                             int b8 = 0;
-                            if ((x1 + 1) * (Global.Lager_Focus.GrˆsseY) + (y1) < Global.Lager_Focus.Plase.Count && 0 <= (x1 + 1))
+                            if ((x1 + 1) * (Global.Lager[Global.Building_index].GrˆsseY) + (y1) < Global.Lager[Global.Building_index].Plase.Count && 0 <= (x1 + 1))
                             {
-                                if (Global.Lager_Focus.Plase[((x1 + 1) * (Global.Lager_Focus.GrˆsseY)) + (y1)] == 2)
+                                if (Global.Lager[Global.Building_index].Plase[((x1 + 1) * (Global.Lager[Global.Building_index].GrˆsseY)) + (y1)] == 2)
                                 {
                                     
                                     b1 = 1;
                                 }
                             }
-                            if ((x1) * (Global.Lager_Focus.GrˆsseY) + (y1 + 1) < Global.Lager_Focus.Plase.Count && 0 <= (y1 + 1))
+                            if ((x1) * (Global.Lager[Global.Building_index].GrˆsseY) + (y1 + 1) < Global.Lager[Global.Building_index].Plase.Count && 0 <= (y1 + 1))
                             {
 
-                                if (Global.Lager_Focus.Plase[((x1) * (Global.Lager_Focus.GrˆsseY)) + (y1 + 1)] == 2)
+                                if (Global.Lager[Global.Building_index].Plase[((x1) * (Global.Lager[Global.Building_index].GrˆsseY)) + (y1 + 1)] == 2)
                                 {
                                     
                                     b2 = 1;
                                 }
                             }
-                            if ((x1 - 1) * (Global.Lager_Focus.GrˆsseY) + (y1) < Global.Lager_Focus.Plase.Count && 0 <= (x1 - 1))
+                            if ((x1 - 1) * (Global.Lager[Global.Building_index].GrˆsseY) + (y1) < Global.Lager[Global.Building_index].Plase.Count && 0 <= (x1 - 1))
                             {
-                                if (Global.Lager_Focus.Plase[((x1 - 1) * (Global.Lager_Focus.GrˆsseY)) + (y1)] == 2)
+                                if (Global.Lager[Global.Building_index].Plase[((x1 - 1) * (Global.Lager[Global.Building_index].GrˆsseY)) + (y1)] == 2)
                                 {
                                  
                                     b4 = 1;
                                 }
                             }
 
-                            if ((x1) * (Global.Lager_Focus.GrˆsseY) + (y1 - 1) < Global.Lager_Focus.Plase.Count && 0 <= (y1 - 1))
+                            if ((x1) * (Global.Lager[Global.Building_index].GrˆsseY) + (y1 - 1) < Global.Lager[Global.Building_index].Plase.Count && 0 <= (y1 - 1))
                             {
-                                if (Global.Lager_Focus.Plase[((x1) * (Global.Lager_Focus.GrˆsseY)) + (y1 - 1)] == 2)
+                                if (Global.Lager[Global.Building_index].Plase[((x1) * (Global.Lager[Global.Building_index].GrˆsseY)) + (y1 - 1)] == 2)
                                 {
                                     b8 = 1;
                                 }
@@ -204,15 +204,11 @@ public class Streed_gohst : MonoBehaviour
                 Map.Map_Rohstoffe[System.Convert.ToInt16(X), System.Convert.ToInt16(Y)] = 0100030000;
 
                 // sicher heit ein bauen
-            
         }
 
     }
     // Update is called once per frame
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of 5ffd4ebd (d)
     private void Update()
     {
         Plane plane = new Plane(Vector3.up, Vector3.zero * 4);
@@ -221,11 +217,9 @@ public class Streed_gohst : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit distance))
         {
-<<<<<<< HEAD
 
-=======
             print(distance.point);
->>>>>>> parent of 5ffd4ebd (d)
+
             if (transform.Find("curser"))
             {
                 DestroyImmediate(transform.Find("curser").gameObject);
@@ -234,16 +228,9 @@ public class Streed_gohst : MonoBehaviour
             courser.parent = transform;
             courser.position = transform.position;
 
-
             if (Global.buildmoide == 1)
             {
-<<<<<<< HEAD
-=======
 
-             
-
-
->>>>>>> parent of 5ffd4ebd (d)
                 streed_Build(distance.point);
                 if (straﬂe.singleton.Passt(distance.point))
                 {
@@ -253,19 +240,19 @@ public class Streed_gohst : MonoBehaviour
                 {
                     Mine = passtnicht;
                 }
-<<<<<<< HEAD
+
+                
                 if (Mine != null) newr = Instantiate(Mine, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
-=======
-                if(Mine != null)newr = Instantiate(Mine, transform.position, Quaternion.Euler(0, 0, 0)) as Transform;
-                if(newr != null)newr.parent = courser;    
->>>>>>> parent of 5ffd4ebd (d)
+                if (newr != null) newr.parent = courser;
+
+
             }
             if (Global.buildmoide == 2)
             {
                 Mine = go;
-                for (float x = 0; x < Global.Mine_Focus.GrˆsseX; x++) // float da minus zahlen
+                for (float x = 0; x < Global.Mine[Global.Building_index].GrˆsseX; x++) // float da minus zahlen
                 {
-                    for (float y = 0; y < Global.Mine_Focus.GrˆsseY; y++)
+                    for (float y = 0; y < Global.Mine[Global.Building_index].GrˆsseY; y++)
                     {
                         float F = y, G = x;
 
@@ -284,19 +271,19 @@ public class Streed_gohst : MonoBehaviour
                             G = y;
                             F = -x;
                         }
-<<<<<<< HEAD
 
-                        Mine = Global.Mine_Focus.getcourser(new Vector3(distance.point.x + G, 0, distance.point.z + F), System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
+
+                        Mine = Global.Mine[Global.Building_index].getcourser(new Vector3(distance.point.x + G, 0, distance.point.z + F), System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
 
 
                         if (Mine != null) newr = Instantiate(Mine, new Vector3(transform.position.x + G, transform.position.y, transform.position.z + F), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
                         if (newr != null) newr.parent = courser;
-=======
+
                        
-                         Mine = Global.Mine_Focus.getcourser(new Vector3(distance.point.x + G, 0, distance.point.z + F),System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
+                        Mine = Global.Mine[Global.Building_index].getcourser(new Vector3(distance.point.x + G, 0, distance.point.z + F),System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
                         if(Mine != null)newr = Instantiate(Mine, new Vector3(transform.position.x+G,transform.position.y,transform.position.z +F), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
                         if(newr != null)newr.parent = courser;
->>>>>>> parent of 5ffd4ebd (d)
+
                     }
                 }
             }
@@ -304,9 +291,9 @@ public class Streed_gohst : MonoBehaviour
             {
                 Global.Buildingrotation = 0;
                 Lager_Build(distance.point);
-                for (float x = 0; x < Global.Lager_Focus.GrˆsseX; x++) // float da minus zahlen
+                for (float x = 0; x < Global.Lager[Global.Building_index].GrˆsseX; x++) // float da minus zahlen
                 {
-                    for (float y = 0; y < Global.Lager_Focus.GrˆsseY; y++)
+                    for (float y = 0; y < Global.Lager[Global.Building_index].GrˆsseY; y++)
                     {
                         float F = y, G = x;
 
@@ -326,7 +313,7 @@ public class Streed_gohst : MonoBehaviour
                             F = -x;
                         }
 
-                        Courser = Global.Lager_Focus.getcourser(new Vector3(distance.point.x + G, 0, distance.point.z + F), System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
+                        Courser = Global.Lager[Global.Building_index].getcourser(new Vector3(distance.point.x + G, 0, distance.point.z + F), System.Convert.ToInt32(x), System.Convert.ToInt32(y)); // hier musss ich x und 
 
                         if (Courser != null) newr = Instantiate(Courser, new Vector3(transform.position.x + G, transform.position.y, transform.position.z + F), Quaternion.Euler(0, Global.Buildingrotation, 0)) as Transform;
                         if (newr != null) newr.parent = courser;
@@ -343,20 +330,12 @@ public class Streed_gohst : MonoBehaviour
                 }
                 Mine = null;
             }
-<<<<<<< HEAD
 
 
 
-                if (newr != null) newr.parent = courser;
-=======
+
+
             Vector3 Target1 = distance.point;
-            Target1.x = Mathf.Floor(Target1.x + 0.5f) ;
-            Target1.z = Mathf.Floor(Target1.z + 0.5f);
->>>>>>> parent of 5ffd4ebd (d)
-
-
-
-                Vector3 Target1 = distance.point;
                 Target1.x = Mathf.Floor(Target1.x + 0.5f);
                 Target1.z = Mathf.Floor(Target1.z + 0.5f);
                 Target1.y = 3;

@@ -12,7 +12,7 @@ public class TabGroup : MonoBehaviour
     public Sprite tabActive;
 
     public TabButton Selectedtab;
-    public List<GameObject> Objectstoswap;
+    public List<Building_Page_info> Objectstoswap;
 
     public void Subscribe(TabButton button)
     {
@@ -47,11 +47,13 @@ public class TabGroup : MonoBehaviour
         {
             if(i == index)
             {
-                Objectstoswap[i].SetActive(true);
+                Global.buildmoide = i;
+                Objectstoswap[i].Page.SetActive(true);
+                Objectstoswap[i].Info_Upadate();
             }
             else
             {
-                Objectstoswap[i].SetActive(false);
+                Objectstoswap[i].Page.SetActive(false);
             }
 
         }

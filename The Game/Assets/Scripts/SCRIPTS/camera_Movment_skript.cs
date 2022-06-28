@@ -88,10 +88,10 @@ public class camera_Movment_skript : MonoBehaviour
     private void Update()
     {
         //inputs
-
-
+        GetKeyboardMovement();
+        CheckMouseAtScreenEdge();
         DragCamera();
-
+       
         //move base and camera objects
         UpdateVelocity();
         UpdateBasePosition();

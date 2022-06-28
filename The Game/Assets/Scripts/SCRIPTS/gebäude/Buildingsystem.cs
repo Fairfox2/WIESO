@@ -34,10 +34,8 @@ public class Buildingsystem : MonoBehaviour
     }
     void Rotate(float inputValue)
     {
-
         if(Mathf.Abs(inputValue) > 0.1f && Global.buildmoide == 2)
         {
-
             if (inputValue >0)
             {
                 Global.Buildingrotation += 90;
@@ -64,11 +62,11 @@ public class Buildingsystem : MonoBehaviour
         int X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
         int Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
 
-        if (Global.buildmoide == 2 && Global.Mine_Focus.Can_build(World))
+        if (Global.buildmoide == 2 && Global.Mine[Global.Building_index].Can_build(World))
         {
-            for (int x1 = 0; x1 < Global.Mine_Focus.GrösseX; x1++) // noch eigene funktion für schöneheit zukunfts Otto
+            for (int x1 = 0; x1 < Global.Mine[Global.Building_index].GrösseX; x1++) // noch eigene funktion für schöneheit zukunfts Otto
             {
-                for (int y1 = 0; y1 < Global.Mine_Focus.GrösseY; y1++)
+                for (int y1 = 0; y1 < Global.Mine[Global.Building_index].GrösseY; y1++)
                 {
                     float F = y1, G = x1;
                     if (Global.Buildingrotation == 90)
@@ -86,46 +84,46 @@ public class Buildingsystem : MonoBehaviour
                         G = y1;
                         F = -x1;
                     }
-                    if (Global.Mine_Focus.Plase[(x1 * (Global.Mine_Focus.GrösseY)) + y1] == 2)
+                    if (Global.Mine[Global.Building_index].Plase[(x1 * (Global.Mine[Global.Building_index].GrösseY)) + y1] == 2)
                     {
                         Map.Map_Rohstoffe[System.Convert.ToInt32(X + G), System.Convert.ToInt16(Y + F)] = 0101029900;
 
                     }//Muss noch durch ID variable der MIne erstzt weerden ZK Otto und mach achu eine funktion drasu
-                    if (Global.Mine_Focus.Plase[(x1 * (Global.Mine_Focus.GrösseY)) + y1] == 1)
+                    if (Global.Mine[Global.Building_index].Plase[(x1 * (Global.Mine[Global.Building_index].GrösseY)) + y1] == 1)
                     {
                         int b1 = 0;
                         int b2 = 0;
                         int b4 = 0;
                         int b8 = 0;
-                        if((x1 + 1) * (Global.Mine_Focus.GrösseY) + (y1 ) < Global.Mine_Focus.Plase.Count && 0 <= (x1 + 1))
+                        if((x1 + 1) * (Global.Mine[Global.Building_index].GrösseY) + (y1 ) < Global.Mine[Global.Building_index].Plase.Count && 0 <= (x1 + 1))
                         {
-                            if (Global.Mine_Focus.Plase[((x1 + 1) * (Global.Mine_Focus.GrösseY)) + (y1 )] == 2)
+                            if (Global.Mine[Global.Building_index].Plase[((x1 + 1) * (Global.Mine[Global.Building_index].GrösseY)) + (y1 )] == 2)
                             {
                                 print("1");
                                 b1 = 1;
                             }
                         }
-                        if ((x1 ) * (Global.Mine_Focus.GrösseY) + (y1 + 1) < Global.Mine_Focus.Plase.Count && 0 <=  (y1 + 1))
+                        if ((x1 ) * (Global.Mine[Global.Building_index].GrösseY) + (y1 + 1) < Global.Mine[Global.Building_index].Plase.Count && 0 <=  (y1 + 1))
                         {
 
-                            if (Global.Mine_Focus.Plase[((x1 ) * (Global.Mine_Focus.GrösseY)) + (y1 + 1)] == 2)
+                            if (Global.Mine[Global.Building_index].Plase[((x1 ) * (Global.Mine[Global.Building_index].GrösseY)) + (y1 + 1)] == 2)
                             {
                                 print("2");
                                 b2 = 1;
                             }
                         }
-                        if ((x1 - 1) * (Global.Mine_Focus.GrösseY) + (y1 ) < Global.Mine_Focus.Plase.Count && 0 <= (x1 - 1) )
+                        if ((x1 - 1) * (Global.Mine[Global.Building_index].GrösseY) + (y1 ) < Global.Mine[Global.Building_index].Plase.Count && 0 <= (x1 - 1) )
                         {
-                            if (Global.Mine_Focus.Plase[((x1 - 1) * (Global.Mine_Focus.GrösseY)) + (y1 )] == 2)
+                            if (Global.Mine[Global.Building_index].Plase[((x1 - 1) * (Global.Mine[Global.Building_index].GrösseY)) + (y1 )] == 2)
                             {
-                                print("4" + ((x1 - 1) * (Global.Mine_Focus.GrösseY)) + (y1));
+                                print("4" + ((x1 - 1) * (Global.Mine[Global.Building_index].GrösseY)) + (y1));
                                 b4 = 1;
                             }
                         }
                         
-                        if( (x1 ) * (Global.Mine_Focus.GrösseY) + (y1 - 1) < Global.Mine_Focus.Plase.Count && 0 <=  (y1 - 1) )
+                        if( (x1 ) * (Global.Mine[Global.Building_index].GrösseY) + (y1 - 1) < Global.Mine[Global.Building_index].Plase.Count && 0 <=  (y1 - 1) )
                         {
-                            if (Global.Mine_Focus.Plase[((x1 ) * (Global.Mine_Focus.GrösseY)) + (y1 - 1)] == 2)
+                            if (Global.Mine[Global.Building_index].Plase[((x1 ) * (Global.Mine[Global.Building_index].GrösseY)) + (y1 - 1)] == 2)
                             {
                                 b8 = 1;
                             }

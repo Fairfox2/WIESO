@@ -12,6 +12,7 @@ public class Building_base : ScriptableObject
     public Transform CourserPasstnicht;
     public Transform CourserPasst;
     public int ID;
+    public int Level;
     public int Rotation;
     [SerializeField] public int GrösseX;
     [SerializeField] public int GrösseY;
