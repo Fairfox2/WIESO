@@ -20,7 +20,6 @@ public class Junk : MonoBehaviour
 
     public bool buildmode = false;
 
-    private Grid_script<Grid_opjekt> grid;
     bool random = true;
     //
     int X_POS, Y_POS;
@@ -31,7 +30,7 @@ public class Junk : MonoBehaviour
         {
             for (int y = 0; y < Map.chunck_grösse - 1; y++)
             {
-                Grid_opjekt gr = grid.GetGridOpjekt(x, y);
+                Grid_opjekt gr = Map.grid.GetGridOpjekt(x+X_POS, y+Y_POS);
                 if (gr != null)
                 {
                     gr.Boden = default_Boden;
@@ -59,7 +58,7 @@ public class Junk : MonoBehaviour
     {
         BuildingsystemsAktions = new Bauen();
 
-        grid = new Grid_script<Grid_opjekt>(Map.chunck_grösse, Map.chunck_grösse, 1, () => new Grid_opjekt());
+
         singleton = this;
 
         if (transform.position.x >= 0)
@@ -155,8 +154,8 @@ public class Junk : MonoBehaviour
             Y = System.Convert.ToInt32(((transform.position.z) + (Map.Map_grösse * Map.chunck_grösse) / 2) - 17);
         }
 
-        Save.Lode_Chunck(X, Y, grid);
-        Save.Relod_Chunk(X, Y, grid);
+        Save.Lode_Chunck(X, Y, Map.grid);
+        Save.Relod_Chunk(X, Y, Map.grid);
         Relod(X, Y);
         X_POS = X;
         Y_POS = Y;
@@ -175,6 +174,10 @@ public class Junk : MonoBehaviour
             {
                 BuildingsystemsAktions.Buildings.Build.Enable();
                 Buildingsystem.singleton.hm(distance.point);
+                if(Global.buildmoide == 0)
+                {
+                    Map_update();
+                }
                 if (Global.buildmoide == 1 && Mouse.current.leftButton.isPressed)
                 {
                     Relod_strasse(X_POS, Y_POS);
@@ -251,7 +254,7 @@ public class Junk : MonoBehaviour
         {
             for (int y = 0; y < Map.chunck_grösse - 1; y++)
             {
-                Grid_opjekt ga = grid.GetGridOpjekt(x, y);
+                Grid_opjekt ga = Map.grid.GetGridOpjekt(x+X_POS, y + Y_POS);
                 if (ga != null)
                 {
 
@@ -294,12 +297,12 @@ public class Junk : MonoBehaviour
     }
     private void Relod_strasse(int X, int Y)
     {
-        Save.Lode_Chunck(X, Y, grid);
+        Save.Lode_Chunck(X, Y, Map.grid);
         for (int x = 0; x < Map.chunck_grösse; x++)
         {
             for (int y = 0; y < Map.chunck_grösse; y++)
             {
-                Grid_opjekt ga = grid.GetGridOpjekt(x, y);
+                Grid_opjekt ga = Map.grid.GetGridOpjekt(x+X_POS, y+ Y_POS);
                 if (ga != null) // prufen ob sich etwas verender hat 
                 {
                     
@@ -364,7 +367,7 @@ public class Junk : MonoBehaviour
         {
             for (int y = 0; y < Map.chunck_grösse - 1; y++)
             {
-                Grid_opjekt ga = grid.GetGridOpjekt(x, y);
+                Grid_opjekt ga = Map.grid.GetGridOpjekt(x+X_POS, y+Y_POS);
                 if (ga != null)
                 { 
                     if (ga.streed != null)
@@ -407,7 +410,7 @@ public class Junk : MonoBehaviour
         {
             for (int y = 0; y < Map.chunck_grösse - 1; y++)
             {
-                Grid_opjekt ga = grid.GetGridOpjekt(x, y);
+                Grid_opjekt ga = Map.grid.GetGridOpjekt(x+X_POS, y+Y_POS);
                 if (ga != null)
                 {
                     if (ga.Rohstoff != null)
@@ -427,7 +430,7 @@ public class Junk : MonoBehaviour
         {
             for (int y = 0; y < Map.chunck_grösse; y++)
             {
-                Grid_opjekt ga = grid.GetGridOpjekt(x, y);
+                Grid_opjekt ga = Map.grid.GetGridOpjekt(x+X_POS, y+ Y_POS);
                 if (ga != null)
                 {
                     ga.Set_Map_ID_Top(Map.Map_Rohstoffe[X + x, Y + y]);

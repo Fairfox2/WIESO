@@ -8,6 +8,7 @@ public class Map : MonoBehaviour
     public static long[,] Map_Rohstoffe;
     public static long[,] Map_Rohstoffe_Boden;
     public static int[,] Map_Straße;
+
     // save
     public static int[,] Biom = new int[10,3];
     public static Transform Camara_body;
@@ -63,6 +64,8 @@ public class Map : MonoBehaviour
     }
     public void Awake()
     {
+        grid = new Grid_script<Grid_opjekt>(System.Convert.ToInt32(Map.Map_grösse * Map.chunck_grösse), System.Convert.ToInt32(Map.Map_grösse * Map.chunck_grösse), 1, () => new Grid_opjekt());
+
         Map_Rohstoffe = Map_Rohstoffe_Boden= new long[System.Convert.ToInt64(chunck_grösse * Map_grösse), System.Convert.ToInt32(chunck_grösse * Map_grösse)];
         for (int x = 0; x < Map_Rohstoffe.GetLength(0); x++)
         {
