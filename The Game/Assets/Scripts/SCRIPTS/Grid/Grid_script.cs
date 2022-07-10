@@ -32,7 +32,7 @@ public class Grid_script<Grid_opjekt>
     {
         if(x >= 0 && y >= 0 && x<= width&& y<= height)
         {
-
+            
             return gridArray[x,y];
         }
         else
@@ -53,11 +53,6 @@ public class Grid_script<Grid_opjekt>
 
             return default(Grid_opjekt);
         }
-    }
-
-    private Vector3 GetWorldPosition(int x, int y,Vector3 World)
-    {
-        return new Vector3(x, y) * cellSize + World;
     }
 
 }

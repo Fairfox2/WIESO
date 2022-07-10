@@ -218,7 +218,6 @@ public class Streed_gohst : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit distance))
         {
 
-            print(distance.point);
 
             if (transform.Find("curser"))
             {
@@ -327,7 +326,7 @@ public class Streed_gohst : MonoBehaviour
                 Vector3 World_pos = straﬂe.singleton.Get_World_Postion(distance.point);
                 X = System.Convert.ToInt32(World_pos.x - 8 + Map.halbe_map);
                 Y = System.Convert.ToInt32(World_pos.z - 8 + Map.halbe_map);
-                Map.grid.GetGridOpjekt(X, Y).value = Map.grid.GetGridOpjekt(X, Y).value + 1;
+                //Map.grid.GetGridOpjekt(X, Y).Update_World(Global.MAP.Chuncks[1]);
 
 
 

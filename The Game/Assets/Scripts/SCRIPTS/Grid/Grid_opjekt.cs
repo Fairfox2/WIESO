@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Grid_opjekt
 {
+    public Vector3 Position { get; set; }
 
     [SerializeField] public Transform Rohstoff;
     [SerializeField] public Transform Boden;
@@ -126,4 +127,9 @@ public class Grid_opjekt
         Zusatz_Top = System.Convert.ToInt32((Id % 100) / 1);
 
     }
+
+    public void Update_World(Junk Chunck)
+    {
+        Chunck.Map_update(this);
+    }        
 }

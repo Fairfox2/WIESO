@@ -509,7 +509,6 @@ public class Berg : Rohstoffe
         {
             Objekt.Index_Top = Stein_kurve_Komisch.GetRandom();
         }
-        print("kureve ");
         Objekt.Rohstoff = Stein_kurve_Komisch.Get(Objekt.Index_Top);
         Objekt.Setrotation(winkel, false);
     }

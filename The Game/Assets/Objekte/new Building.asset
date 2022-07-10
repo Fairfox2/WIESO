@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb86dc25ca9e7984aa3f996e71fcf492, type: 3}
+  m_Name: new Building
+  m_EditorClassIdentifier: 
+  Building: {fileID: 0}
+  CourserPasstnicht: {fileID: 0}
+  CourserPasst: {fileID: 0}
+  ID: 0
+  Level: 0
+  Rotation: 0
+  "Gr\xF6sseX": 2
+  "Gr\xF6sseY": 2
+  Plase: 0100000001000000020000000100000000000000
+  Building: {fileID: 0}
+  trans: {fileID: 0}
+  Courser_passt: {fileID: 0}
+  Courser_passt_nicht: {fileID: 0}
+  "Courser_stra\xDFe_passt": {fileID: 0}
+  "Courser_stra\xDFe_passt_nicht": {fileID: 0}
+  Courser_Building_passt: {fileID: 0}
+  Courser_Building_passt_nicht: {fileID: 0}

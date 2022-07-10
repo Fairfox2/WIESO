@@ -14,5 +14,8 @@ public class Global : MonoBehaviour
 
     public static bool random = true;
 
+    public static Map MAP = new Map();
+
+    public static Transform Map_Body;
 
 }

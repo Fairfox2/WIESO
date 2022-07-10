@@ -19,9 +19,10 @@ public class Map : MonoBehaviour
     public static int halbe_map = System.Convert.ToInt32((Map_grösse / 2) * chunck_grösse);
     public static Grid_script<Grid_opjekt> grid;
 
-    public static string Mode = "Normal"; 
+    public static string Mode = "Normal";
     // Globales Chunck Variablen
-    
+    public List<Junk> Chuncks = new List<Junk>();
+      
     public static int Lehm_2 = 0;
 
     [Range(0, 1)]
@@ -39,13 +40,11 @@ public class Map : MonoBehaviour
        Wälder.Wald_erstellen( 4, 6, 400);
        Wälder.Wald_erstellen(6, 7, 2300);
         // Die Mitte kann auch als rand verwendet werden 
-  
-        
     }
     
     public void GeneratMap()
     {
-        string holdename = "junks";
+        string holdename = "Chuncks";
 
         Transform mapMolder = new GameObject(holdename).transform;
         mapMolder.parent = transform;
@@ -54,11 +53,11 @@ public class Map : MonoBehaviour
         {
             for (float y = -Map_grösse / 2 ; y < Map_grösse / 2; y ++ )
             {
-                
-                    Vector3 tilePosition = new Vector3( x * (chunck_grösse - 1) +8 , 0, y * (chunck_grösse - 1) +8 ) + transform.position;
-                    Transform a = Instantiate(Chunck, tilePosition, Quaternion.Euler(Vector3.right)) as Transform;
-                    a.parent = transform;
-                
+                Vector3 tilePosition = new Vector3( x * (chunck_grösse - 1) +8 , 0, y * (chunck_grösse - 1) +8 ) + transform.position;
+                Junk b = new Junk();
+                Transform a = Instantiate(Chunck, tilePosition, Quaternion.Euler(Vector3.right)) as Transform;
+                a.parent = transform;
+                Chuncks.Add(b);
             }
         }
     }
